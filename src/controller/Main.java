@@ -1,14 +1,16 @@
 package controller;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import com.sun.javafx.applet.Splash;
+import javafx.embed.swing.JFXPanel;
 import model.GameData;
 import view.GamePanel;
 import view.MainWindow;
 import view.SplashPanel;
 
 import java.awt.*;
+import java.util.concurrent.CountDownLatch;
 
 public class Main {
 
@@ -29,7 +31,6 @@ public class Main {
         gamePanel = new GamePanel();
         splashPanel = new SplashPanel();
         sa = new SplashAnimator();
-
 
         game = new MainWindow();
         game.setTitle("Dungeon Plungin'");
@@ -67,3 +68,4 @@ public class Main {
         }
     }
 }
+

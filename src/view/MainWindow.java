@@ -4,11 +4,11 @@ import controller.ButtonListener;
 import controller.KeyController;
 import controller.Main;
 import controller.MouseController;
+import javafx.embed.swing.JFXPanel;
 
 import java.awt.*;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import java.util.concurrent.CountDownLatch;
+import javax.swing.*;
 
 public class MainWindow extends JFrame {
 
@@ -20,6 +20,8 @@ public class MainWindow extends JFrame {
     public static Container container;
 
     public MainWindow() {
+
+        initializeFX();
 
         container = getContentPane();
 
@@ -57,5 +59,27 @@ public class MainWindow extends JFrame {
         cl.show(cards, "GamePanel");
 
         Main.gamePanel.revalidate();
+    }
+
+    // Initializes FX for audio. Without this method
+    // sound cannot be played.
+    private void initializeFX()
+    {
+        try
+        {
+            final CountDownLatch latch = new CountDownLatch(1);
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    new JFXPanel(); // initializes JavaFX environment
+                    latch.countDown();
+                }
+            });
+            latch.await();
+        }
+        catch (InterruptedException e)
+        {
+            System.out.println("Something broke :(");
+            System.exit(1);
+        }
     }
 }
