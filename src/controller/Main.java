@@ -1,14 +1,16 @@
 package controller;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import com.sun.javafx.applet.Splash;
+import javafx.embed.swing.JFXPanel;
 import model.GameData;
 import view.GamePanel;
 import view.MainWindow;
 import view.SplashPanel;
 
 import java.awt.*;
+import java.util.concurrent.CountDownLatch;
 
 public class Main {
 
@@ -30,7 +32,6 @@ public class Main {
         splashPanel = new SplashPanel();
         sa = new SplashAnimator();
 
-
         game = new MainWindow();
         game.setTitle("Dungeon Plungin'");
         game.setSize(WIN_WIDTH, WIN_HEIGHT);
@@ -40,6 +41,8 @@ public class Main {
         game.setVisible(true);
 
         splashScreen();
+
+        Main.game.gameLayout();
 
         // start animation
         new Thread(animator).start();
@@ -57,6 +60,7 @@ public class Main {
     {
         try
         {
+            game.splashLayout();
             Thread thread = new Thread(sa);
             thread.start();
             thread.join();
@@ -67,3 +71,4 @@ public class Main {
         }
     }
 }
+

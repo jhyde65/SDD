@@ -11,6 +11,5 @@ public class EnterAction extends AbstractAction
     @Override
     public void actionPerformed(ActionEvent e) {
         GameState.setPaused();
-        Main.game.gameLayout();
     }
 }
