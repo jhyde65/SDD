@@ -10,10 +10,10 @@ import javax.swing.*;
 
 import model.GameFigure;
 import model.Shooter;
-import view.actions.gameactions.DownArrowAction;
-import view.actions.gameactions.LeftArrowAction;
-import view.actions.gameactions.RightArrowAction;
-import view.actions.gameactions.UpArrowAction;
+import controller.actions.gameactions.DownArrowAction;
+import controller.actions.gameactions.LeftArrowAction;
+import controller.actions.gameactions.RightArrowAction;
+import controller.actions.gameactions.UpArrowAction;
 
 public class GamePanel extends JPanel {
 
@@ -28,7 +28,7 @@ public class GamePanel extends JPanel {
     public GamePanel()
     {
         // Key bindings for Game Panel.
-        // All Actions contained in view.actions.gameactions
+        // All Actions contained in controller.actions.gameactions
         InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getActionMap();
 

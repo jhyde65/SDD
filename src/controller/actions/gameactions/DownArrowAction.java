@@ -1,15 +1,15 @@
-package view.actions.gameactions;
+package controller.actions.gameactions;
 
 import controller.Main;
 import model.Shooter;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class LeftArrowAction extends AbstractAction
+public class DownArrowAction extends AbstractAction
 {
     @Override
     public void actionPerformed(ActionEvent e) {
         Shooter sh = (Shooter) Main.gameData.friendFigures.get(0);
-        sh.translate(-10, 0);
+        sh.translate(0, 10);
     }
 }
