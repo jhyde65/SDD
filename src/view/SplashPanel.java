@@ -1,16 +1,15 @@
 package view;
 
 import controller.GameState;
-import controller.Main;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import model.GameFigure;
+
+import controller.Main;
 import view.actions.splashactions.EnterAction;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
 /**
  * Class SplashPanel contains the logic for the splash screen panel.
  * Animation is run in SplashAnimator.java.
@@ -28,8 +27,20 @@ public class SplashPanel extends JPanel {
     private static int height;
     private Image dbImage = null;
     private Graphics2D g2;
+    private Composite comp;
+    private float alphaLevel;
 
     public SplashPanel() {
+
+        try {
+            background = ImageIO.read(getClass().getResource("resources/splashscreen/splashbg.png"));
+            mover = ImageIO.read(getClass().getResource("resources/splashscreen/dungeonimg.png"));
+            mover2 = ImageIO.read(getClass().getResource("resources/splashscreen/plunginimg.png"));
+            mover3 = ImageIO.read(getClass().getResource("resources/splashscreen/start.png"));
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png");
+            System.exit(-1);
+        }
 
         // Create a key binding for this JPanel.
         InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
@@ -39,6 +50,8 @@ public class SplashPanel extends JPanel {
         // the EnterAction defined in view.actions.splashactions.
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true), "ENTER");
         actionMap.put("ENTER", new EnterAction());
+        this.alphaLevel = 1.0f;
+
     }
 
     // Animating logic for the splash screen.
@@ -49,6 +62,7 @@ public class SplashPanel extends JPanel {
 
         width = getSize().width;
         height = getSize().height;
+
         if (dbImage == null) {
             // Creates an off-screen drawable image to be used for double buffering
             dbImage = createImage(width, height);
@@ -61,7 +75,8 @@ public class SplashPanel extends JPanel {
         }
 
         g2.clearRect(0, 0, width, height);
-        g2.drawImage(background, 0,0, Main.WIN_WIDTH, Main.WIN_HEIGHT, null);
+        g2.setBackground(Color.BLACK);
+        g2.drawImage(background, 0,0, width, height, null);
         g2.drawImage(mover, (width/2) - (imageWidth/2), y, imageWidth, imageHeight, null);
 
         // Sets "Dungeon" image in place.
@@ -86,23 +101,15 @@ public class SplashPanel extends JPanel {
             }
         }
 
-    }
+        if (GameState.isFading())
+        {
+            comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)alphaLevel);
+            g2.setComposite(comp);
 
-    @Override
-    public void paintComponent(Graphics g)
-    {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        background = null;
-
-        try {
-            background = ImageIO.read(getClass().getResource("resources/splashscreen/splashbg.png"));
-            mover = ImageIO.read(getClass().getResource("resources/splashscreen/dungeonimg.png"));
-            mover2 = ImageIO.read(getClass().getResource("resources/splashscreen/plunginimg.png"));
-            mover3 = ImageIO.read(getClass().getResource("resources/splashscreen/start.png"));
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png");
-            System.exit(-1);
+            if (alphaLevel > 0.02)
+            {
+                alphaLevel -= 0.02;
+            }
         }
     }
 

@@ -22,23 +22,20 @@ public class MainWindow extends JFrame {
     public MainWindow() {
 
         initializeFX();
-
         container = getContentPane();
 
         // Cards is a layout which allows for easier
         // access to different panels. This helps eliminate
         // focus issues.
         cards = new JPanel(new CardLayout());
-        cards.add(Main.gamePanel, "GamePanel");
         cards.add(Main.splashPanel, "SplashPanel");
+        cards.add(Main.gamePanel, "GamePanel");
 
         container.add(cards, "Center");
 
         mouseController = new MouseController();
         Main.gamePanel.addMouseListener(mouseController);
         Main.gamePanel.addMouseMotionListener(mouseController);
-
-        Main.gamePanel.setFocusable(true);
     }
 
     // This function gets the SplashPanel
@@ -46,8 +43,9 @@ public class MainWindow extends JFrame {
     // to that panel.
     public void splashLayout()
     {
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "SplashPanel");
+        CardLayout cardLayout = (CardLayout)(cards.getLayout());
+        cardLayout.show(cards, "SplashPanel");
+        //Main.splashPanel.revalidate();
     }
 
     // This function gets the GamePanel
@@ -55,10 +53,8 @@ public class MainWindow extends JFrame {
     // to that panel.
     public void gameLayout()
     {
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "GamePanel");
-
-        Main.gamePanel.revalidate();
+        CardLayout cardLayout = (CardLayout)(cards.getLayout());
+        cardLayout.show(cards, "GamePanel");
     }
 
     // Initializes FX for audio. Without this method

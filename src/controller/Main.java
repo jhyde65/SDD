@@ -42,6 +42,8 @@ public class Main {
 
         splashScreen();
 
+        Main.game.gameLayout();
+
         // start animation
         new Thread(animator).start();
 
@@ -58,6 +60,7 @@ public class Main {
     {
         try
         {
+            game.splashLayout();
             Thread thread = new Thread(sa);
             thread.start();
             thread.join();

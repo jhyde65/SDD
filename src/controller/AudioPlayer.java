@@ -63,4 +63,18 @@ public class AudioPlayer
 
         return mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING);
     }
+
+    /**
+     * Sets the volume for the player.
+     * @param volume
+     */
+    public void setVolume(double volume)
+    {
+        if (this.mediaPlayer == null)
+        {
+            return;
+        }
+
+        this.mediaPlayer.setVolume(volume);
+    }
 }

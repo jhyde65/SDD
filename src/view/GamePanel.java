@@ -25,6 +25,25 @@ public class GamePanel extends JPanel {
     private Graphics2D g2;
     private Image dbImage = null; // double buffer image
 
+    public GamePanel()
+    {
+        // Key bindings for Game Panel.
+        // All Actions contained in view.actions.gameactions
+        InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), "LEFT");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), "RIGHT");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "UP");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "DOWN");
+
+        actionMap.put("LEFT", new LeftArrowAction());
+        actionMap.put("RIGHT", new RightArrowAction());
+        actionMap.put("UP", new UpArrowAction());
+        actionMap.put("DOWN", new DownArrowAction());
+    }
+
+
     public void gameRender() {
         width = getSize().width;
         height = getSize().height;
@@ -53,21 +72,6 @@ public class GamePanel extends JPanel {
             }
 
         }
-
-        // Key bindings for Game Panel.
-        // All Actions contained in view.actions.gameactions
-        InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = getActionMap();
-
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true), "LEFT");
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), "RIGHT");
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, true), "UP");
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, true), "DOWN");
-
-        actionMap.put("LEFT", new LeftArrowAction());
-        actionMap.put("RIGHT", new RightArrowAction());
-        actionMap.put("UP", new UpArrowAction());
-        actionMap.put("DOWN", new DownArrowAction());
     }
 
     // use active rendering to put the buffered image on-screen
@@ -76,7 +80,7 @@ public class GamePanel extends JPanel {
         try {
             g = this.getGraphics();
             if ((g != null) && (dbImage != null)) {
-                g.drawImage(dbImage, 0, 0, null);
+                g.drawImage(dbImage, 0, 0, this);
             }
             Toolkit.getDefaultToolkit().sync();  // sync the display on some systems
             if (g != null) {
