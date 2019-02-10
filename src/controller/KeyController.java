@@ -28,6 +28,7 @@ public class KeyController extends KeyAdapter {
             case KeyEvent.VK_ENTER:
                 GameState.setPaused();
                 break;
+
         }
     }
 

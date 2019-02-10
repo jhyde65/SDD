@@ -14,6 +14,7 @@ import controller.actions.gameactions.DownArrowAction;
 import controller.actions.gameactions.LeftArrowAction;
 import controller.actions.gameactions.RightArrowAction;
 import controller.actions.gameactions.UpArrowAction;
+import controller.actions.gameactions.BButtonAction;
 
 public class GamePanel extends JPanel {
 
@@ -36,11 +37,14 @@ public class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), "RIGHT");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "UP");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "DOWN");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_B, 0, false), "Boss");
 
         actionMap.put("LEFT", new LeftArrowAction());
         actionMap.put("RIGHT", new RightArrowAction());
         actionMap.put("UP", new UpArrowAction());
         actionMap.put("DOWN", new DownArrowAction());
+        //BButton for dev of GolemBoss.  Hotkey shortcut
+        actionMap.put("Boss", new BButtonAction());
     }
 
 
