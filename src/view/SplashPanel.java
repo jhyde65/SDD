@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import controller.Main;
-import view.actions.splashactions.EnterAction;
+import controller.actions.splashactions.EnterAction;
 
 /**
  * Class SplashPanel contains the logic for the splash screen panel.
@@ -47,7 +47,7 @@ public class SplashPanel extends JPanel {
         ActionMap actionMap = getActionMap();
 
         // Enter key binding is created and action is mapped to
-        // the EnterAction defined in view.actions.splashactions.
+        // the EnterAction defined in controller.actions.splashactions.
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true), "ENTER");
         actionMap.put("ENTER", new EnterAction());
         this.alphaLevel = 1.0f;

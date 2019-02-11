@@ -1,4 +1,4 @@
-package view.actions.splashactions;
+package controller.actions.splashactions;
 
 import controller.GameState;
 import controller.Main;
