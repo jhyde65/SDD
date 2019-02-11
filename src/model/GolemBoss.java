@@ -27,9 +27,11 @@ public class GolemBoss extends GameFigure
     Random rand;
     private Image image;
     public int health = 30;
-    private float bx, by;
+    private float bx, by, tx, ty, sx, sy;
     private int dx = 5;
     private int dy = 5;
+    private boolean attack;
+    private double angle;
     
     private final String imagePath = "..//resources//images//golem_test.png";
     
@@ -40,6 +42,8 @@ public class GolemBoss extends GameFigure
         counter = -1;
         rand = new Random();
         time = rand.nextInt(200) + 1;
+        attack = false;
+        top = rand.nextInt(750);
         
         //for use when Strategy is implemented
         //super.state = new GolemStrongMove();
@@ -79,32 +83,62 @@ public class GolemBoss extends GameFigure
                 }
             }
             
+            else if(attack == false)
+            {
+                attack = true;
+                Rectangle2D target = model.GameData.shooter.getCollisionBox();
+                Rectangle2D golemStart = this.getCollisionBox();
+                //Get center of shooter for attack
+                tx = (float) target.getCenterX();
+                ty = (float) target.getCenterY();
+                sx = (float) golemStart.getCenterX();
+                sy = (float) golemStart.getCenterY();
+                
+                angle = Math.atan2(ty - sy, tx - sx);
+                bx += (float) (UNIT_TRAVEL * Math.cos(angle));
+                by += (float) (UNIT_TRAVEL * Math.sin(angle));                
+            }
+            
             else
             {
-                bx += dx;
-                by += dy;
+                bx += (float) (UNIT_TRAVEL * Math.cos(angle));
+                by += (float) (UNIT_TRAVEL * Math.sin(angle));
+                
                 if(by + HEIGHT > GamePanel.height)
                 {
                     by = GamePanel.height - HEIGHT;
                     dy = -dy;
                     top = rand.nextInt(GamePanel.height - HEIGHT);
+                    attack = false;
+                    counter = -1;
+                    time = rand.nextInt(200) + 1;
                 }
                 else if(bx + WIDTH > GamePanel.width)
                 {
                     dx = -dx;
                     bx = GamePanel.width - WIDTH;
+                    attack = false;
+                    counter = -1;
+                    time = rand.nextInt(200) + 1;
+                    top = rand.nextInt(GamePanel.height - HEIGHT);
                 }
                 else if(bx < 0)
                 {
                     dx = -dx;
                     bx = 0;
+                    attack = false;
+                    counter = -1;
+                    time = rand.nextInt(200) + 1;
+                    top = rand.nextInt(GamePanel.height - HEIGHT);
                 }
                 else if(by <= top)
                 {
                     by = top;
                     dy = -dy;
                     counter = -1;
+                    attack = false;
                     time = rand.nextInt(200) + 1;
+                    top = rand.nextInt(GamePanel.height - HEIGHT);
                 }
             }
         }
@@ -141,8 +175,11 @@ public class GolemBoss extends GameFigure
     public void healthUpdate(int damage)
     {
         health -= damage;
+        float x, y;
+        Rectangle2D target;
         
         //need to add logic test 
+        target = model.GameData.shooter.getCollisionBox();
     }
     
 /*
