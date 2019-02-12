@@ -9,9 +9,9 @@ package model;
  * 
  * @author j
  */
-public class StrongFigureState implements GameFigureState
+public class DieingFigureState implements GameFigureState
 {
-    public StrongFigureState()
+    public DieingFigureState()
     {
         
     }
@@ -19,6 +19,6 @@ public class StrongFigureState implements GameFigureState
     @Override
     public void goNext(GameFigure context)
     {
-        context.setState(new ActiveFigureState());
+        context.setState(new DoneFigureState());
     }
 }

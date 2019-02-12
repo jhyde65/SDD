@@ -29,7 +29,8 @@ public class SpikeyEnemy extends GameFigure{
     
     public SpikeyEnemy(float x, float y){
         super(x,y);
-        super.state = GameFigureState.STATE_ACTIVE;
+        super.state = new ActiveFigureState();
+        movement = new SpikeyStrategy();
 
         image = null;
         
@@ -53,6 +54,7 @@ public class SpikeyEnemy extends GameFigure{
 
     @Override
     public void update() {
+        movement.move(super.x, super.y, this);
     }
 
     @Override
@@ -61,5 +63,23 @@ public class SpikeyEnemy extends GameFigure{
                 WIDTH*.9F, HEIGHT*.9F);
     }
     
+    @Override
+    public void goNextState()
+    {
+        state.goNext(this);
+    }
+    
+    @Override
+    public void setState(GameFigureState state)
+    {
+        this.state = state;
+    }
+    
+    @Override 
+    public void setPosition(float x, float y)
+    {
+        super.x = x;
+        super.y = y;
+    }
     
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.concurrent.TimeUnit;
+import model.DieingFigureState;
 import model.GameFigure;
 import model.GameFigureState;
 import model.Missile;
@@ -50,13 +51,23 @@ public class Animator implements Runnable {
         {
             for(GameFigure enemy : Main.gameData.enemyFigures)
             {
-                if(enemy.getCollisionBox().intersects(friend.getCollisionBox()) && enemy.state == 1)
+                //Check to see if collision happens
+                //probably need to add switch and cases inside for different states
+                //depending on current state, update health and then determine if goNextState should be called
+                if(enemy.getCollisionBox().intersects(friend.getCollisionBox()))
                 {
-                    enemy.state = GameFigureState.STATE_DYING;
-                    if(friend instanceof Missile)
+                    if(enemy.state instanceof DieingFigureState)
+                    { }
+                    else if(friend.state instanceof DieingFigureState)
                     {
-                        friend.state = GameFigureState.STATE_DONE;
+                        enemy.goNextState();
                     }
+                    else
+                    {
+                        enemy.goNextState();
+                        friend.goNextState();
+                    }
+                    
                 }
             }
         }

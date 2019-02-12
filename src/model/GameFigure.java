@@ -8,13 +8,13 @@ public abstract class GameFigure implements CollisionBox {
     public float x;
     public float y;
     
-    public int state;
+    //public int state;
     
-    /*
+    
     //For use when state and strategy implemented
     public GameFigureState state;
     public Strategy movement;
-    */
+    
 
 
     public GameFigure(float x, float y) {
@@ -28,7 +28,7 @@ public abstract class GameFigure implements CollisionBox {
     // changes per frame
     public abstract void update();
     
-    /*
+    
     //for use when state and strategy implemented
     public abstract void setState(GameFigureState state);
     
@@ -39,6 +39,6 @@ public abstract class GameFigure implements CollisionBox {
     
     //used by concrete strategy to set position of GameFigure
     public abstract void setPosition(float x, float y);
-    */
+    
 
 }

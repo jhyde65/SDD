@@ -16,7 +16,7 @@ public class Shooter extends GameFigure {
 
     public Shooter(int x, int y) {
         super(x, y);
-        super.state = GameFigureState.SHOOTER_STATE_HEALTH_LEVEL_5;
+        super.state = new StrongFigureState();
         barrel = new Line2D.Float(super.x, super.y, super.x, super.y-BARREL_LEN);
         base = new Rectangle2D.Float(super.x - BASE_SIZE /2 , super.y - BASE_SIZE / 2,
                 BASE_SIZE, BASE_SIZE);
@@ -71,5 +71,21 @@ public class Shooter extends GameFigure {
     {
         return base;
     }
+    
+    @Override
+    public void goNextState()
+    {
+        state.goNext(this);
+    }
+    
+    @Override
+    public void setState(GameFigureState state)
+    {
+        this.state = state;
+    }
+    
+    @Override
+    public void setPosition(float x, float y) { }
+    
 
 }

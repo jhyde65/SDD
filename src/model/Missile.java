@@ -33,7 +33,7 @@ public class Missile extends GameFigure {
      */
     public Missile(float sx, float sy, float tx, float ty, Color color) {
         super(sx, sy);
-        super.state = GameFigureState.STATE_ACTIVE;
+        super.state = new ActiveFigureState();
         this.target = new Point2D.Float(tx, ty);
         this.color = color;
 
@@ -54,9 +54,9 @@ public class Missile extends GameFigure {
     @Override
     public void update() {
         updateState();
-        if (state == GameFigureState.STATE_ACTIVE) {
+        if (state instanceof ActiveFigureState) {
             updateLocation();
-        } else if (state == GameFigureState.STATE_DYING) {
+        } else if (state instanceof DieingFigureState) {
             updateSize();
         }
     }
@@ -65,22 +65,25 @@ public class Missile extends GameFigure {
         
         super.x += dx;
         super.y += dy;
+        updateState();
     }
 
     public void updateSize() {
         size += 2;
+        //if(size >= MAX_EXPLOSION_SIZE)
+        //    state.goNext(this);
     }
 
     public void updateState() {
-        if (state == GameFigureState.STATE_ACTIVE) {
+        if (state instanceof ActiveFigureState) {
             double distance = target.distance(super.x, super.y);
             boolean targetReached = distance <= 2.0;
             if (targetReached) {
-                state = GameFigureState.STATE_DYING;
+                goNextState(); 
             }
-        } else if (state == GameFigureState.STATE_DYING) {
+        } else if (state instanceof DieingFigureState) {
             if (size >= MAX_EXPLOSION_SIZE) {
-                state = GameFigureState.STATE_DONE;
+                    goNextState();
             }
         }
     }
@@ -89,6 +92,22 @@ public class Missile extends GameFigure {
     public Rectangle2D.Float getCollisionBox()
     {
         return new Rectangle2D.Float(x - size/2, y - size/2, size*.9F, size*.9F);
+    }
+    
+    @Override
+    public void setPosition(float x, float y)
+    {    }
+    
+    @Override
+    public void goNextState()
+    {
+        state.goNext(this);
+    }
+    
+    @Override
+    public void setState(GameFigureState state)
+    {
+        this.state = state;
     }
 
 }

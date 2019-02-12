@@ -13,7 +13,7 @@ import view.GamePanel;
  * controls the movement of the GameFigure, called from 
  * @author j
  */
-public class StrongGolemStrategy implements Strategy
+public class GolemDieingMove implements Strategy
 {
     private int dx = 5;
     private int dy = 5;
@@ -25,7 +25,7 @@ public class StrongGolemStrategy implements Strategy
     private float sx, sy;
     
     
-    StrongGolemStrategy()
+    GolemDieingMove()
     {
         counter = -1;
         rand = new Random();
