@@ -171,16 +171,17 @@ public class GolemBoss extends GameFigure
     }
     
     
+    //Just throwing out some thoughts here, havent tried to implement this yet
     
-    public void healthUpdate(int damage)
-    {
-        health -= damage;
-        float x, y;
-        Rectangle2D target;
-        
-        //need to add logic test 
-        target = model.GameData.shooter.getCollisionBox();
-    }
+//    public void healthUpdate(int damage)
+//    {
+//        health -= damage;
+//        float x, y;
+//        Rectangle2D target;
+//        
+//        //need to add logic test 
+//        target = model.GameData.shooter.getCollisionBox();
+//    }
     
 /*
 // code to implement State design pattern    
