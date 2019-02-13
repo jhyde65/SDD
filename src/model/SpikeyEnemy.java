@@ -19,24 +19,29 @@ import view.GamePanel;
  * @author Brandy
  */
 public class SpikeyEnemy extends GameFigure{
+    // TODO: Delete these when observer collision is finished
+    // and when refactoring is done
     private final int HEIGHT = 34;
     private final int WIDTH = 35;
     private final int UNIT_TRAVEL = 10;
+    private enum Direction{
+        NORTH, SOUTH, EAST, WEST;
+    }
+    private Direction direction = Direction.WEST;
+    // TODO END
+    
     public int health = 2;
     private Image image;
 
     private final String imagePath = "..//resources//images//spikey1.png";
 
-    private enum Direction{
-        NORTH, SOUTH, EAST, WEST;
-    }
     
-    private Direction direction = Direction.WEST;
+    private Strategy strategy;
     
     public SpikeyEnemy(float x, float y){
         super(x,y);
         super.state = GameFigureState.STATE_ACTIVE;
-
+        strategy = new RollOnBorderStrategy();
         image = null;
         
         try{
@@ -62,6 +67,8 @@ public class SpikeyEnemy extends GameFigure{
     @Override
     public void update() {
         if(state == GameFigureState.STATE_ACTIVE){
+            strategy.move(super.x, super.y, this);
+            /* TODO: Delete when observer collision is finished
             if(GamePanel.width <= 0)
                 return;
             
@@ -95,9 +102,9 @@ public class SpikeyEnemy extends GameFigure{
                 default:
                     break;
             }
+
+            */
         }
-
-
     }
 
     @Override
@@ -105,6 +112,5 @@ public class SpikeyEnemy extends GameFigure{
         return new Rectangle2D.Float(x + (WIDTH*.1F)/2, y + (HEIGHT*.1F)/2, 
                 WIDTH*.9F, HEIGHT*.9F);
     }
-    
     
 }
