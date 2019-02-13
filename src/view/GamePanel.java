@@ -1,5 +1,6 @@
 package view;
 
+import Inventory.Inventory;
 import controller.GameState;
 import controller.Main;
 
@@ -15,6 +16,7 @@ import controller.actions.gameactions.LeftArrowAction;
 import controller.actions.gameactions.RightArrowAction;
 import controller.actions.gameactions.UpArrowAction;
 import controller.actions.gameactions.BButtonAction;
+import controller.actions.gameactions.inventoryAction;
 
 public class GamePanel extends JPanel {
 
@@ -38,11 +40,13 @@ public class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "UP");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "DOWN");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_B, 0, false), "Boss");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_I, 0, false), "Inventory");
 
         actionMap.put("LEFT", new LeftArrowAction());
         actionMap.put("RIGHT", new RightArrowAction());
         actionMap.put("UP", new UpArrowAction());
         actionMap.put("DOWN", new DownArrowAction());
+        actionMap.put("Inventory", new inventoryAction());
         //BButton for dev of GolemBoss.  Hotkey shortcut
         actionMap.put("Boss", new BButtonAction());
     }
@@ -72,6 +76,10 @@ public class GamePanel extends JPanel {
             }
 
             for (GameFigure f : Main.gameData.friendFigures) {
+                f.render(g2);
+            }
+            
+            for (Inventory f : Main.gameData.inventory){
                 f.render(g2);
             }
 

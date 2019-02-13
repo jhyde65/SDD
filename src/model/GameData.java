@@ -1,5 +1,6 @@
 package model;
 
+import Inventory.Inventory;
 import controller.Main;
 import view.GamePanel;
 import java.awt.Color;
@@ -12,12 +13,13 @@ public class GameData {
     private final int RADIUS = 6;
     public final List<GameFigure> enemyFigures;
     public final List<GameFigure> friendFigures;
+    public final List<Inventory> inventory;
     public static Shooter shooter;
 
     public GameData() {
         enemyFigures = new CopyOnWriteArrayList<>();
         friendFigures = new CopyOnWriteArrayList<>();
-
+        inventory = new CopyOnWriteArrayList<>();
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
         // we cannot use GamePanel.width and height.
@@ -64,7 +66,16 @@ public class GameData {
     {
         enemyFigures.add(new GolemBoss(350, 150));
     }
+    
+    public void addInventory()
+    {
+        inventory.add(new Inventory(100,100));
+    }
 
+    public void removeInventory()
+    {
+        inventory.removeAll(inventory);
+    }
     public void update() {
 
         // no enemy is removed in the program
