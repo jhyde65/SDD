@@ -17,6 +17,7 @@ public class Missile extends GameFigure {
     // public properties for quick access
     public Color color;
     public Point2D.Float target;
+    public static final int DAMAGE = 1;
 
     private static final int UNIT_TRAVEL_DISTANCE = 4; // per frame move
 

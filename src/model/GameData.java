@@ -35,6 +35,7 @@ public class GameData {
         enemyFigures.add(new FlyingSaucer(50, 60));
         enemyFigures.add(new FlyingSaucer(400, 20));
         enemyFigures.add(new SpikeyEnemy(500,500));
+        //enemyFigures.add(new GolemBoss(350, 400));
     }
 
     public void add(int n) {
@@ -63,6 +64,12 @@ public class GameData {
     public void addUFO() 
     {
         enemyFigures.add(new FlyingSaucer((int)(Math.random() * GamePanel.width), (int)(Math.random() * GamePanel.height)));
+    }
+    
+    //
+    public void addGolem()
+    {
+        enemyFigures.add(new GolemBoss(350, 150));
     }
 
     public void update() {
