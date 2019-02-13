@@ -62,4 +62,34 @@ public class Animator implements Runnable {
         }
     }
 
+  /*  
+// Code to implement State design pattern
+    
+    for(GameFigure friend : Main.gameData.friendFigures)
+        {
+            for(GameFigure enemy : Main.gameData.enemyFigures)
+            {
+                if(enemy.getCollisionBox().intersects(friend.getCollisionBox()))
+                {
+                    //do nothing case, enemy is already dieing
+                    if(enemy.state instanceof DyingFigureState)
+                    { }
+    //Need to add an updateHealth or adjustHealth method in each gamefigure
+    //method will adjust health and call goNextState() if needed
+    //health minus attack damage, adjust state and strategy if needed
+    //for the larger enemies/main character each state should have range of health value
+    //otherwise we will need too many states
+                    else if(friend.state instanceof DyingFigureState)
+                    {
+                        enemy.goNextState();
+                    }
+                    else
+                    {
+                        enemy.goNextState();
+                        friend.goNextState();
+                    }
+                }
+            }
+        }
+*/
 }
