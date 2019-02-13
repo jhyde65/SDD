@@ -12,12 +12,14 @@ public class GameData {
     private final int RADIUS = 6;
     public final List<GameFigure> enemyFigures;
     public final List<GameFigure> friendFigures;
+    public final List<Border> borders;
     public static Shooter shooter;
 
     public GameData() {
         enemyFigures = new CopyOnWriteArrayList<>();
         friendFigures = new CopyOnWriteArrayList<>();
-
+        borders = new CopyOnWriteArrayList<>();
+        
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
         // we cannot use GamePanel.width and height.
@@ -25,9 +27,14 @@ public class GameData {
 
         friendFigures.add(shooter);
 
+        borders.add(new Border(0, 0, Main.WIN_WIDTH, 0));
+        borders.add(new Border(0, 0, 0, Main.WIN_HEIGHT));
+        borders.add(new Border(0, Main.WIN_HEIGHT, Main.WIN_WIDTH, 0));
+        borders.add(new Border(Main.WIN_WIDTH, 0, Main.WIN_WIDTH, Main.WIN_HEIGHT));
+        
         enemyFigures.add(new FlyingSaucer(50, 60));
         enemyFigures.add(new FlyingSaucer(400, 20));
-        enemyFigures.add(new SpikeyEnemy(100,100));
+        enemyFigures.add(new SpikeyEnemy(500,500));
     }
 
     public void add(int n) {

@@ -12,6 +12,7 @@ import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import view.GamePanel;
 
 /**
  *
@@ -20,12 +21,17 @@ import javax.swing.JOptionPane;
 public class SpikeyEnemy extends GameFigure{
     private final int HEIGHT = 34;
     private final int WIDTH = 35;
-    private final int UNIT_TRAVEL = 5;
+    private final int UNIT_TRAVEL = 10;
     public int health = 2;
     private Image image;
 
     private final String imagePath = "..//resources//images//spikey1.png";
+
+    private enum Direction{
+        NORTH, SOUTH, EAST, WEST;
+    }
     
+    private Direction direction = Direction.WEST;
     
     public SpikeyEnemy(float x, float y){
         super(x,y);
@@ -45,14 +51,53 @@ public class SpikeyEnemy extends GameFigure{
     public void render(Graphics2D g) {
         g.drawImage(image, (int) super.x, (int) super.y,
             WIDTH, HEIGHT, null);
-        
+
         // DEBUG ONLY:
         //g.setStroke(new BasicStroke(2)); // thickness of the line
         //g.draw(getCollisionBox());
+        
+        
     }
 
     @Override
     public void update() {
+        if(state == GameFigureState.STATE_ACTIVE){
+            if(GamePanel.width <= 0)
+                return;
+            
+            if(direction != null)
+            switch (direction) {
+                case EAST:
+                    super.x += UNIT_TRAVEL;
+                    if(super.x + WIDTH > GamePanel.width){
+                        super.x = GamePanel.width - WIDTH; // readjust position
+                        direction = Direction.NORTH;
+                    }   break;
+                case NORTH:
+                    super.y -= UNIT_TRAVEL;
+                    if(super.y < 0){
+                        super.y = 0;
+                        direction = Direction.WEST;
+                    }   break;
+                case SOUTH:
+                    super.y += UNIT_TRAVEL;
+                    if(super.y + HEIGHT > GamePanel.height){
+                        super.y = GamePanel.height - HEIGHT;
+                        direction = Direction.EAST;
+                    }   break;
+                case WEST:
+                    // west
+                    super.x -= UNIT_TRAVEL;
+                    if(super.x < 0){
+                        super.x = 0;
+                        direction = Direction.SOUTH;
+                    }   break;
+                default:
+                    break;
+            }
+        }
+
+
     }
 
     @Override

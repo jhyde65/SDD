@@ -14,6 +14,7 @@ import controller.actions.gameactions.DownArrowAction;
 import controller.actions.gameactions.LeftArrowAction;
 import controller.actions.gameactions.RightArrowAction;
 import controller.actions.gameactions.UpArrowAction;
+import model.Border;
 
 public class GamePanel extends JPanel {
 
@@ -70,7 +71,9 @@ public class GamePanel extends JPanel {
             for (GameFigure f : Main.gameData.friendFigures) {
                 f.render(g2);
             }
-
+            
+            // TESTING ONLY
+            //renderBordersDebug();
         }
     }
 
@@ -88,6 +91,13 @@ public class GamePanel extends JPanel {
             }
         } catch (Exception e) {
             System.out.println("Graphics error: " + e);
+        }
+    }
+    
+    // TESTING PURPOSES ONLY
+    public void renderBordersDebug(){
+        for(Border b: Main.gameData.borders){
+            b.render(g2);
         }
     }
 }
