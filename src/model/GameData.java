@@ -5,6 +5,7 @@ import view.GamePanel;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
@@ -71,7 +72,14 @@ public class GameData {
     {
         enemyFigures.add(new GolemBoss(350, 150));
     }
-
+    
+    public void addSpikeyEnemy(){
+        Random rand = new Random();
+        int x = rand.nextInt(500) + 100;
+        int y = rand.nextInt(500) + 100;
+        enemyFigures.add(new SpikeyEnemy(x,y));
+    }
+    
     public void update() {
 
         // no enemy is removed in the program
