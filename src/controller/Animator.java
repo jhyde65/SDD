@@ -13,6 +13,7 @@ public class Animator implements Runnable {
     @Override
     public void run() {
 
+        
         while (running) {
             long startTime = System.currentTimeMillis();
 
