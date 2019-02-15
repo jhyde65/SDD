@@ -87,7 +87,9 @@ public class GolemStrategy implements Strategy
         }
         
         //set the new position of the GameFigure
-        context.setPosition(sx, sy);
+        context.x = sx;
+        context.y = sy;
+        //context.setPosition(sx, sy);
         counter++;
         
     }

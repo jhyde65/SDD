@@ -45,13 +45,13 @@ public class FlyingSaucerDieingMove implements Strategy
 //        }
         
 
-            if(y - 5.0F > 2.0F)
-            {
-                y += 5.0F;
-                context.setPosition(x, y);
-            }
-            else
-                context.goNextState();
+//            if(y - 5.0F > 2.0F)
+//            {
+//                y += 5.0F;
+//                context.setPosition(x, y);
+//            }
+//            else
+//                context.goNextState();
         
 
 
