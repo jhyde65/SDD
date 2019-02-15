@@ -64,90 +64,90 @@ public class GolemBoss extends GameFigure
     @Override
     public void update()
     {
-//        movement.move(super.x, super.y, this);
-        bx = super.x;
-        by = super.y;
-        
-        if(state == GameFigureState.STATE_ACTIVE)
-        {
-            if(counter < time)
-            {
-                bx += dx;
-                if(bx + WIDTH > GamePanel.width)
-                {
-                    dx = -dx;
-                    bx = GamePanel.width - WIDTH;
-                }
-                else if(bx < 0)
-                {
-                    dx = -dx;
-                    bx = 0;
-                }
-            }
-            
-            else if(attack == false)
-            {
-                attack = true;
-                Rectangle2D target = model.GameData.shooter.getCollisionBox();
-                Rectangle2D golemStart = this.getCollisionBox();
-                //Get center of shooter for attack
-                tx = (float) target.getCenterX();
-                ty = (float) target.getCenterY();
-                sx = (float) golemStart.getCenterX();
-                sy = (float) golemStart.getCenterY();
-                
-                angle = Math.atan2(ty - sy, tx - sx);
-                bx += (float) (UNIT_TRAVEL * Math.cos(angle));
-                by += (float) (UNIT_TRAVEL * Math.sin(angle));                
-            }
-            
-            else
-            {
-                bx += (float) (UNIT_TRAVEL * Math.cos(angle));
-                by += (float) (UNIT_TRAVEL * Math.sin(angle));
-                
-                if(by + HEIGHT > GamePanel.height)
-                {
-                    by = GamePanel.height - HEIGHT;
-                    dy = -dy;
-                    top = rand.nextInt(GamePanel.height - HEIGHT);
-                    attack = false;
-                    counter = -1;
-                    time = rand.nextInt(200) + 1;
-                }
-                else if(bx + WIDTH > GamePanel.width)
-                {
-                    dx = -dx;
-                    bx = GamePanel.width - WIDTH;
-                    attack = false;
-                    counter = -1;
-                    time = rand.nextInt(200) + 1;
-                    top = rand.nextInt(GamePanel.height - HEIGHT);
-                }
-                else if(bx < 0)
-                {
-                    dx = -dx;
-                    bx = 0;
-                    attack = false;
-                    counter = -1;
-                    time = rand.nextInt(200) + 1;
-                    top = rand.nextInt(GamePanel.height - HEIGHT);
-                }
-                else if(by <= top)
-                {
-                    by = top;
-                    dy = -dy;
-                    counter = -1;
-                    attack = false;
-                    time = rand.nextInt(200) + 1;
-                    top = rand.nextInt(GamePanel.height - HEIGHT);
-                }
-            }
-        }
-        
-        super.x = bx;
-        super.y = by;
-        counter++;
+        movement.move(super.x, super.y, this);
+//        bx = super.x;
+//        by = super.y;
+//        
+//        if(state == GameFigureState.STATE_ACTIVE)
+//        {
+//            if(counter < time)
+//            {
+//                bx += dx;
+//                if(bx + WIDTH > GamePanel.width)
+//                {
+//                    dx = -dx;
+//                    bx = GamePanel.width - WIDTH;
+//                }
+//                else if(bx < 0)
+//                {
+//                    dx = -dx;
+//                    bx = 0;
+//                }
+//            }
+//            
+//            else if(attack == false)
+//            {
+//                attack = true;
+//                Rectangle2D target = model.GameData.shooter.getCollisionBox();
+//                Rectangle2D golemStart = this.getCollisionBox();
+//                //Get center of shooter for attack
+//                tx = (float) target.getCenterX();
+//                ty = (float) target.getCenterY();
+//                sx = (float) golemStart.getCenterX();
+//                sy = (float) golemStart.getCenterY();
+//                
+//                angle = Math.atan2(ty - sy, tx - sx);
+//                bx += (float) (UNIT_TRAVEL * Math.cos(angle));
+//                by += (float) (UNIT_TRAVEL * Math.sin(angle));                
+//            }
+//            
+//            else
+//            {
+//                bx += (float) (UNIT_TRAVEL * Math.cos(angle));
+//                by += (float) (UNIT_TRAVEL * Math.sin(angle));
+//                
+//                if(by + HEIGHT > GamePanel.height)
+//                {
+//                    by = GamePanel.height - HEIGHT;
+//                    dy = -dy;
+//                    top = rand.nextInt(GamePanel.height - HEIGHT);
+//                    attack = false;
+//                    counter = -1;
+//                    time = rand.nextInt(200) + 1;
+//                }
+//                else if(bx + WIDTH > GamePanel.width)
+//                {
+//                    dx = -dx;
+//                    bx = GamePanel.width - WIDTH;
+//                    attack = false;
+//                    counter = -1;
+//                    time = rand.nextInt(200) + 1;
+//                    top = rand.nextInt(GamePanel.height - HEIGHT);
+//                }
+//                else if(bx < 0)
+//                {
+//                    dx = -dx;
+//                    bx = 0;
+//                    attack = false;
+//                    counter = -1;
+//                    time = rand.nextInt(200) + 1;
+//                    top = rand.nextInt(GamePanel.height - HEIGHT);
+//                }
+//                else if(by <= top)
+//                {
+//                    by = top;
+//                    dy = -dy;
+//                    counter = -1;
+//                    attack = false;
+//                    time = rand.nextInt(200) + 1;
+//                    top = rand.nextInt(GamePanel.height - HEIGHT);
+//                }
+//            }
+//        }
+//        
+//        super.x = bx;
+//        super.y = by;
+//        counter++;
 
     }
     

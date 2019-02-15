@@ -27,7 +27,7 @@ public class GameData {
 
         enemyFigures.add(new FlyingSaucer(50, 60));
         enemyFigures.add(new FlyingSaucer(400, 20));
-        enemyFigures.add(new SpikeyEnemy(100,100));
+        //enemyFigures.add(new SpikeyEnemy(100,100));
         
     }
 
