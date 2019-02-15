@@ -19,7 +19,9 @@ public class FlyingSaucer extends GameFigure {
 
     public FlyingSaucer(float x, float y) {
         super(x, y); // origin: upper-left corner
+        //super.state = new ActiveFigureState();
         super.state = GameFigureState.STATE_ACTIVE;
+        //movement = new FlyingSaucerStrategy();
 
         image = null;
 
@@ -36,9 +38,28 @@ public class FlyingSaucer extends GameFigure {
         g.drawImage(image, (int) super.x, (int) super.y,
                 WIDTH, HEIGHT, null);
     }
+    
+//    @Override
+//    public void setState(GameFigureState state)
+//    {
+//        this.state = state;
+//        if(this.state instanceof DieingFigureState)
+//            super.movement = new FlyingSaucerDieingMove();
+//    }
+    
+//    @Override
+//    public void goNextState()
+//    {
+//        state.goNext(this);
+//    }
 
     @Override
-    public void update() {
+    public void update() 
+    {
+        //call movement strategy function move
+        //"this" is the instance of the gameFigure 
+       // movement.move(super.x, super.y, this);
+        
         if(state == GameFigureState.STATE_ACTIVE)
         {
         if (direction > 0) {
@@ -66,10 +87,17 @@ public class FlyingSaucer extends GameFigure {
         }
     }
     
-        @Override
+    @Override
     public Rectangle2D.Float getCollisionBox()
     {
         return new Rectangle2D.Float(x , y , WIDTH, HEIGHT);
     }
+    
+//    @Override
+//    public void setPosition(float x, float y)
+//    {
+//        super.x = x;
+//        super.y = y;
+//    }
 
 }

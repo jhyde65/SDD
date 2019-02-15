@@ -33,7 +33,8 @@ public class Missile extends GameFigure {
      */
     public Missile(float sx, float sy, float tx, float ty, Color color) {
         super(sx, sy);
-        super.state = GameFigureState.STATE_ACTIVE;
+       // super.state = new ActiveFigureState();
+       super.state = GameFigureState.STATE_ACTIVE;
         this.target = new Point2D.Float(tx, ty);
         this.color = color;
 
@@ -54,6 +55,12 @@ public class Missile extends GameFigure {
     @Override
     public void update() {
         updateState();
+//        if (state instanceof ActiveFigureState) {
+//            updateLocation();
+//        } else if (state instanceof DieingFigureState) {
+//            updateSize();
+//        }
+
         if (state == GameFigureState.STATE_ACTIVE) {
             updateLocation();
         } else if (state == GameFigureState.STATE_DYING) {
@@ -65,22 +72,29 @@ public class Missile extends GameFigure {
         
         super.x += dx;
         super.y += dy;
+        updateState();
     }
 
     public void updateSize() {
         size += 2;
+        //if(size >= MAX_EXPLOSION_SIZE)
+        //    state.goNext(this);
     }
 
     public void updateState() {
+        //if (state instanceof ActiveFigureState) {
         if (state == GameFigureState.STATE_ACTIVE) {
             double distance = target.distance(super.x, super.y);
             boolean targetReached = distance <= 2.0;
             if (targetReached) {
+                //goNextState();
                 state = GameFigureState.STATE_DYING;
             }
-        } else if (state == GameFigureState.STATE_DYING) {
+        } //else if (state instanceof DieingFigureState) {
+        else if (state == GameFigureState.STATE_DYING) {    
             if (size >= MAX_EXPLOSION_SIZE) {
-                state = GameFigureState.STATE_DONE;
+                    //goNextState();
+                    state = GameFigureState.STATE_DONE;
             }
         }
     }
@@ -90,5 +104,21 @@ public class Missile extends GameFigure {
     {
         return new Rectangle2D.Float(x - size/2, y - size/2, size*.9F, size*.9F);
     }
+    
+//    @Override
+//    public void setPosition(float x, float y)
+//    {    }
+//    
+//    @Override
+//    public void goNextState()
+//    {
+//        state.goNext(this);
+//    }
+//    
+//    @Override
+//    public void setState(GameFigureState state)
+//    {
+//        this.state = state;
+//    }
 
 }

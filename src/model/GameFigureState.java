@@ -3,12 +3,12 @@ package model;
 //Code used to implement State design pattern
 // create concrete states for desired GameFigure
 // call goNext(GameFigure context)from GameFigure to go to next state 
-/*
-public interface GameFigureState
-{
-    void goNext(GameFigure context);
-}
-*/
+
+//public interface GameFigureState
+//{
+//    void goNext(GameFigure context);
+//}
+
 // Will need to remove when State pattern is implemented
 public class GameFigureState {
 
@@ -19,16 +19,16 @@ public static final int STATE_ACTIVE = 1;
 public static final int STATE_DYING = 2;
 
 /* missile states */
-//    public static final int MISSILE_STATE_LAUNCHED = 1;
-//    public static final int MISSILE_STATE_EXPLODED = 2;
+    public static final int MISSILE_STATE_LAUNCHED = 1;
+    public static final int MISSILE_STATE_EXPLODED = 2;
 
 /* ufo states */
-//    public static final int UFO_STATE_APPEARED = 1;
-//    public static final int UFO_STATE_DAMAGED = 2;
+    public static final int UFO_STATE_APPEARED = 1;
+    public static final int UFO_STATE_DAMAGED = 2;
 
 /* bomb states */
-//    public static final int BOMB_STATE_ADDED = 1;
-//    public static final int BOMB_EXPLODED = 2;
+    public static final int BOMB_STATE_ADDED = 1;
+    public static final int BOMB_EXPLODED = 2;
 
 /* shooter states */
 

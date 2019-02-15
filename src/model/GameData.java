@@ -101,6 +101,12 @@ public class GameData {
         // f.state = GameFigure.STATE_DONE
         ArrayList<GameFigure> removeEnemies = new ArrayList<>();
         GameFigure f;
+//        for (int i = 0; i < enemyFigures.size(); i++) {
+//            f = enemyFigures.get(i);
+//            if (f.state instanceof DoneFigureState) {
+//                removeEnemies.add(f);
+//            }
+//        }
         for (int i = 0; i < enemyFigures.size(); i++) {
             f = enemyFigures.get(i);
             if (f.state == GameFigureState.STATE_DONE) {
@@ -117,6 +123,7 @@ public class GameData {
         ArrayList<GameFigure> removeFriends = new ArrayList<>();
         for (int i = 0; i < friendFigures.size(); i++) {
             f = friendFigures.get(i);
+            //if (f.state instanceof DoneFigureState) {
             if (f.state == GameFigureState.STATE_DONE) {
                 removeFriends.add(f);
             }
