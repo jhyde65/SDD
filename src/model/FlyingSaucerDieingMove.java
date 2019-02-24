@@ -26,32 +26,15 @@ public class FlyingSaucerDieingMove implements Strategy
     
     @Override
     public void move(float x, float y, GameFigure context)
-    {
-       // if(state == GameFigureState.STATE_ACTIVE)
-      //  {
-//        if (direction > 0) {
-//            // moving to the right
-//            x += UNIT_TRAVEL;
-//            if (x + WIDTH > GamePanel.width) {
-//                direction = -1;
-//            }
-//        } 
-//        else {
-//            // moving to the left
-//            x -= UNIT_TRAVEL;
-//            if (x <= 0) {
-//                direction = 1;
-//            }
-//        }
-        
+    {      
 
-//            if(y - 5.0F > 2.0F)
-//            {
-//                y += 5.0F;
-//                context.setPosition(x, y);
-//            }
-//            else
-//                context.goNextState();
+            if(y - 5.0F > 2.0F)
+            {
+                y += 5.0F;
+                context.setPosition(x, y);
+            }
+            else
+                context.goNextState();
         
 
 
