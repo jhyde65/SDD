@@ -39,8 +39,7 @@ public class GolemBoss extends GameFigure
     public GolemBoss(float x, float y)
     {
         super(x,y);
-        super.state = GameFigureState.STATE_ACTIVE;
-        //super.state = new StrongFigureState();
+        super.state = new StrongFigureState();
         movement = new StrongGolemStrategy();
         counter = -1;
         rand = new Random();
@@ -181,35 +180,35 @@ public class GolemBoss extends GameFigure
 //    }
 //    
 //
-//// code to implement State design pattern    
-//    @Override
-//    public void setState(GameFigureState state)
-//    {
-//        this.state = state;
-//        
-//    }
-//    
-//    @Override
-//    public void goNextState()
-//    {
-//        
-//        if(state instanceof StrongFigureState && health > 10)
-//        {
-//            movement = new GolemStrategy();
-//        }
-//        else 
-//        {  
-//            state.goNext(this);
-//            movement = new GolemDieingMove();
-//        }
-//    }    
-//    
-//    @Override
-//    public void setPosition(float x, float y)
-//    {
-//        super.x = x;
-//        super.y = y;
-//    }
+// code to implement State design pattern    
+    @Override
+    public void setState(GameFigureState state)
+    {
+        this.state = state;
+        
+    }
+    
+    @Override
+    public void goNextState()
+    {
+        
+        if(state instanceof StrongFigureState && health > 10)
+        {
+            movement = new GolemStrategy();
+        }
+        else 
+        {  
+            state.goNext(this);
+            movement = new GolemDieingMove();
+        }
+    }    
+    
+    @Override
+    public void setPosition(float x, float y)
+    {
+        super.x = x;
+        super.y = y;
+    }
     
     
 }

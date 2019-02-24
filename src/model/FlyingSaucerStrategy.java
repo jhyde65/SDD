@@ -54,6 +54,6 @@ public class FlyingSaucerStrategy implements Strategy
 //                state = GameFigureState.STATE_DONE;
 //        }
 
-  //      context.setPosition(x, y);
+        context.setPosition(x, y);
     }
 }

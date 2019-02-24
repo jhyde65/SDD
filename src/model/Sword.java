@@ -25,7 +25,8 @@ public class Sword extends GameFigure {
     private int frameCount = 0;
     public Sword(float x, float y) {
         super(x, y);
-        super.state = GameFigureState.STATE_ACTIVE;
+        //super.state = GameFigureState.STATE_ACTIVE;
+        super.state = new ActiveFigureState();
         
         
         
@@ -87,6 +88,24 @@ public class Sword extends GameFigure {
         //strick by making forward true
         strick = true;
         forward = true;
+    }
+    
+    
+    @Override
+    public void setState(GameFigureState state) {
+        this.state = state;
+    }
+    
+    @Override
+    public void goNextState() {
+        
+    }
+
+    
+    @Override
+    public void setPosition(float x, float y) {
+        super.x = x;
+        super.y = y;
     }
 
 }
