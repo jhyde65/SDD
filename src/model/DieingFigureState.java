@@ -9,16 +9,16 @@ package model;
  * 
  * @author j
  */
-//public class DieingFigureState implements GameFigureState
-//{
-//    public DieingFigureState()
-//    {
-//        
-//    }
-//    
-//    @Override
-//    public void goNext(GameFigure context)
-//    {
-//        context.setState(new DoneFigureState());
-//    }
-//}
+public class DieingFigureState implements GameFigureState
+{
+    public DieingFigureState()
+    {
+        
+    }
+    
+    @Override
+    public void goNext(GameFigure context)
+    {
+        context.setState(new DoneFigureState());
+    }
+}

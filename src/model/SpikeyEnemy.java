@@ -43,7 +43,8 @@ public class SpikeyEnemy extends GameFigure{
     
     public SpikeyEnemy(float x, float y){
         super(x,y);
-        super.state = GameFigureState.STATE_ACTIVE;
+        //super.state = GameFigureState.STATE_ACTIVE;
+        super.state = new ActiveFigureState();
         strategy = new RollOnBorderStrategy();
         currentImage = null;
         
@@ -71,7 +72,8 @@ public class SpikeyEnemy extends GameFigure{
 
     @Override
     public void update() {
-        if(state == GameFigureState.STATE_ACTIVE){
+        if(state instanceof ActiveFigureState){
+        //if(state == GameFigureState.STATE_ACTIVE){
             strategy.move(super.x, super.y, this);
             ticksBeforeChangingAnimation++;
             if(ticksBeforeChangingAnimation == TICKS_TO_CHANGE){
@@ -90,6 +92,24 @@ public class SpikeyEnemy extends GameFigure{
     public Rectangle2D getCollisionBox() {
         return new Rectangle2D.Float(x + (WIDTH*.1F)/2, y + (HEIGHT*.1F)/2, 
                 WIDTH*.9F, HEIGHT*.9F);
+    }
+
+    @Override
+    public void setState(GameFigureState state) {
+        this.state = state;
+    }
+
+    @Override
+    public void goNextState() {
+        state.goNext(this);
+        // Just putting in an example
+        //stategy = new SpikeyDieingMove();
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        super.x = x;
+        super.y = y;
     }
     
 }

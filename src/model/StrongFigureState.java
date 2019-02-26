@@ -9,16 +9,16 @@ package model;
  * 
  * @author j
  */
-//public class StrongFigureState implements GameFigureState
-//{
-//    public StrongFigureState()
-//    {
-//        
-//    }
-//    
-//    @Override
-//    public void goNext(GameFigure context)
-//    {
-//        context.setState(new ActiveFigureState());
-//    }
-//}
+public class StrongFigureState implements GameFigureState
+{
+    public StrongFigureState()
+    {
+        
+    }
+    
+    @Override
+    public void goNext(GameFigure context)
+    {
+        context.setState(new ActiveFigureState());
+    }
+}
