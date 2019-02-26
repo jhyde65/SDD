@@ -1,25 +1,14 @@
 package view;
 
 import Inventory.Inventory;
-import controller.GameState;
 import controller.Main;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 
+import controller.actions.gameactions.*;
 import model.GameFigure;
-import model.Shooter;
-import controller.actions.gameactions.DownArrowAction;
-import controller.actions.gameactions.LeftArrowAction;
-import controller.actions.gameactions.RightArrowAction;
-import controller.actions.gameactions.UpArrowAction;
-import controller.actions.gameactions.BButtonAction;
-import controller.actions.gameactions.inventoryAction;
-import controller.actions.gameactions.SpaceKeyAction;
-import controller.actions.gameactions.ZKeyAction;
-import controller.actions.gameactions.KButtonAction;
 import model.Border;
 
 public class GamePanel extends JPanel {
@@ -46,10 +35,11 @@ public class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_B, 0, false), "Boss");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_K, 0, false), "SpawnSpikeyEnemy");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_I, 0, false), "Inventory");
-
-
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "PAUSE");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "ENTER");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "SPACE");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, 0, false), "Z");
+
         actionMap.put("LEFT", new LeftArrowAction());
         actionMap.put("RIGHT", new RightArrowAction());
         actionMap.put("UP", new UpArrowAction());
@@ -60,6 +50,8 @@ public class GamePanel extends JPanel {
         actionMap.put("SpawnSpikeyEnemy", new KButtonAction());
         actionMap.put("SPACE", new SpaceKeyAction());
         actionMap.put("Z", new ZKeyAction());
+        actionMap.put("PAUSE", new PauseAction());
+        actionMap.put("ENTER", new PauseEnterAction());
     }
 
 
@@ -89,7 +81,7 @@ public class GamePanel extends JPanel {
             for (GameFigure f : Main.gameData.friendFigures) {
                 f.render(g2);
             }
-            
+
             for (Inventory f : Main.gameData.inventory){
                 f.render(g2);
             }
@@ -98,6 +90,11 @@ public class GamePanel extends JPanel {
         
         // TESTING ONLY
         //renderBordersDebug();
+    }
+
+    public void renderPauseScreen()
+    {
+        Main.gameData.pauseScreen.render(g2);
     }
 
     // use active rendering to put the buffered image on-screen

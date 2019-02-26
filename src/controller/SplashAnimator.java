@@ -11,7 +11,7 @@ import javax.swing.*;
 public class SplashAnimator implements Runnable {
 
     public boolean running = true;
-    private final int FRAMES_PER_SECOND = 40;
+    private final int FRAMES_PER_SECOND = 30;
     private AudioPlayer theme;
     private AudioPlayer accept;
     private long fadeStart;
@@ -24,6 +24,8 @@ public class SplashAnimator implements Runnable {
 
         theme = new AudioPlayer("src/view/resources/Audio/theme.mp3", volume);
         accept = new AudioPlayer("src/view/resources/Audio/start.wav", 1.0);
+
+        theme.play();
 
         while (running) {
             long startTime = System.currentTimeMillis();

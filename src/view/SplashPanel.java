@@ -47,7 +47,7 @@ public class SplashPanel extends JPanel {
         ActionMap actionMap = getActionMap();
 
         // Enter key binding is created and action is mapped to
-        // the EnterAction defined in controller.actions.splashactions.
+        // the PauseEnterAction defined in controller.actions.splashactions.
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, true), "ENTER");
         actionMap.put("ENTER", new EnterAction());
         this.alphaLevel = 1.0f;
