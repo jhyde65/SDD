@@ -23,7 +23,7 @@ public class ItemPotion extends GameFigure{
 
     public ItemPotion(float x, float y) {
         super(x, y); // origin: upper-left corner
-        super.state = GameFigureState.STATE_ACTIVE;
+        //super.state = GameFigureState;
 
         image = null;
 
@@ -43,16 +43,31 @@ public class ItemPotion extends GameFigure{
 
     @Override
     public void update() {
-        if(state == GameFigureState.STATE_ACTIVE)
-        {
-            
-        }
+//        if(state == GameFigureState.STATE_ACTIVE)
+//        {
+//            
+//        }
     }
     
         @Override
     public Rectangle2D.Float getCollisionBox()
     {
         return new Rectangle2D.Float(x , y , 15, 15);
+    }
+
+    @Override
+    public void setState(GameFigureState state) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void goNextState() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
