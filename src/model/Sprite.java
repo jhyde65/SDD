@@ -13,24 +13,29 @@ import javax.swing.JOptionPane;
  */
 public class Sprite
 {
-    private static BufferedImage image;
-    //private static final String DIR = "monster//";
+    //public static BufferedImage image;
     
-    public static BufferedImage getSprite(String folder, int fileNumber)
+    public static BufferedImage getSprite(String folder, String fileNumber)
     {
-        if (image == null)
-        {
-            image = loadSprite(folder, fileNumber);
-        }
-        return image;
+//        if (image == null)
+//        {
+//            image = loadSprite(folder, fileNumber);
+//        }
+//        return image;
+        BufferedImage sprite = null;
+        sprite = loadSprite(folder, fileNumber);
+        return sprite;
     }
     
-    private static BufferedImage loadSprite(String folder, int num)
+    private static BufferedImage loadSprite(String folder, String num)
     {
         BufferedImage sprite = null;
+        String fileName = folder + num + ".png";
         
         try {
-            sprite = ImageIO.read(new File("..//resources//images//" + folder + num + ".png"));
+            //sprite = ImageIO.read(new File("../" + folder + num + ".png"));
+            //sprite = ImageIO.read(new File(fileName));
+            sprite = ImageIO.read(Sprite.class.getResource(fileName));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error: could not open image #" + num);
             System.exit(-1);

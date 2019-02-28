@@ -10,36 +10,59 @@ import java.awt.image.BufferedImage;
  */
 public class MonsterEnemy extends GameFigure
 {
-    private final int height = 50;
-    private final int width = 30;
-    private final String path = "monster";
-    private static final int UNIT_TRAVEL_DISTANCE = 10;
-    private BufferedImage[] movingDown = {Sprite.getSprite(path, 0), Sprite.getSprite(path, 1), Sprite.getSprite(path, 2)};
-    private BufferedImage[] movingLeft = {Sprite.getSprite(path, 3), Sprite.getSprite(path, 4), Sprite.getSprite(path, 5)};
-    private BufferedImage[] movingRight = {Sprite.getSprite(path, 6), Sprite.getSprite(path, 7), Sprite.getSprite(path, 8)};
-    private BufferedImage[] movingUp = {Sprite.getSprite(path, 9), Sprite.getSprite(path, 10), Sprite.getSprite(path, 11)};
-    private BufferedImage[] idling = {Sprite.getSprite(path, 0), Sprite.getSprite(path, 1)};
-    private MonsterAnimation moveDown, moveLeft, moveRight, moveUp, idle;
+    public final int HEIGHT = 90;
+    public final int WIDTH = 60;
+    private final String PATH = "..//resources//images//monster//";
+    public int health;
+    public float dx;
+    public float dy;
+    public MonsterAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle;
     
     public MonsterEnemy(float x, float y)
     {
         super(x, y);
-        
+        super.state = GameFigureState.STATE_ACTIVE;
+        this.health = 2;
+        movement = new MonsterWalkingStrategy();
+        BufferedImage[] movingDown = {Sprite.getSprite(PATH, "0"), Sprite.getSprite(PATH, "1"), Sprite.getSprite(PATH, "2")};
+        BufferedImage[] movingLeft = {Sprite.getSprite(PATH, "3"), Sprite.getSprite(PATH, "4"), Sprite.getSprite(PATH, "5")};
+        BufferedImage[] movingRight = {Sprite.getSprite(PATH, "6"), Sprite.getSprite(PATH, "7"), Sprite.getSprite(PATH, "8")};
+        BufferedImage[] movingUp = {Sprite.getSprite(PATH, "9"), Sprite.getSprite(PATH, "10"), Sprite.getSprite(PATH, "11")};
+        BufferedImage[] idling = {Sprite.getSprite(PATH, "0"), Sprite.getSprite(PATH, "1")};
+        this.moveDown = new MonsterAnimation(movingDown, 5);
+        this.moveLeft = new MonsterAnimation(movingLeft, 5);
+        this.moveRight = new MonsterAnimation(movingRight, 5);
+        this.moveUp = new MonsterAnimation(movingUp, 5);
+        this.idle = new MonsterAnimation(idling, 5);
+        this.animation = idle;
+        animation.start();
     }
 
     @Override
-    public void render(Graphics2D g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void render(Graphics2D g)
+    {
+        g.drawImage(animation.getSprite(), (int)super.x, (int)super.y, WIDTH, HEIGHT, null);
     }
 
     @Override
-    public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update()
+    {
+        movement.move(super.x, super.y, this);
+    }
+    
+    public void setAnimation(MonsterAnimation animation, MonsterAnimation newAnimation)
+    {
+        if (animation.equals(newAnimation)) return;
+        this.animation.stop();
+        this.animation.reset();
+        this.animation = newAnimation;
+        this.animation.restart();
     }
 
     @Override
-    public Rectangle2D getCollisionBox() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Rectangle2D getCollisionBox()
+    {
+        return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
     }
     
 }

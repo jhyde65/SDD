@@ -83,6 +83,14 @@ public class GameData {
         enemyFigures.add(new SpikeyEnemy(x,y));
     }
     
+    public void addMonsterEnemy()
+    {
+        Random rand = new Random();
+        int x = rand.nextInt(500) + 100;
+        int y = rand.nextInt(500) + 100;
+        int health = 2;
+        enemyFigures.add(new MonsterEnemy(x, y));
+    }
     
     public void addInventory()
     {

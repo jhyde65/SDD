@@ -10,11 +10,12 @@ import java.util.List;
  */
 public class MonsterAnimation
 {
-    private int frameCount;
-    private int frameDelay;
-    private int currentFrame;
-    private int animationDirection;
-    private int totalFrames;
+    public int frameCount;
+    public int frameDelay;
+    public int currentFrame;
+    public int animationDirection;
+    public int totalFrames;
+    public boolean loop;
     private boolean stopped;
     private List<AnimationFrame> frames = new ArrayList<>();
     
@@ -31,7 +32,7 @@ public class MonsterAnimation
         this.frameCount = 0;
         this.currentFrame = 0;
         this.animationDirection = 1;
-        this.totalFrames = this.frames.size();
+        this.totalFrames = frames.length;
     }
     
     private void addFrame(BufferedImage frame, int duration)
@@ -43,10 +44,10 @@ public class MonsterAnimation
         }
         
         frames.add(new AnimationFrame(frame, duration));
-        currentFrame = 0;
+        //currentFrame = 0;
     }
     
-    public BufferedImage getSprite()
+    public BufferedImage getSprite() 
     {
         return frames.get(currentFrame).getFrame();
     }
