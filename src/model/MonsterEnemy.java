@@ -64,5 +64,20 @@ public class MonsterEnemy extends GameFigure
     {
         return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
     }
+
+    @Override
+    public void setState(GameFigureState state) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void goNextState() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

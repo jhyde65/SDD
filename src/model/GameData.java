@@ -39,7 +39,7 @@ public class GameData {
         enemyFigures.add(new FlyingSaucer(50, 60));
         enemyFigures.add(new FlyingSaucer(400, 20));
         enemyFigures.add(new SpikeyEnemy(500,500));
-        //enemyFigures.add(new GolemBoss(350, 400));
+
     }
 
     public void add(int n) {
@@ -103,24 +103,20 @@ public class GameData {
     }
     public void update() {
 
-        // no enemy is removed in the program
-        // since collision detection is not implemented yet.
-        // However, if collision detected, simply set
-        // f.state = GameFigure.STATE_DONE
         ArrayList<GameFigure> removeEnemies = new ArrayList<>();
         GameFigure f;
-//        for (int i = 0; i < enemyFigures.size(); i++) {
-//            f = enemyFigures.get(i);
-//            if (f.state instanceof DoneFigureState) {
-//                removeEnemies.add(f);
-//            }
-//        }
         for (int i = 0; i < enemyFigures.size(); i++) {
             f = enemyFigures.get(i);
-            if (f.state == GameFigureState.STATE_DONE) {
+            if (f.state instanceof DoneFigureState) {
                 removeEnemies.add(f);
             }
         }
+//        for (int i = 0; i < enemyFigures.size(); i++) {
+//            f = enemyFigures.get(i);
+//            if (f.state == GameFigureState.STATE_DONE) {
+//                removeEnemies.add(f);
+//            }
+//        }
         enemyFigures.removeAll(removeEnemies);
 
         for (GameFigure g : enemyFigures) {
@@ -131,8 +127,8 @@ public class GameData {
         ArrayList<GameFigure> removeFriends = new ArrayList<>();
         for (int i = 0; i < friendFigures.size(); i++) {
             f = friendFigures.get(i);
-            //if (f.state instanceof DoneFigureState) {
-            if (f.state == GameFigureState.STATE_DONE) {
+            if (f.state instanceof DoneFigureState) {
+            //if (f.state == GameFigureState.STATE_DONE) {
                 removeFriends.add(f);
             }
         }

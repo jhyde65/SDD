@@ -12,9 +12,9 @@ public abstract class GameFigure implements CollisionBox {
     
     
     //For use when state and strategy implemented
-   // public GameFigureState state;
+    public GameFigureState state;
     public Strategy movement;
-   public int state; 
+
 
 
     public GameFigure(float x, float y) {
@@ -29,16 +29,16 @@ public abstract class GameFigure implements CollisionBox {
     public abstract void update();
     
     
-//    //for use when state and strategy implemented
-//    public abstract void setState(GameFigureState state);
-//    
-//    public abstract void goNextState();
-//    
-//    //not sure if this one will be needed, if health pickup then most likely
-//    //public abstract void goPrevState();
-//    
-//    //used by concrete strategy to set position of GameFigure
-//    public abstract void setPosition(float x, float y);
-//    
+    //for use when state and strategy implemented
+    public abstract void setState(GameFigureState state);
+    
+    public abstract void goNextState();
+    
+    //not sure if this one will be needed, if health pickup then most likely
+    //public abstract void goPrevState();
+    
+    //used by concrete strategy to set position of GameFigure
+    public abstract void setPosition(float x, float y);
+    
 
 }
