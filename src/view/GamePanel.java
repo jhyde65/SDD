@@ -1,14 +1,13 @@
 package view;
 
 import Inventory.Inventory;
-import controller.GameState;
 import controller.Main;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 
+import controller.actions.gameactions.*;
 import model.GameFigure;
 import model.Shooter;
 import controller.actions.gameactions.DownArrowAction;
@@ -47,11 +46,14 @@ public class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_B, 0, false), "Boss");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_K, 0, false), "SpawnSpikeyEnemy");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_I, 0, false), "Inventory");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "PAUSE");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "ENTER");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_M, 0, false), "MonsterEnemy");
 
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "SPACE");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, 0, false), "Z");
+
         actionMap.put("LEFT", new LeftArrowAction());
         actionMap.put("RIGHT", new RightArrowAction());
         actionMap.put("UP", new UpArrowAction());
@@ -62,6 +64,8 @@ public class GamePanel extends JPanel {
         actionMap.put("SpawnSpikeyEnemy", new KButtonAction());
         actionMap.put("SPACE", new SpaceKeyAction());
         actionMap.put("Z", new ZKeyAction());
+        actionMap.put("PAUSE", new PauseAction());
+        actionMap.put("ENTER", new PauseEnterAction());
         actionMap.put("MonsterEnemy", new MButtonAction());
     }
 
@@ -92,7 +96,7 @@ public class GamePanel extends JPanel {
             for (GameFigure f : Main.gameData.friendFigures) {
                 f.render(g2);
             }
-            
+
             for (Inventory f : Main.gameData.inventory){
                 f.render(g2);
             }
@@ -101,6 +105,11 @@ public class GamePanel extends JPanel {
         
         // TESTING ONLY
         //renderBordersDebug();
+    }
+
+    public void renderPauseScreen()
+    {
+        Main.gameData.pauseScreen.render(g2);
     }
 
     // use active rendering to put the buffered image on-screen

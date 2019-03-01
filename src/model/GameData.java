@@ -16,13 +16,14 @@ public class GameData {
     public final List<GameFigure> friendFigures;
     public final List<Border> borders;
     public final List<Inventory> inventory;
+    public Pause pauseScreen;
     public static Shooter shooter;
 
     public GameData() {
         enemyFigures = new CopyOnWriteArrayList<>();
         friendFigures = new CopyOnWriteArrayList<>();
         borders = new CopyOnWriteArrayList<>();
-        
+        pauseScreen = new Pause();
         inventory = new CopyOnWriteArrayList<>();
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
@@ -100,6 +101,7 @@ public class GameData {
     {
         inventory.removeAll(inventory);
     }
+
     public void update() {
 
         ArrayList<GameFigure> removeEnemies = new ArrayList<>();

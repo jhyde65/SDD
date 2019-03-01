@@ -26,7 +26,7 @@ public class FlyingSaucer extends GameFigure {
         image = null;
 
         try {
-            image = ImageIO.read(getClass().getResource("ufo.png"));
+            image = ImageIO.read(getClass().getResource("u.png"));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error: Cannot open shooter.png");
             System.exit(-1);

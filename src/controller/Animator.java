@@ -25,8 +25,13 @@ public class Animator implements Runnable {
 
                 Main.gameData.update();
                 Main.gamePanel.gameRender();
-                Main.gamePanel.printScreen();
             }
+            else
+            {
+                Main.gamePanel.renderPauseScreen();
+            }
+
+            Main.gamePanel.printScreen();
 
             long endTime = System.currentTimeMillis();
             int sleepTime = (int) (1.0 / FRAMES_PER_SECOND * 1000)

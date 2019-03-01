@@ -14,6 +14,7 @@ public class GameState
     {
         GameState.PAUSED = !PAUSED;
     }
+
     public static void setInventory()
     {
         GameState.inv = !inv;
