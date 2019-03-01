@@ -20,6 +20,7 @@ import controller.actions.gameactions.inventoryAction;
 import controller.actions.gameactions.SpaceKeyAction;
 import controller.actions.gameactions.ZKeyAction;
 import controller.actions.gameactions.KButtonAction;
+import controller.actions.gameactions.MButtonAction;
 import model.Border;
 
 public class GamePanel extends JPanel {
@@ -46,6 +47,7 @@ public class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_B, 0, false), "Boss");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_K, 0, false), "SpawnSpikeyEnemy");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_I, 0, false), "Inventory");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_M, 0, false), "MonsterEnemy");
 
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "SPACE");
@@ -60,6 +62,7 @@ public class GamePanel extends JPanel {
         actionMap.put("SpawnSpikeyEnemy", new KButtonAction());
         actionMap.put("SPACE", new SpaceKeyAction());
         actionMap.put("Z", new ZKeyAction());
+        actionMap.put("MonsterEnemy", new MButtonAction());
     }
 
 
