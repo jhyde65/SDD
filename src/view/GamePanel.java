@@ -15,11 +15,13 @@ import controller.actions.gameactions.LeftArrowAction;
 import controller.actions.gameactions.RightArrowAction;
 import controller.actions.gameactions.UpArrowAction;
 import controller.actions.gameactions.BButtonAction;
+import controller.actions.gameactions.CKeyAction;
 import controller.actions.gameactions.inventoryAction;
 import controller.actions.gameactions.SpaceKeyAction;
 import controller.actions.gameactions.ZKeyAction;
 import controller.actions.gameactions.KButtonAction;
 import controller.actions.gameactions.MButtonAction;
+import controller.actions.gameactions.XKeyAction;
 import model.Border;
 
 public class GamePanel extends JPanel {
@@ -54,6 +56,9 @@ public class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "SPACE");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, 0, false), "Z");
 
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, 0, false), "X");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0, false), "C");
+        
         actionMap.put("LEFT", new LeftArrowAction());
         actionMap.put("RIGHT", new RightArrowAction());
         actionMap.put("UP", new UpArrowAction());
@@ -67,6 +72,8 @@ public class GamePanel extends JPanel {
         actionMap.put("PAUSE", new PauseAction());
         actionMap.put("ENTER", new PauseEnterAction());
         actionMap.put("MonsterEnemy", new MButtonAction());
+        actionMap.put("X", new XKeyAction());
+        actionMap.put("C", new CKeyAction());
     }
 
 
