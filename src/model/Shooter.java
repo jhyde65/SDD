@@ -14,7 +14,7 @@ public class Shooter extends GameFigure {
     private final int BARREL_LEN = 20;
     private final int BASE_SIZE = 20;
 
-    public Shooter(float x, float y) {
+    public Shooter(int x, int y) {
         super(x, y);
         super.state = new StrongFigureState();
         //super.state = GameFigureState.SHOOTER_STATE_HEALTH_LEVEL_5;

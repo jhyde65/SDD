@@ -21,7 +21,6 @@ public class MonsterEnemy extends GameFigure
     public MonsterEnemy(float x, float y)
     {
         super(x, y);
-        super.state = GameFigureState.STATE_ACTIVE;
         this.health = 2;
         movement = new MonsterWalkingStrategy();
         BufferedImage[] movingDown = {Sprite.getSprite(PATH, "0"), Sprite.getSprite(PATH, "1"), Sprite.getSprite(PATH, "2")};

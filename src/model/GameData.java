@@ -57,11 +57,11 @@ public class GameData {
             if (blue < 0.5) {
                 blue += 0.2;
             }
-            enemyFigures.add(new Bomb(
-                    (int) (Math.random() * GamePanel.width),
-                    (int) (Math.random() * GamePanel.height),
-                    RADIUS,
-                    new Color(red, green, blue)));
+//            enemyFigures.add(new Bomb(
+//                    (int) (Math.random() * GamePanel.width),
+//                    (int) (Math.random() * GamePanel.height),
+//                    RADIUS,
+//                    new Color(red, green, blue)));
         }
     }
     
@@ -88,7 +88,6 @@ public class GameData {
         Random rand = new Random();
         int x = rand.nextInt(500) + 100;
         int y = rand.nextInt(500) + 100;
-        int health = 2;
         enemyFigures.add(new MonsterEnemy(x, y));
     }
     
