@@ -5,6 +5,8 @@
  */
 package model;
 
+import controller.Main;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 import view.GamePanel;
@@ -19,8 +21,8 @@ public class StrongGolemStrategy implements Strategy
 {
     private int dx = 5;
     private int dy = 5;
-    private int counter;
-    private int time;
+    private int counter, rangeCounter;
+    private int time, ranged;
     private int top;
     Random rand;
     private final int SIZE = 40;
@@ -30,8 +32,10 @@ public class StrongGolemStrategy implements Strategy
     StrongGolemStrategy()
     {
         counter = -1;
+        rangeCounter = -1;
         rand = new Random();
         time = rand.nextInt(200) +1;
+        ranged = rand.nextInt(80) + 30;
         sx = 0;
         sy = 0;
         
@@ -42,6 +46,27 @@ public class StrongGolemStrategy implements Strategy
     {
         sx = x;
         sy = y;
+        Rectangle2D hero = model.GameData.shooter.getCollisionBox();
+        float heroX = (float) hero.getCenterX();
+        float heroY = (float) hero.getCenterY();
+        Point2D.Float golemCenter = new Point2D.Float(sx + 20, sy + 20);
+
+        double distance = golemCenter.distance(heroX, heroY);
+        
+        if(rangeCounter > 40 && distance <= 150)
+        {            
+            Smash s = new Smash(golemCenter.x, golemCenter.y, heroX, heroY, distance);
+            Main.gameData.enemyFigures.add(s);
+            rangeCounter = -1;
+            ranged = rand.nextInt(80) + 30;
+        }
+        else if(rangeCounter == ranged)
+        {
+            Rock r = new Rock(sx, sy, heroX, heroY);
+            Main.gameData.enemyFigures.add(r);
+            rangeCounter = -1;
+            ranged = rand.nextInt(80) + 30;
+        }
         
         if(counter < time)
         {
@@ -89,10 +114,11 @@ public class StrongGolemStrategy implements Strategy
         }
         
         //set the new position of the GameFigure
-      //  context.setPosition(sx, sy);
-      context.x = sx;
-      context.y = sy;
+      context.setPosition(sx, sy);
+      //context.x = sx;
+      //context.y = sy;
         counter++;
+        rangeCounter++;
         
     }
 }
