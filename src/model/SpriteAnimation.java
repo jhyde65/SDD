@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author david
  */
-public class MonsterAnimation
+public class SpriteAnimation
 {
     public int frameCount;
     public int frameDelay;
@@ -19,7 +19,7 @@ public class MonsterAnimation
     private boolean stopped;
     private List<AnimationFrame> frames = new ArrayList<>();
     
-    public MonsterAnimation(BufferedImage[] frames, int frameDelay)
+    public SpriteAnimation(BufferedImage[] frames, int frameDelay)
     {
         this.frameDelay = frameDelay;
         this.stopped = true;

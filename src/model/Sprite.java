@@ -12,16 +12,15 @@ import javax.swing.JOptionPane;
  */
 public class Sprite
 {
-    //public static BufferedImage image;
+    private static BufferedImage image;
     
-    public static BufferedImage getSprite(String folder, String fileNumber)
+    public static BufferedImage getSprite(String folder, int fileNumber)
     {
-        BufferedImage sprite = null;
-        sprite = loadSprite(folder, fileNumber);
-        return sprite;
+        image = loadSprite(folder, fileNumber);
+        return image;
     }
     
-    private static BufferedImage loadSprite(String folder, String num)
+    private static BufferedImage loadSprite(String folder, int num)
     {
         BufferedImage sprite = null;
         String fileName = folder + num + ".png";

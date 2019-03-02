@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class Fireball extends GameFigure {
+public class Gunshot extends GameFigure {
 
     // missile size
     private static final int SIZE = 5;
@@ -31,7 +31,7 @@ public class Fireball extends GameFigure {
      * @param ty target y of the missile
      * @param color color of the missile
      */
-    public Fireball(float sx, float sy, float tx, float ty, Color color) {
+    public Gunshot(float sx, float sy, float tx, float ty, Color color) {
         super(sx, sy);
         super.state = new ActiveFigureState();
        //super.state = GameFigureState.STATE_ACTIVE;

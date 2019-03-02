@@ -37,8 +37,8 @@ public class GameData {
         borders.add(new Border(0, Main.WIN_HEIGHT, Main.WIN_WIDTH, 0));
         borders.add(new Border(Main.WIN_WIDTH, 0, Main.WIN_WIDTH, Main.WIN_HEIGHT));
         
-        enemyFigures.add(new FlyingSaucer(50, 60));
-        enemyFigures.add(new FlyingSaucer(400, 20));
+        //enemyFigures.add(new FlyingSaucer(50, 60));
+        //enemyFigures.add(new FlyingSaucer(400, 20));
         enemyFigures.add(new SpikeyEnemy(500,500));
 
     }
