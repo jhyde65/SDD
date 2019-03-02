@@ -1,5 +1,7 @@
 package model;
 
+import controller.Main;
+
 /**
  *
  * @author david
@@ -18,6 +20,9 @@ public class MonsterWalkingStrategy implements Strategy
         monster.x += monster.dx;
         monster.y += monster.dy;
         updateAnimationOnPositionChange(monster, monster.x, monster.y);
+        monster.fireball = new MonsterFireball(monster.x - 5, monster.y - 20);
+        monster.fireball.setAnimation(monster.fireball.animation, monster.fireball.downShot);
+        Main.gameData.enemyFigures.add(monster.fireball);
     }
     
     private void updateAnimationOnPositionChange(MonsterEnemy monster, float x, float y)

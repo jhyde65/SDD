@@ -4,7 +4,7 @@ import controller.Main;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import model.Fireball;
+import model.Gunshot;
 import model.Missile;
 import model.Shooter;
 import model.Sword;
@@ -20,11 +20,11 @@ public class CKeyAction extends AbstractAction
         int x = 800, y = 550;
         Shooter shooter = (Shooter) Main.gameData.friendFigures.get(0);
 
-        Fireball m = new Fireball( x, y, x - 100, y - 100, Color.RED);
-        Fireball m2 = new Fireball( x, y, x - 100, y - 50, Color.RED);
-        Fireball m3 = new Fireball( x, y, x - 100, y, Color.RED);
-        Fireball m4 = new Fireball( x, y, x - 100, y + 50, Color.RED);
-        Fireball m5 = new Fireball( x, y, x - 100, y + 100, Color.RED);
+        Gunshot m = new Gunshot( x, y, x - 100, y - 100, Color.RED);
+        Gunshot m2 = new Gunshot( x, y, x - 100, y - 50, Color.RED);
+        Gunshot m3 = new Gunshot( x, y, x - 100, y, Color.RED);
+        Gunshot m4 = new Gunshot( x, y, x - 100, y + 50, Color.RED);
+        Gunshot m5 = new Gunshot( x, y, x - 100, y + 100, Color.RED);
 
         Main.gameData.friendFigures.add(m);
         Main.gameData.friendFigures.add(m2);
