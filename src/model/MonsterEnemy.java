@@ -10,10 +10,11 @@ import java.awt.image.BufferedImage;
  */
 public class MonsterEnemy extends GameFigure
 {
-    private final int HEIGHT = 90;
-    private final int WIDTH = 60;
+    private final int HEIGHT = 100;
+    private final int WIDTH = 75;
     private final String PATH = "..//resources//images//monster//";
-    private int health;
+    public int health;
+    private Strategy strategy;
     public float dx;
     public float dy;
     public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle;
@@ -23,8 +24,8 @@ public class MonsterEnemy extends GameFigure
     {
         super(x, y);
         super.state = new StrongFigureState();
-        this.health = 2;
-        movement = new MonsterWalkingStrategy();
+        health = 2;
+        strategy = new MonsterWalkingStrategy();
         BufferedImage[] movingDown = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2)};
         BufferedImage[] movingLeft = {Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4), Sprite.getSprite(PATH, 5)};
         BufferedImage[] movingRight = {Sprite.getSprite(PATH, 6), Sprite.getSprite(PATH, 7), Sprite.getSprite(PATH, 8)};
@@ -48,7 +49,7 @@ public class MonsterEnemy extends GameFigure
     @Override
     public void update()
     {
-        movement.move(super.x, super.y, this);
+        strategy.move(super.x, super.y, this);
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
@@ -63,22 +64,27 @@ public class MonsterEnemy extends GameFigure
     @Override
     public Rectangle2D getCollisionBox()
     {
-        return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
+        //return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
+        return new Rectangle2D.Float(0, 0, 0, 0);
     }
 
     @Override
-    public void setState(GameFigureState state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setState(GameFigureState state)
+    {
+        this.state = state;
     }
 
     @Override
-    public void goNextState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void goNextState()
+    {
+        state.goNext(this);
     }
 
     @Override
-    public void setPosition(float x, float y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setPosition(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
     }
     
 }

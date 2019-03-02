@@ -11,16 +11,23 @@ import java.awt.image.BufferedImage;
 public class MonsterFireball extends GameFigure
 {
     
-    private final int HEIGHT = 15;
-    private final int WIDTH = 20;
+    //private final int HEIGHT = 20;
+    //private final int WIDTH = 20;
+    private int height, width;
     private final String PATH = "..//resources//images//fireball//";
+    private Strategy strategy;
+    public String direction;
     public float dx;
     public float dy;
     public SpriteAnimation animation, downShot, leftShot, rightShot, upShot;
     
-    public MonsterFireball(float x, float y)
+    public MonsterFireball(float x, float y, int height, int width, String direction)
     {
         super(x, y);
+        super.state = new ActiveFigureState();
+        this.height = height;
+        this.width = width;
+        this.direction = direction;
         BufferedImage[] shootingDown = {Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4), Sprite.getSprite(PATH, 5)};
         BufferedImage[] shootingLeft = {Sprite.getSprite(PATH, 6), Sprite.getSprite(PATH, 7), Sprite.getSprite(PATH, 8)};
         BufferedImage[] shootingRight = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2)};
@@ -29,49 +36,59 @@ public class MonsterFireball extends GameFigure
         this.leftShot = new SpriteAnimation(shootingLeft, 3);
         this.rightShot = new SpriteAnimation(shootingRight, 3);
         this.upShot = new SpriteAnimation(shootingUp, 3);
+        this.strategy = new FireballAttackStrategy();
         
     }
 
     @Override
     public void render(Graphics2D g)
     {
-        g.drawImage(animation.getSprite(), (int)super.x, (int)super.y, WIDTH, HEIGHT, null);
+        g.drawImage(animation.getSprite(), (int)super.x, (int)super.y, width, height, null);
     }
 
     @Override
     public void update()
     {
-        this.animation.update();
+        strategy.move(super.x, super.y, this);
+        //this.animation.update();
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
     {
-        //if (animation.equals(newAnimation)) return;
-        //this.animation.stop();
-        //this.animation.reset();
+//        if (animation != null)
+//        {
+//            this.animation.stop();
+//            this.animation.reset();
+//            this.animation = newAnimation;
+//            this.animation.restart();
+//        }
         this.animation = newAnimation;
         this.animation.start();
-        //this.animation.restart();
     }
 
     @Override
-    public void setState(GameFigureState state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setState(GameFigureState state)
+    {
+        this.state = state;
     }
 
     @Override
-    public void goNextState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void goNextState()
+    {
+        state.goNext(this);
     }
 
     @Override
-    public void setPosition(float x, float y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setPosition(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
     }
 
     @Override
-    public Rectangle2D getCollisionBox() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Rectangle2D getCollisionBox()
+    {
+        return new Rectangle2D.Float(0, 0, 0, 0);
     }
     
 }
