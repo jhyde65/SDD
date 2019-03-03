@@ -1,21 +1,26 @@
 package controller;
 
+import Inventory.Inventory;
+import Inventory.ItemPotion;
+import Inventory.ItemSlot;
+import Inventory.Potion;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import model.DieingFigureState;
 import model.GameFigure;
 import model.GameFigureState;
 import model.GameFigureWithHealth;
 import model.Missile;
+import model.Shooter;
 
 public class Animator implements Runnable {
 
     public boolean running = true;
     private final int FRAMES_PER_SECOND = 40;
-
+    public static int counter;
     @Override
     public void run() {
-
-        
+        counter = 0;
         while (running) {
             long startTime = System.currentTimeMillis();
 
@@ -78,6 +83,7 @@ public class Animator implements Runnable {
                     {
                         enemy.goNextState();
                     }
+                            }
                     else
                     {
                         if(friend instanceof GameFigureWithHealth){
@@ -85,6 +91,11 @@ public class Animator implements Runnable {
                             friendWithHealth.takeDamage(1);
                             if(!friendWithHealth.stillHasHealth()){
                                 friendWithHealth.goNextState();
+                            }
+                            if(friend instanceof Shooter && enemy instanceof ItemPotion)
+                            {
+                                counter++;
+                                enemy.goNextState();
                             }
                         }
                         else{

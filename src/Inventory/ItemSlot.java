@@ -8,6 +8,7 @@ package Inventory;
 import java.awt.Color;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -37,12 +38,19 @@ public class ItemSlot {
         
         g.setColor(Color.BLACK);
         g.drawRect(x,y,SLOTSIZE,SLOTSIZE);
+        
+        if(itemStack != null){
+            g.drawImage(itemStack.getItem().texture, x, y, SLOTSIZE, SLOTSIZE, null);
+        }
     }
 
     public ItemStack getItemStack() {
         return itemStack;
     }
     
+    public void setItem(ItemStack item){
+        this.itemStack = item;
+    }
     public boolean addItem(Item item, int amount){
         if(itemStack != null){
             if(item.getItemType() == itemStack.getItem().getItemType())
@@ -60,5 +68,14 @@ public class ItemSlot {
             this.itemStack = new ItemStack(item,amount);
             return true;
         }
+        
+        }
+    
+        public int getX(){
+            return x;
+        }
+        public int getY(){
+            return x;
+        }
     }
-}
+

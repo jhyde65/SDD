@@ -21,7 +21,14 @@ public abstract class GameFigure implements CollisionBox {
         this.x = x;
         this.y = y;
     }
-
+    
+    public float getX(){
+        return x;
+    }
+    
+    public float getY(){
+           return y;
+    }
     // how to render on the canvas
     public abstract void render(Graphics2D g);
 
