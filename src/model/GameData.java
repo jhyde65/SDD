@@ -1,6 +1,9 @@
 package model;
 
 import Inventory.Inventory;
+import Inventory.ItemPotion;
+import Inventory.ItemSlot;
+import Inventory.Potion;
 import controller.Main;
 import view.GamePanel;
 import java.awt.Color;
@@ -39,6 +42,7 @@ public class GameData {
         enemyFigures.add(new FlyingSaucer(50, 60));
         enemyFigures.add(new FlyingSaucer(400, 20));
         enemyFigures.add(new SpikeyEnemy(500,500));
+        enemyFigures.add(new ItemPotion(600,600));
         //enemyFigures.add(new GolemBoss(350, 400));
     }
 
@@ -83,7 +87,9 @@ public class GameData {
         enemyFigures.add(new SpikeyEnemy(x,y));
     }
     
-    
+    public void addPotion(float x, float y){
+        enemyFigures.add(new ItemPotion(x,y));
+    }    
     public void addInventory()
     {
         inventory.add(new Inventory(100,100));
@@ -110,7 +116,12 @@ public class GameData {
         for (int i = 0; i < enemyFigures.size(); i++) {
             f = enemyFigures.get(i);
             if (f.state == GameFigureState.STATE_DONE) {
-                removeEnemies.add(f);
+                if(f instanceof ItemPotion){
+                }
+                else{
+                    addPotion(f.getX(),f.getY());
+                }
+                removeEnemies.add(f);  
             }
         }
         enemyFigures.removeAll(removeEnemies);
