@@ -7,7 +7,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import view.MainWindow;
 
-public class Shooter extends GameFigure {
+public class Shooter extends GameFigureWithHealth {
     
     Line2D.Float barrel;
     Rectangle2D.Float base;
@@ -25,6 +25,8 @@ public class Shooter extends GameFigure {
 
     @Override
     public void render(Graphics2D g) {
+        g.setColor(Color.RED);
+        g.drawString("Health: " + currentHealth, 25, 25);
         g.setColor(Color.YELLOW);
         int tx = MainWindow.mouseController.x;
         int ty = MainWindow.mouseController.y;

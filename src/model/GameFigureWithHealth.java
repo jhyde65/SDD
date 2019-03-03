@@ -14,6 +14,9 @@ public abstract class GameFigureWithHealth extends GameFigure{
     protected int currentHealth;
     protected int maxHealth;
     
+    private int ticksToTakeDamage = 4;
+    private int tickCount = ticksToTakeDamage;
+    
     public GameFigureWithHealth(float x, float y, int currentH, int maxH) {
         super(x, y);
         currentHealth = currentH;
@@ -21,6 +24,8 @@ public abstract class GameFigureWithHealth extends GameFigure{
     }
     public GameFigureWithHealth(float x, float y) {
         super(x, y);
+        currentHealth = 100;
+        maxHealth = 100;
     }
     
     public int getCurrentHealth(){
@@ -34,4 +39,9 @@ public abstract class GameFigureWithHealth extends GameFigure{
     public void heal(int health){
         currentHealth = (currentHealth + health) % maxHealth;
     }
+    
+    public boolean stillHasHealth(){
+        return currentHealth >= 1;
+    }
+    
 }
