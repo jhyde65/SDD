@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -19,7 +20,7 @@ import view.GamePanel;
  *
  * @author Brandy
  */
-public class SpikeyEnemy extends GameFigure{
+public class SpikeyEnemy extends GameFigureWithHealth{
 
     private final int HEIGHT = 34;
     private final int WIDTH = 35;    
@@ -41,12 +42,17 @@ public class SpikeyEnemy extends GameFigure{
 
     private Strategy strategy;
     
+    private float currentOpacity = 1;
+    
     public SpikeyEnemy(float x, float y){
         super(x,y);
         //super.state = GameFigureState.STATE_ACTIVE;
         super.state = new ActiveFigureState();
         strategy = new RollOnBorderStrategy();
         currentImage = null;
+        
+        currentHealth = 2;
+        maxHealth = 2;
         
         try{
             animationImages.put(0, ImageIO.read(getClass().getResource(imagePath1)));
@@ -62,9 +68,16 @@ public class SpikeyEnemy extends GameFigure{
     
     @Override
     public void render(Graphics2D g) {
+        if(state instanceof DieingFigureState){
+            currentOpacity -= .1f;
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, currentOpacity));
+        }
         g.drawImage(currentImage, (int) super.x, (int) super.y,
             WIDTH, HEIGHT, null);
-
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        if(currentOpacity <= .1){
+            goNextState();
+        }
         // DEBUG ONLY:
         //g.setStroke(new BasicStroke(2)); // thickness of the line
         //g.draw(getCollisionBox());

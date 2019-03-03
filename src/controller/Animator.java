@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 import model.DieingFigureState;
 import model.GameFigure;
 import model.GameFigureState;
+import model.GameFigureWithHealth;
 import model.Missile;
 
 public class Animator implements Runnable {
@@ -79,8 +80,26 @@ public class Animator implements Runnable {
                     }
                     else
                     {
-                        enemy.goNextState();
-                        friend.goNextState();
+                        if(friend instanceof GameFigureWithHealth){
+                            GameFigureWithHealth friendWithHealth = (GameFigureWithHealth) friend;
+                            friendWithHealth.takeDamage(1);
+                            if(!friendWithHealth.stillHasHealth()){
+                                friendWithHealth.goNextState();
+                            }
+                        }
+                        else{
+                            friend.goNextState();
+                        }
+                        if(enemy instanceof GameFigureWithHealth){
+                            GameFigureWithHealth enemyWithHealth = (GameFigureWithHealth) enemy;
+                            enemyWithHealth.takeDamage(1);
+                            if(!enemyWithHealth.stillHasHealth()){
+                                enemyWithHealth.goNextState();
+                            }
+                        }
+                        else{
+                            enemy.goNextState();
+                        }
                     }
                     
                 }

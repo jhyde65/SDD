@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 public class Missile extends GameFigure {
 
     // missile size
-    private static final int SIZE = 5;
+    private static final int SIZE = 8;
     private static final int MAX_EXPLOSION_SIZE = 50;
     private float dx; // displacement at each frame
     private float dy; // displacement at each frame
@@ -19,7 +19,7 @@ public class Missile extends GameFigure {
     public Point2D.Float target;
     public static final int DAMAGE = 1;
 
-    private static final int UNIT_TRAVEL_DISTANCE = 4; // per frame move
+    private static final int UNIT_TRAVEL_DISTANCE = 8; // per frame move
 
     private int size = SIZE;
 
@@ -58,6 +58,7 @@ public class Missile extends GameFigure {
         if (state instanceof ActiveFigureState) {
             updateLocation();
         } else if (state instanceof DieingFigureState) {
+            goNextState();
             updateSize();
         }
 
@@ -85,7 +86,7 @@ public class Missile extends GameFigure {
         if (state instanceof ActiveFigureState) {
         //if (state == GameFigureState.STATE_ACTIVE) {
             double distance = target.distance(super.x, super.y);
-            boolean targetReached = distance <= 2.0;
+            boolean targetReached = distance <= 4.0;
             if (targetReached) {
                 goNextState();
                 //state = GameFigureState.STATE_DYING;
@@ -112,7 +113,7 @@ public class Missile extends GameFigure {
     @Override
     public void goNextState()
     {
-        state.goNext(this);
+        setState(new DoneFigureState());
     }
     
     @Override
