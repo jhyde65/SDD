@@ -93,10 +93,7 @@ public class SpikeyEnemy extends GameFigureWithHealth{
                 changeImage();
                 ticksBeforeChangingAnimation = 0;
             }
-        }
-        else{
-            state = GameFigureState.STATE_DONE;
-        }
+        }        
     }
 
     private void changeImage(){

@@ -49,7 +49,7 @@ public class ItemPotion extends GameFigure{
             
         }
         else{
-            state = GameFigureState.STATE_DONE;
+            //state = GameFigureState.STATE_DONE;
         }
     }
     
@@ -61,17 +61,18 @@ public class ItemPotion extends GameFigure{
 
     @Override
     public void setState(GameFigureState state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.state = state;
     }
 
     @Override
     public void goNextState() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        state.goNext(this);
     }
 
     @Override
     public void setPosition(float x, float y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super.x = x;
+        super.y = y;
     }
     
 }

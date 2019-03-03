@@ -83,7 +83,7 @@ public class Animator implements Runnable {
                     {
                         enemy.goNextState();
                     }
-                            }
+                
                     else
                     {
                         if(friend instanceof GameFigureWithHealth){
