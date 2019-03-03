@@ -31,5 +31,8 @@ public class CKeyAction extends AbstractAction
         Main.gameData.friendFigures.add(m3);
         Main.gameData.friendFigures.add(m4);
         Main.gameData.friendFigures.add(m5);
+        
+        
+        Main.sa.theme.stop();
     }
 }

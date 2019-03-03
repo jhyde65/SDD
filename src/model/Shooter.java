@@ -1,5 +1,6 @@
 package model;
 
+import controller.Main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -58,6 +59,23 @@ public class Shooter extends GameFigureWithHealth {
         super.y = barrel.y1;
         base.x += dx;
         base.y += dy;
+        
+        
+        //check if translation is going to take 
+        //actor out of the scene       
+        if(
+           super.x < Main.gamePanel.getLocation().x ||
+           (super.x + BASE_SIZE) > (Main.gamePanel.getLocation().x + Main.gamePanel.getSize().width)||
+           super.y < Main.gamePanel.getLocation().y||
+           (super.y + BASE_SIZE) > (Main.gamePanel.getLocation().y + Main.gamePanel.getSize().height)
+
+          ){
+            //revert the translation
+            super.x -= dx;
+            super.y -= dy;
+            base.x -= dx;
+            base.y -= dy;
+        }
     }
     
     // Missile shoot location: adjut x and y to the image

@@ -12,7 +12,7 @@ public class SplashAnimator implements Runnable {
 
     public boolean running = true;
     private final int FRAMES_PER_SECOND = 30;
-    private AudioPlayer theme;
+    public AudioPlayer theme;
     private AudioPlayer accept;
     private long fadeStart;
     private long fadeEnd;
