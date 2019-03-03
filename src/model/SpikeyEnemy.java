@@ -79,6 +79,9 @@ public class SpikeyEnemy extends GameFigure{
                 ticksBeforeChangingAnimation = 0;
             }
         }
+        else{
+            state = GameFigureState.STATE_DONE;
+        }
     }
 
     private void changeImage(){

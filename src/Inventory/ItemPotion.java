@@ -47,6 +47,9 @@ public class ItemPotion extends GameFigure{
         {
             
         }
+        else{
+            state = GameFigureState.STATE_DONE;
+        }
     }
     
         @Override
