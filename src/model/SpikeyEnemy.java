@@ -25,7 +25,7 @@ public class SpikeyEnemy extends GameFigureWithHealth{
     private final int HEIGHT = 34;
     private final int WIDTH = 35;    
     
-    public int health = 2;
+    //public int health = 2;
     
     private int ticksBeforeChangingAnimation = 0;
     private final int TICKS_TO_CHANGE = 8;
