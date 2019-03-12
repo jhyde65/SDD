@@ -17,6 +17,8 @@ public class GameData {
     private final int RADIUS = 6;
     public final List<GameFigure> enemyFigures;
     public final List<GameFigure> friendFigures;
+    public final List<GameFigure> itemFigures;
+    public final List<GameFigure> weaponAttackFigures;
     public final List<Border> borders;
     public final List<Inventory> inventory;
     public Pause pauseScreen;
@@ -28,6 +30,8 @@ public class GameData {
         borders = new CopyOnWriteArrayList<>();
         pauseScreen = new Pause();
         inventory = new CopyOnWriteArrayList<>();
+        itemFigures = new CopyOnWriteArrayList<>();
+        weaponAttackFigures = new CopyOnWriteArrayList<>();
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
         // we cannot use GamePanel.width and height.
