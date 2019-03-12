@@ -99,7 +99,7 @@ public class GameData {
     }
     
     public void addPotion(float x, float y){
-        enemyFigures.add(new ItemPotion(x,y));
+        itemFigures.add(new ItemPotion(x,y));
     }    
     public void addInventory()
     {

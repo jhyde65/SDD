@@ -22,6 +22,7 @@ public class Shooter extends GameFigureWithHealth {
         barrel = new Line2D.Float(super.x, super.y, super.x, super.y-BARREL_LEN);
         base = new Rectangle2D.Float(super.x - BASE_SIZE /2 , super.y - BASE_SIZE / 2,
                 BASE_SIZE, BASE_SIZE);
+        movement = new CannotPassBorderStrategy();
     }
 
     @Override
@@ -41,6 +42,11 @@ public class Shooter extends GameFigureWithHealth {
         g.setStroke(new BasicStroke(7)); // thickness of the line
         g.draw(barrel);
         g.draw(base);
+        
+        // TESTING ONLY -- shows the collision box
+        //g.setColor(Color.RED);
+        //g.setStroke(new BasicStroke(2)); // thickness of the line
+        //g.draw(getCollisionBox());
     }
 
     @Override
@@ -51,6 +57,7 @@ public class Shooter extends GameFigureWithHealth {
     }
 
     public void translate(int dx, int dy) {
+        //movement.move(dx, dy, this);
         barrel.x1 += dx;
         barrel.x2 += dx;
         barrel.y1 += dy;
@@ -59,7 +66,7 @@ public class Shooter extends GameFigureWithHealth {
         super.y = barrel.y1;
         base.x += dx;
         base.y += dy;
-        
+       
         
         //check if translation is going to take 
         //actor out of the scene       
@@ -96,7 +103,8 @@ public class Shooter extends GameFigureWithHealth {
     @Override
     public void goNextState()
     {
-        state.goNext(this);
+        // Will be modified later
+        //state.goNext(this);
     }
     
     @Override
