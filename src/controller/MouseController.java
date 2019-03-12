@@ -7,17 +7,17 @@ import model.Missile;
 import model.Shooter;
 
 public class MouseController extends MouseAdapter {
-    
+
     public int x;
     public int y;
 
     @Override
     public void mousePressed(MouseEvent me) {
-        
+
         int px = me.getX();
         int py = me.getY();
 
-        Shooter shooter = (Shooter) Main.gameData.friendFigures.get(0);
+        Shooter shooter = Main.gameData.shooter;
 
         Missile m = new Missile(
                 shooter.getXofMissileShoot(),
@@ -28,7 +28,7 @@ public class MouseController extends MouseAdapter {
         Main.gameData.friendFigures.add(m);
 
     }
-    
+
     @Override
     public void mouseMoved(MouseEvent e) {
         x = e.getX();

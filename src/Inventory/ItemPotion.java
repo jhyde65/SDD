@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import model.ActiveFigureState;
+import model.DoneFigureState;
 import model.GameFigure;
 import model.GameFigureState;
 /**
@@ -66,7 +67,12 @@ public class ItemPotion extends GameFigure{
 
     @Override
     public void goNextState() {
-        state.goNext(this);
+        // MODIFIED BY BRANDY
+        // NOTE:
+        // Setting state to dead b/c items don't have dying animations.
+        // If I didn't do this, the count would be incremented twice in
+        // the collision manager.
+        setState(new DoneFigureState());
     }
 
     @Override

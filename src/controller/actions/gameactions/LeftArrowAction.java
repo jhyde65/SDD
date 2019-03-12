@@ -9,7 +9,7 @@ public class LeftArrowAction extends AbstractAction
 {
     @Override
     public void actionPerformed(ActionEvent e) {
-        Shooter sh = (Shooter) Main.gameData.friendFigures.get(0);
+        Shooter sh = Main.gameData.shooter;
         sh.translate(-10, 0);
     }
 }

@@ -17,9 +17,9 @@ import java.awt.geom.Rectangle2D;
 public class Border implements CollisionBox{
 
     private Rectangle2D.Float border;
-    
-    public Border(float startX, float startY, float endX, float endY){
-        border = new Rectangle2D.Float(startX, startY, endX, endY);
+    private Color currentColor = Color.GRAY;
+    public Border(float startX, float startY, float width, float height){
+        border = new Rectangle2D.Float(startX, startY, width, height);
     }
     
     @Override
@@ -28,9 +28,13 @@ public class Border implements CollisionBox{
     }
     
     public void render(Graphics2D g) {
-        g.setColor(Color.RED);
+        g.setColor(currentColor);
         g.setStroke(new BasicStroke(2)); // thickness of the line
-        g.drawRect((int)border.x, (int)border.y, (int)border.width, (int)border.height);
+        g.fillRect((int)border.x, (int)border.y, (int)border.width, (int)border.height);
+    }
+    
+    public void setColor(Color newColor){
+        currentColor = newColor;
     }
     
 }

@@ -18,6 +18,7 @@ public class Animator implements Runnable {
     public boolean running = true;
     private final int FRAMES_PER_SECOND = 40;
     public static int counter;
+    private CollisionManager collisionManager = new CollisionManager();
     @Override
     public void run() {
         counter = 0;
@@ -54,7 +55,13 @@ public class Animator implements Runnable {
         System.exit(0);
     }
     
-    private void processCollisions() {
+    private void processCollisions(){
+        collisionManager.processItemCollisions();
+        collisionManager.processMeleeCollisions();
+        collisionManager.processAllyWeaponCollisions();
+    }
+    
+    private void processCollisions2() {
         // detect collisions between friendFigure and enemyFigures
         // if detected, mark it as STATE_DONE, so that
         // they can be removed at update() method
