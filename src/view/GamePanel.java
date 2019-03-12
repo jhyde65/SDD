@@ -96,6 +96,7 @@ public class GamePanel extends JPanel {
 
         if (Main.animator.running) {
 
+            Main.gameData.shooter.render(g2);
             for (GameFigure f : Main.gameData.enemyFigures) {
                 f.render(g2);
             }
@@ -103,9 +104,24 @@ public class GamePanel extends JPanel {
             for (GameFigure f : Main.gameData.friendFigures) {
                 f.render(g2);
             }
+            
+            for (GameFigure f: Main.gameData.enemyFiguresWithHealth){
+                f.render(g2);
+            }
+            
+            for (GameFigure f: Main.gameData.itemFigures){
+                f.render(g2);
+            }
+            
+            for (GameFigure f: Main.gameData.weaponAttackFigures){
+                f.render(g2);
+            }
 
             for (Inventory f : Main.gameData.inventory){
                 f.render(g2);
+            }
+            for(Border b : Main.gameData.borders){
+                b.render(g2);
             }
 
         }

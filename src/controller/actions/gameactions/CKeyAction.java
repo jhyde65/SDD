@@ -18,7 +18,7 @@ public class CKeyAction extends AbstractAction
         //TODO: change this to get shooter gun location
         
         int x = 800, y = 550;
-        Shooter shooter = (Shooter) Main.gameData.friendFigures.get(0);
+        Shooter shooter = Main.gameData.shooter;
 
         Gunshot m = new Gunshot( x, y, x - 100, y - 100, Color.RED);
         Gunshot m2 = new Gunshot( x, y, x - 100, y - 50, Color.RED);

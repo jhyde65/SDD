@@ -2,14 +2,14 @@ package controller;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import model.GameData;
 import model.Shooter;
-import view.MainWindow;
 
 public class KeyController extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        Shooter shooter = (Shooter) Main.gameData.friendFigures.get(0);
+        Shooter shooter = GameData.shooter;
 
         // horizontal move only
         switch (e.getKeyCode()) {

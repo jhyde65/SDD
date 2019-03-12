@@ -16,6 +16,7 @@ public class GameData {
 
     private final int RADIUS = 6;
     public final List<GameFigure> enemyFigures;
+    public final List<GameFigureWithHealth> enemyFiguresWithHealth;
     public final List<GameFigure> friendFigures;
     public final List<GameFigure> itemFigures;
     public final List<GameFigure> weaponAttackFigures;
@@ -32,22 +33,24 @@ public class GameData {
         inventory = new CopyOnWriteArrayList<>();
         itemFigures = new CopyOnWriteArrayList<>();
         weaponAttackFigures = new CopyOnWriteArrayList<>();
+        enemyFiguresWithHealth = new CopyOnWriteArrayList<>();
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
         // we cannot use GamePanel.width and height.
         shooter = new Shooter(Main.WIN_WIDTH / 2, Main.WIN_HEIGHT - 80);
 
-        friendFigures.add(shooter);
+        //friendFigures.add(shooter);
 
-        borders.add(new Border(0, 0, Main.WIN_WIDTH, 0));
-        borders.add(new Border(0, 0, 0, Main.WIN_HEIGHT));
-        borders.add(new Border(0, Main.WIN_HEIGHT, Main.WIN_WIDTH, 0));
-        borders.add(new Border(Main.WIN_WIDTH, 0, Main.WIN_WIDTH, Main.WIN_HEIGHT));
+        borders.add(new Border(-51, 0, 50, Main.WIN_HEIGHT)); // left border
+        borders.add(new Border(0, -51, Main.WIN_WIDTH, 50)); // top border
+        borders.add(new Border(Main.WIN_WIDTH-5, 0, 50, Main.WIN_HEIGHT)); // right border
+        borders.add(new Border(0, Main.WIN_HEIGHT-28, Main.WIN_WIDTH, 50)); //bottom border
+        generateBorders();
         
         //enemyFigures.add(new FlyingSaucer(50, 60));
         //enemyFigures.add(new FlyingSaucer(400, 20));
-        enemyFigures.add(new SpikeyEnemy(500,500));
-        enemyFigures.add(new ItemPotion(600,600));
+        enemyFiguresWithHealth.add(new SpikeyEnemy(500,500));
+        itemFigures.add(new ItemPotion(600,600));
     }
 
     public void add(int n) {
@@ -84,7 +87,7 @@ public class GameData {
         Random rand = new Random();
         int x = rand.nextInt(500) + 100;
         int y = rand.nextInt(500) + 100;
-        enemyFigures.add(new SpikeyEnemy(x,y));
+        enemyFiguresWithHealth.add(new SpikeyEnemy(x,y));
     }
     
     public void addMonsterEnemy()
@@ -109,33 +112,32 @@ public class GameData {
     }
 
     public void update() {
-
-        ArrayList<GameFigure> removeEnemies = new ArrayList<>();
+        updateFriends();
+        updateEnemies();
+        updateEnemiesWithHealth();
+        updateItems();
+        shooter.update();
+    }
+    
+    private void updateItems(){
+        ArrayList<GameFigure> removeItems = new ArrayList<>();
         GameFigure f;
-        for (int i = 0; i < enemyFigures.size(); i++) {
-            f = enemyFigures.get(i);
+        for (int i = 0; i < itemFigures.size(); i++) {
+            f = itemFigures.get(i);
             if (f.state instanceof DoneFigureState) {
-                if(f instanceof ItemPotion){
-                }
-                else{
-                    addPotion(f.getX(),f.getY());
-                }
-                removeEnemies.add(f);
+                removeItems.add(f);
             }
         }
-//        for (int i = 0; i < enemyFigures.size(); i++) {
-//            f = enemyFigures.get(i);
-//            if (f.state == GameFigureState.STATE_DONE) {
-//                removeEnemies.add(f);
-//            }
-//        }
-        enemyFigures.removeAll(removeEnemies);
+        
+        itemFigures.removeAll(removeItems);
 
-        for (GameFigure g : enemyFigures) {
+        for (GameFigure g : itemFigures) {
             g.update();
         }
-
-        // missiles are removed if explosion is done
+    }
+    
+    private void updateFriends(){
+        GameFigure f;
         ArrayList<GameFigure> removeFriends = new ArrayList<>();
         for (int i = 0; i < friendFigures.size(); i++) {
             f = friendFigures.get(i);
@@ -149,5 +151,54 @@ public class GameData {
         for (GameFigure g : friendFigures) {
             g.update();
         }
+    }
+    
+    private void updateEnemiesWithHealth(){
+        ArrayList<GameFigure> removeEnemiesWithHealth = new ArrayList<>();
+        GameFigure f;
+        for (int i = 0; i < enemyFiguresWithHealth.size(); i++) {
+            f = enemyFiguresWithHealth.get(i);
+            if (f.state instanceof DoneFigureState) {
+                if(f instanceof ItemPotion){
+                }
+                else{
+                    addPotion(f.getX(),f.getY());
+                }
+                removeEnemiesWithHealth.add(f);
+            }
+        }
+        
+        enemyFiguresWithHealth.removeAll(removeEnemiesWithHealth);
+
+        for (GameFigure g : enemyFiguresWithHealth) {
+            g.update();
+        }
+    }
+    
+    private void updateEnemies(){
+        ArrayList<GameFigure> removeEnemies = new ArrayList<>();
+        GameFigure f;
+        for (int i = 0; i < enemyFigures.size(); i++) {
+            f = enemyFigures.get(i);
+            if (f.state instanceof DoneFigureState) {
+                if(f instanceof ItemPotion){
+                }
+                else{
+                    addPotion(f.getX(),f.getY());
+                }
+                removeEnemies.add(f);
+            }
+        }
+        
+        enemyFigures.removeAll(removeEnemies);
+
+        for (GameFigure g : enemyFigures) {
+            g.update();
+        }
+    }
+    
+    private void generateBorders(){
+        borders.add(new Border(150, 0, 100, 20));
+        borders.add(new Border(500, Main.WIN_HEIGHT-28 - 50, 35, 50));
     }
 }

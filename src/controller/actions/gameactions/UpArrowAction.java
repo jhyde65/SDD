@@ -15,7 +15,7 @@ public class UpArrowAction extends AbstractAction
 
         if (!GameState.isPaused())
         {
-            Shooter sh = (Shooter) Main.gameData.friendFigures.get(0);
+            Shooter sh = Main.gameData.shooter;
             sh.translate(0, -10);
         }
         else
