@@ -8,7 +8,9 @@ package model;
 import controller.Main;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import view.GamePanel;
 
 /**
@@ -26,6 +28,7 @@ public class GolemStrategy implements Strategy
     Random rand;
     private final int SIZE = 40;
     private float sx, sy;
+    private boolean zoom;
     
     
     GolemStrategy()
@@ -37,7 +40,7 @@ public class GolemStrategy implements Strategy
         ranged = rand.nextInt(80) + 30;
         sx = 0;
         sy = 0;
-        
+        zoom = false;
     }
     
     @Override
@@ -51,6 +54,7 @@ public class GolemStrategy implements Strategy
         Point2D.Float golemCenter = new Point2D.Float(sx + 20, sy + 20);
 
         double distance = golemCenter.distance(heroX, heroY);
+        GolemBoss golem = (GolemBoss) context;
         
         if(rangeCounter > 40 && distance <= 150)
         {            
@@ -67,6 +71,14 @@ public class GolemStrategy implements Strategy
             ranged = rand.nextInt(80) + 30;
         }
         
+        if(!zoom)
+        {
+            if(dx > 0)
+                golem.setAnimation(golem.animation, golem.moveRight);
+            else
+                golem.setAnimation(golem.animation, golem.moveLeft);
+        }
+        
         if(counter < time)
         {
             sx += dx;
@@ -74,11 +86,13 @@ public class GolemStrategy implements Strategy
             {
                 dx = -dx;
                 sx = GamePanel.width - SIZE;
+                golem.setAnimation(golem.animation, golem.moveLeft);
             }
             else if(sx < 0)
             {
                 dx = -dx;
                 sx = 0;
+                golem.setAnimation(golem.animation, golem.moveRight);
             }
         }
         
@@ -86,11 +100,19 @@ public class GolemStrategy implements Strategy
         {
             sx += dx;
             sy += dy;
+            zoom = true;
+            
+            if(dy > 0)
+                golem.setAnimation(golem.animation, golem.moveDown); 
+            else
+                golem.setAnimation(golem.animation, golem.moveUp);
+    
             if(sy + SIZE > GamePanel.height)
             {
                 sy = GamePanel.height - SIZE;
                 dy = -dy;
                 top = rand.nextInt(GamePanel.height - SIZE);
+                golem.setAnimation(golem.animation, golem.moveUp);
                 //if(top > GamePanel.height - SIZE)
             }
             else if(sx + SIZE > GamePanel.width)
@@ -109,11 +131,13 @@ public class GolemStrategy implements Strategy
                 dy = -dy;
                 counter = -1;
                 time = rand.nextInt(200) + 1;
+                zoom = false;
             }
         }
         
 
         context.setPosition(sx, sy);
+        golem.animation.update();
         counter++;
         rangeCounter++;
         

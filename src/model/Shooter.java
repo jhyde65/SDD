@@ -18,7 +18,6 @@ public class Shooter extends GameFigureWithHealth {
     public Shooter(int x, int y) {
         super(x, y);
         super.state = new StrongFigureState();
-        //super.state = GameFigureState.SHOOTER_STATE_HEALTH_LEVEL_5;
         barrel = new Line2D.Float(super.x, super.y, super.x, super.y-BARREL_LEN);
         base = new Rectangle2D.Float(super.x - BASE_SIZE /2 , super.y - BASE_SIZE / 2,
                 BASE_SIZE, BASE_SIZE);

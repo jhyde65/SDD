@@ -6,14 +6,8 @@
 package model;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.util.Random;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
-import view.GamePanel;
-
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -23,40 +17,31 @@ public class GolemBoss extends GameFigure
 {
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
-    private final int UNIT_TRAVEL = 5;
-    private int time, counter, top;
-    Random rand;
-    private Image image;
+
     public int health = 30;
-    private float bx, by, tx, ty, sx, sy;
-    private int dx = 5;
-    private int dy = 5;
-    private boolean attack;
-    private double angle;
     
-    private final String imagePath = "..//resources//images//golem_test.png";
+    private final String imagePath = "..//resources//images//golem//";
+    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle;
+    
     
     public GolemBoss(float x, float y)
     {
         super(x,y);
         super.state = new StrongFigureState();
         movement = new StrongGolemStrategy();
-        counter = -1;
-        rand = new Random();
-        time = rand.nextInt(200) + 1;
-        attack = false;
-        top = rand.nextInt(750);
         
-        
-        
-        image = null;
-        
-        try{
-            image = ImageIO.read(getClass().getResource(imagePath));
-        } catch(IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error: Cannot open " + imagePath);
-            System.exit(-1);
-        }
+        BufferedImage[] movingDown = {Sprite.getSprite(imagePath, 0), Sprite.getSprite(imagePath, 1), Sprite.getSprite(imagePath, 8), Sprite.getSprite(imagePath, 10), Sprite.getSprite(imagePath, 16)};
+        BufferedImage[] movingUp = {Sprite.getSprite(imagePath, 2), Sprite.getSprite(imagePath, 5), Sprite.getSprite(imagePath, 9), Sprite.getSprite(imagePath, 13), Sprite.getSprite(imagePath, 17)};
+        BufferedImage[] movingLeft = {Sprite.getSprite(imagePath, 4), Sprite.getSprite(imagePath, 7), Sprite.getSprite(imagePath, 12), Sprite.getSprite(imagePath, 15), Sprite.getSprite(imagePath, 19)};
+        BufferedImage[] movingRight = {Sprite.getSprite(imagePath, 3), Sprite.getSprite(imagePath, 6), Sprite.getSprite(imagePath, 11), Sprite.getSprite(imagePath, 14), Sprite.getSprite(imagePath, 18)};
+        BufferedImage[] idling = {Sprite.getSprite(imagePath, 0), Sprite.getSprite(imagePath, 1)};
+        this.moveDown = new SpriteAnimation(movingDown, 5);
+        this.moveUp = new SpriteAnimation(movingUp, 5);
+        this.moveLeft = new SpriteAnimation(movingLeft, 5);
+        this.moveRight = new SpriteAnimation(movingRight, 5);
+        this.idle = new SpriteAnimation(idling, 5);
+        this.animation = idle;
+        animation.start();
         
     }
         
@@ -64,96 +49,21 @@ public class GolemBoss extends GameFigure
     public void update()
     {
         movement.move(super.x, super.y, this);
-//        bx = super.x;
-//        by = super.y;
-//        
-//        if(state == GameFigureState.STATE_ACTIVE)
-//        {
-//            if(counter < time)
-//            {
-//                bx += dx;
-//                if(bx + WIDTH > GamePanel.width)
-//                {
-//                    dx = -dx;
-//                    bx = GamePanel.width - WIDTH;
-//                }
-//                else if(bx < 0)
-//                {
-//                    dx = -dx;
-//                    bx = 0;
-//                }
-//            }
-//            
-//            else if(attack == false)
-//            {
-//                attack = true;
-//                Rectangle2D target = model.GameData.shooter.getCollisionBox();
-//                Rectangle2D golemStart = this.getCollisionBox();
-//                //Get center of shooter for attack
-//                tx = (float) target.getCenterX();
-//                ty = (float) target.getCenterY();
-//                sx = (float) golemStart.getCenterX();
-//                sy = (float) golemStart.getCenterY();
-//                
-//                angle = Math.atan2(ty - sy, tx - sx);
-//                bx += (float) (UNIT_TRAVEL * Math.cos(angle));
-//                by += (float) (UNIT_TRAVEL * Math.sin(angle));                
-//            }
-//            
-//            else
-//            {
-//                bx += (float) (UNIT_TRAVEL * Math.cos(angle));
-//                by += (float) (UNIT_TRAVEL * Math.sin(angle));
-//                
-//                if(by + HEIGHT > GamePanel.height)
-//                {
-//                    by = GamePanel.height - HEIGHT;
-//                    dy = -dy;
-//                    top = rand.nextInt(GamePanel.height - HEIGHT);
-//                    attack = false;
-//                    counter = -1;
-//                    time = rand.nextInt(200) + 1;
-//                }
-//                else if(bx + WIDTH > GamePanel.width)
-//                {
-//                    dx = -dx;
-//                    bx = GamePanel.width - WIDTH;
-//                    attack = false;
-//                    counter = -1;
-//                    time = rand.nextInt(200) + 1;
-//                    top = rand.nextInt(GamePanel.height - HEIGHT);
-//                }
-//                else if(bx < 0)
-//                {
-//                    dx = -dx;
-//                    bx = 0;
-//                    attack = false;
-//                    counter = -1;
-//                    time = rand.nextInt(200) + 1;
-//                    top = rand.nextInt(GamePanel.height - HEIGHT);
-//                }
-//                else if(by <= top)
-//                {
-//                    by = top;
-//                    dy = -dy;
-//                    counter = -1;
-//                    attack = false;
-//                    time = rand.nextInt(200) + 1;
-//                    top = rand.nextInt(GamePanel.height - HEIGHT);
-//                }
-//            }
-//        }
-//        
-//        super.x = bx;
-//        super.y = by;
-//        counter++;
-
     }
     
     @Override
     public void render(Graphics2D g)
     {
-        g.drawImage(image, (int) super.x, (int) super.y, WIDTH, HEIGHT, null);
+        g.drawImage(animation.getSprite(), (int) super.x, (int) super.y, WIDTH, HEIGHT, null);
+    }
+    
+    public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
+    {
+        if(animation.equals(newAnimation)) return;
+        this.animation.stop();
+        this.animation.reset();
+        this.animation = newAnimation;
+        this.animation.restart();
     }
     
     @Override
@@ -171,21 +81,11 @@ public class GolemBoss extends GameFigure
     }
     
     
-    //Just throwing out some thoughts here, havent tried to implement this yet
-    
-//    public void healthUpdate(int damage)
-//    {
-//        health -= damage;
-//
-//    }
-//    
-//
 // code to implement State design pattern    
     @Override
     public void setState(GameFigureState state)
     {
-        this.state = state;
-        
+        this.state = state;  
     }
     
     @Override
