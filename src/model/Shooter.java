@@ -27,8 +27,6 @@ public class Shooter extends GameFigureWithHealth {
 
     @Override
     public void render(Graphics2D g) {
-        g.setColor(Color.RED);
-        g.drawString("Health: " + currentHealth, 25, 25);
         g.setColor(Color.YELLOW);
         int tx = MainWindow.mouseController.x;
         int ty = MainWindow.mouseController.y;

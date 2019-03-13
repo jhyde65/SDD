@@ -22,6 +22,7 @@ public class GameData {
     public final List<GameFigure> weaponAttackFigures;
     public final List<Border> borders;
     public final List<Inventory> inventory;
+    public final HealthBar health;
     public Pause pauseScreen;
     public static Shooter shooter;
 
@@ -29,6 +30,7 @@ public class GameData {
         enemyFigures = new CopyOnWriteArrayList<>();
         friendFigures = new CopyOnWriteArrayList<>();
         borders = new CopyOnWriteArrayList<>();
+        health = new HealthBar();
         pauseScreen = new Pause();
         inventory = new CopyOnWriteArrayList<>();
         itemFigures = new CopyOnWriteArrayList<>();

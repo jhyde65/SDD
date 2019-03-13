@@ -6,6 +6,8 @@
 package model;
 
 
+import controller.Main;
+
 /**
  *
  * @author Brandy
@@ -29,12 +31,16 @@ public abstract class GameFigureWithHealth extends GameFigure{
         return currentHealth;
     }
     
-    public void takeDamage(int damage){
-        currentHealth-=damage;
+    public void takeDamage(int damage)
+    {
+        currentHealth -= damage;
+        Main.gameData.health.setHealth(currentHealth);
     }
     
-    public void heal(int health){
+    public void heal(int health)
+    {
         currentHealth = (currentHealth + health) % maxHealth;
+        Main.gameData.health.setHealth(currentHealth);
     }
     
     public boolean stillHasHealth(){
