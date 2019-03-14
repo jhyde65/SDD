@@ -71,7 +71,11 @@ public class ItemPotion extends GameFigure{
         // NOTE:
         // Setting state to dead b/c items don't have dying animations.
         // If I didn't do this, the count would be incremented twice in
-        // the collision manager.
+        // the collision manager
+        
+        // goNextState() should call state.goNext(this);
+        // In this case just call state.goNext(this) twice 
+        // The new state creation is handled in the concrete State
         setState(new DoneFigureState());
     }
 

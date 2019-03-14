@@ -19,6 +19,7 @@ public class BButtonAction extends AbstractAction
     public void actionPerformed(ActionEvent e) 
     {
         Main.gameData.enemyFigures.clear();
+        Main.gameData.enemyFiguresWithHealth.clear();
         Main.gameData.addGolem();
     }
     

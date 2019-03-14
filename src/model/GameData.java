@@ -49,8 +49,7 @@ public class GameData {
         borders.add(new Border(0, Main.WIN_HEIGHT-28, Main.WIN_WIDTH, 50)); //bottom border
         generateBorders();
         
-        //enemyFigures.add(new FlyingSaucer(50, 60));
-        //enemyFigures.add(new FlyingSaucer(400, 20));
+
         enemyFiguresWithHealth.add(new SpikeyEnemy(500,500));
         itemFigures.add(new ItemPotion(600,600));
     }
@@ -186,7 +185,7 @@ public class GameData {
                 if(f instanceof ItemPotion){
                 }
                 else{
-                    addPotion(f.getX(),f.getY());
+                    //addPotion(f.getX(),f.getY());
                 }
                 removeEnemies.add(f);
             }
