@@ -52,25 +52,12 @@ public class ItemSlot {
         this.itemStack = item;
     }
     public boolean addItem(Item item, int amount){
-        if(itemStack != null){
-            if(item.getItemType() == itemStack.getItem().getItemType())
-            {
-                this.itemStack.setAmount(this.itemStack.getAmount() + amount);
-                return true;  
-            }
-            else
-            {
-                return false;
-            }
-        } 
-        else{
-            
+        if(itemStack == null){
             this.itemStack = new ItemStack(item,amount);
             return true;
         }
-        
-        }
-    
+        return false;
+    }
         public int getX(){
             return x;
         }
