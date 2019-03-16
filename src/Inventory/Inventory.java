@@ -12,37 +12,40 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import model.GameData;
 import model.GameFigure;
+import model.HealthBar;
+import view.MainWindow;
 
 public class Inventory {
 
-    public boolean isOpen = true;
+    public static boolean isOpen = false;
     public boolean hasBeenPressed = true;
     private int x,y;
-    private int a,b;
+    //private int a,b;
     private int width,height;
+    private static ItemSlot currSelectedSlot;
     
     private int numCols = 6;
     private int numRows = 4;
     
-    public static CopyOnWriteArrayList<ItemSlot> itemSlots;
+    public static ArrayList<ItemSlot> itemSlots;
     
-    private ItemSlot currSelectedSlot;
 
     public Inventory(int x, int y)
     {
         this.x = x;
         this.y = y;
-        itemSlots = new CopyOnWriteArrayList<ItemSlot>();
+        itemSlots = new ArrayList<ItemSlot>();
         
         for(int i = 0; i < numCols; i++){
             for(int j = 0; j < numRows; j++){
                 if(j == (numRows - 1)){
                     y += 35;
                 }
-                
+ 
                 itemSlots.add(new ItemSlot(x+(i*(ItemSlot.SLOTSIZE + 10)),y+(j*(ItemSlot.SLOTSIZE + 10)),null));
                 
                 if(j == (numRows - 1)){
@@ -58,46 +61,28 @@ public class Inventory {
         }
     }
     
-    public void mouseClicked(MouseEvent me) { 
-          a = me.getX();
-          b = me.getY();
-        }
-    
-    public void update(){
-        
+    public static void update(){
         if(isOpen){
-            Rectangle temp = new Rectangle(a,b,1,1);
-            for(ItemSlot is : itemSlots){
+            Rectangle temp = new Rectangle(MainWindow.mouseController.x,MainWindow.mouseController.y,1,1);
+            for(int i = 0; i < itemSlots.size(); i++){
+                ItemSlot is = itemSlots.get(i);
                 is.update();
-                
                 Rectangle temp2;
                 temp2 = new Rectangle(is.getX(), is.getY(), ItemSlot.SLOTSIZE, ItemSlot.SLOTSIZE);
-                if(!hasBeenPressed){    
+    
                 if(temp2.contains(temp)){
-                    if(is.getItemStack() != null){
-                        if(currSelectedSlot == null){
-                            currSelectedSlot = is;
-                            
-                            is.setItem(null);  
-                        }
-                    }else{
-                        if(currSelectedSlot != null){
-                            if(is.addItem(currSelectedSlot.getItemStack().getItem(), currSelectedSlot.getItemStack().getAmount())){
-                                
-                            }else{
-                                is.setItem(currSelectedSlot.getItemStack());
-                            }
-                            
-                            currSelectedSlot = null;
-                        }
+                    if(is.getItemStack() != null)
+                    {
+                        Animator.counter = Animator.counter - 1;
+                        is.setItem(null);
+                        HealthBar.health = 100;
+                        
                     }
                 }
             }
-            }
-            if(hasBeenPressed){
-                hasBeenPressed = false;
-            }
         }
+        
+
     }
     
     public void render(Graphics2D g){
@@ -111,12 +96,14 @@ public class Inventory {
         }
         
         if(currSelectedSlot != null){
-            g.drawImage(currSelectedSlot.getItemStack().getItem().texture, a,b,null);
+            g.drawImage(currSelectedSlot.getItemStack().getItem().texture, x,y,null);
         }
     }
     }
+    /*
     public static void addItem(int i) {
         if(i==1)
         Inventory.itemSlots.get(0).addItem(new Potion() ,1);
     }
+*/
 }

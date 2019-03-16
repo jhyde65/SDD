@@ -5,7 +5,7 @@ import java.awt.geom.RoundRectangle2D;
 
 public class HealthBar
 {
-    private double health;
+    public static double health;
     private int healthBorderWidth;
     private int x;
     private int y;

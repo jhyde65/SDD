@@ -1,5 +1,6 @@
 package controller;
 
+import Inventory.Inventory;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +27,10 @@ public class MouseController extends MouseAdapter {
                 Color.RED);
 
         Main.gameData.friendFigures.add(m);
+        
+        if(Inventory.isOpen){
+            Inventory.update();
+        }
 
     }
 

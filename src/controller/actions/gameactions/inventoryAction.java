@@ -5,10 +5,12 @@
  */
 package controller.actions.gameactions;
 
+import Inventory.Inventory;
 import controller.GameState;
 import controller.Main;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
+import model.HealthBar;
 
 /**
  * Shortcut to GolemBoss, removes all enemies adds Golem, used for dev of GolemBoss
@@ -21,11 +23,14 @@ public class inventoryAction extends AbstractAction
     {
         GameState.setInventory();
         if(GameState.isInventory()){
+        Inventory.isOpen = true;
         Main.gameData.addInventory();
         }
         else
         {
+            Inventory.isOpen = false;
             Main.gameData.removeInventory();
+      
         }
     }
     
