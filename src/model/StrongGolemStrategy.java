@@ -19,8 +19,8 @@ import view.GamePanel;
 
 public class StrongGolemStrategy implements Strategy
 {
-    private int dx = 5;
-    private int dy = 5;
+    private int dx = 3;
+    private int dy = 3;
     private int counter, rangeCounter;
     private int time, ranged;
     private int top;
@@ -36,7 +36,7 @@ public class StrongGolemStrategy implements Strategy
         rangeCounter = -1;
         rand = new Random();
         time = rand.nextInt(200) +1;
-        ranged = rand.nextInt(80) + 30;
+        ranged = rand.nextInt(120) + 30;
         sx = 0;
         sy = 0;
         zoom = false;
@@ -61,14 +61,14 @@ public class StrongGolemStrategy implements Strategy
             Smash s = new Smash(golemCenter.x, golemCenter.y, heroX, heroY, distance);
             Main.gameData.enemyFigures.add(s);
             rangeCounter = -1;
-            ranged = rand.nextInt(80) + 30;
+            ranged = rand.nextInt(120) + 30;
         }
         else if(rangeCounter == ranged)
         {
             Rock r = new Rock(sx, sy, heroX, heroY);
             Main.gameData.enemyFigures.add(r);
             rangeCounter = -1;
-            ranged = rand.nextInt(80) + 30;
+            ranged = rand.nextInt(120) + 30;
         }
         
         if(!zoom)
@@ -138,10 +138,8 @@ public class StrongGolemStrategy implements Strategy
         //set the new position of the GameFigure
       context.setPosition(sx, sy);
       golem.animation.update();
-      //context.x = sx;
-      //context.y = sy;
-        counter++;
-        rangeCounter++;
+      counter++;
+      rangeCounter++;
         
     }
 }

@@ -20,8 +20,8 @@ import view.GamePanel;
  */
 public class GolemStrategy implements Strategy
 {
-    private int dx = 3;
-    private int dy = 3;
+    private int dx = 5;
+    private int dy = 5;
     private int counter, rangeCounter;
     private int time, ranged;
     private int top;
@@ -36,8 +36,8 @@ public class GolemStrategy implements Strategy
         counter = -1;
         rangeCounter = -1;
         rand = new Random();
-        time = rand.nextInt(200) + 1;
-        ranged = rand.nextInt(80) + 30;
+        time = rand.nextInt(250) + 1;
+        ranged = rand.nextInt(70) + 30;
         sx = 0;
         sy = 0;
         zoom = false;
@@ -68,7 +68,7 @@ public class GolemStrategy implements Strategy
             Rock r = new Rock(sx, sy, heroX, heroY);
             Main.gameData.enemyFigures.add(r);
             rangeCounter = -1;
-            ranged = rand.nextInt(80) + 30;
+            ranged = rand.nextInt(70) + 30;
         }
         
         if(!zoom)
