@@ -86,7 +86,7 @@ public class Gunshot extends GameFigure {
                 //state = GameFigureState.STATE_DYING;
             }
         } else if (state instanceof DieingFigureState) {
-        //else if (state == GameFigureState.STATE_DYING) {    
+        //else if (state == GameFiguretate.STATE_DYING) {    
             if (size >= MAX_EXPLOSION_SIZE) {
                     goNextState();
                    // state = GameFigureState.STATE_DONE;

@@ -11,5 +11,7 @@ public class RightArrowAction extends AbstractAction
     public void actionPerformed(ActionEvent e) {
         Shooter sh = Main.gameData.shooter;
         sh.translate(10, 0);
+        sh.setAnimation(sh.animation, sh.moveRight);
+        sh.animation.update();
     }
 }

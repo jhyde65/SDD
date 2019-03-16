@@ -39,9 +39,9 @@ public class GameData {
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
         // we cannot use GamePanel.width and height.
-        shooter = new Shooter(Main.WIN_WIDTH / 2, Main.WIN_HEIGHT - 80);
+        shooter = new Shooter(Main.WIN_WIDTH / 2, Main.WIN_HEIGHT - 150);
 
-        //friendFigures.add(shooter);
+        friendFigures.add(shooter);
 
         borders.add(new Border(-51, 0, 50, Main.WIN_HEIGHT)); // left border
         borders.add(new Border(0, -51, Main.WIN_WIDTH, 50)); // top border

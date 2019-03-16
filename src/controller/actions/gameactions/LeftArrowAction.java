@@ -11,5 +11,7 @@ public class LeftArrowAction extends AbstractAction
     public void actionPerformed(ActionEvent e) {
         Shooter sh = Main.gameData.shooter;
         sh.translate(-10, 0);
+        sh.setAnimation(sh.animation, sh.moveLeft);
+        sh.animation.update();        
     }
 }

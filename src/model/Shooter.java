@@ -1,117 +1,107 @@
 package model;
 
 import controller.Main;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-import view.MainWindow;
+import java.awt.image.BufferedImage;
 
-public class Shooter extends GameFigureWithHealth {
+/**
+ *
+ * @author Kufre
+ */
+public class Shooter extends GameFigureWithHealth
+{
+    private final int HEIGHT = 100;
+    private final int WIDTH = 75;
+    private final String PATH = "..//resources//images//hero//";
+    public int health;
+    public float dx;
+    public float dy;
+    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle;
     
-    Line2D.Float barrel;
-    Rectangle2D.Float base;
-    private final int BARREL_LEN = 20;
-    private final int BASE_SIZE = 20;
-
-    public Shooter(int x, int y) {
+    public Shooter(float x, float y)
+    {
         super(x, y);
         super.state = new StrongFigureState();
-        barrel = new Line2D.Float(super.x, super.y, super.x, super.y-BARREL_LEN);
-        base = new Rectangle2D.Float(super.x - BASE_SIZE /2 , super.y - BASE_SIZE / 2,
-                BASE_SIZE, BASE_SIZE);
-        movement = new CannotPassBorderStrategy();
+        //strategy = new MonsterWalkingStrategy();
+        BufferedImage[] movingUp = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2), 
+                                    Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4) };
+        BufferedImage[] movingDown = {Sprite.getSprite(PATH, 5), Sprite.getSprite(PATH, 6), Sprite.getSprite(PATH, 7),
+                                      Sprite.getSprite(PATH, 8), Sprite.getSprite(PATH, 9)};
+        BufferedImage[] movingRight = {Sprite.getSprite(PATH, 10), Sprite.getSprite(PATH, 11), Sprite.getSprite(PATH, 12),
+                                       Sprite.getSprite(PATH, 13), Sprite.getSprite(PATH, 14),Sprite.getSprite(PATH, 15), 
+                                       Sprite.getSprite(PATH, 16), Sprite.getSprite(PATH, 17)};
+        BufferedImage[] movingLeft = {Sprite.getSprite(PATH, 18), Sprite.getSprite(PATH, 19), Sprite.getSprite(PATH, 20),
+                                       Sprite.getSprite(PATH, 21), Sprite.getSprite(PATH, 22),Sprite.getSprite(PATH, 23), 
+                                       Sprite.getSprite(PATH, 24), Sprite.getSprite(PATH, 25)};
+        BufferedImage[] idling = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1)};
+            
+        
+        this.moveDown = new SpriteAnimation(movingDown, 5);
+        this.moveLeft = new SpriteAnimation(movingLeft, 5);
+        this.moveRight = new SpriteAnimation(movingRight, 5);
+        this.moveUp = new SpriteAnimation(movingUp, 5);
+        this.idle = new SpriteAnimation(idling, 5);
+        this.animation = idle;
+        animation.start();
+    }
+    
+    public void translate(int x, int y){
+        this.x += x;
+        this.y += y;
+    }
+    
+    public void shoot(int targetX, int targetY){
+       Gunshot m = new Gunshot( this.x + WIDTH/2, this.y + HEIGHT/2, targetX, targetY, Color.RED);
+       Main.gameData.friendFigures.add(m);
     }
 
     @Override
-    public void render(Graphics2D g) {
-        g.setColor(Color.YELLOW);
-        int tx = MainWindow.mouseController.x;
-        int ty = MainWindow.mouseController.y;
-        double rad = Math.atan2(ty - super.y, tx - super.x);
-        int bendy = (int)(BARREL_LEN * Math.sin(rad));
-        int bendx = (int)(BARREL_LEN * Math.cos(rad));
-        barrel.x1 = super.x;
-        barrel.y1 = super.y;
-        barrel.x2 = super.x + bendx;
-        barrel.y2 = super.y + bendy;
-        g.setStroke(new BasicStroke(7)); // thickness of the line
-        g.draw(barrel);
-        g.draw(base);
-        
-        // TESTING ONLY -- shows the collision box
-        //g.setColor(Color.RED);
-        //g.setStroke(new BasicStroke(2)); // thickness of the line
-        //g.draw(getCollisionBox());
+    public void render(Graphics2D g)
+    {
+        g.drawImage(animation.getSprite(), (int)super.x, (int)super.y, WIDTH, HEIGHT, null);
     }
 
     @Override
-    public void update() {
-        // no periodic update is required (not animated)
-        // if health level is implemented, update level
-        // update is done via 'translate' when a key is pressed
+    public void update()
+    {
+
+    }
+    
+    public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
+    {
+        if (animation.equals(newAnimation)) return;
+        this.animation.stop();
+        this.animation.reset();
+        this.animation = newAnimation;
+        this.animation.restart();
     }
 
-    public void translate(int dx, int dy) {
-        //movement.move(dx, dy, this);
-        barrel.x1 += dx;
-        barrel.x2 += dx;
-        barrel.y1 += dy;
-        barrel.y2 += dy;
-        super.x = barrel.x1;
-        super.y = barrel.y1;
-        base.x += dx;
-        base.y += dy;
-       
-        
-        //check if translation is going to take 
-        //actor out of the scene       
-        if(
-           super.x < Main.gamePanel.getLocation().x ||
-           (super.x + BASE_SIZE) > (Main.gamePanel.getLocation().x + Main.gamePanel.getSize().width)||
-           super.y < Main.gamePanel.getLocation().y||
-           (super.y + BASE_SIZE) > (Main.gamePanel.getLocation().y + Main.gamePanel.getSize().height)
-
-          ){
-            //revert the translation
-            super.x -= dx;
-            super.y -= dy;
-            base.x -= dx;
-            base.y -= dy;
-        }
-    }
-    
-    // Missile shoot location: adjut x and y to the image
-    public float getXofMissileShoot() {
-        return barrel.x2;
-    }
-    
-    public float getYofMissileShoot() {
-        return barrel.y2;
-    }
-    
-        @Override
+    @Override
     public Rectangle2D.Float getCollisionBox()
     {
-        return base;
+        //return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
+        return new Rectangle2D.Float(0, 0, 1, 1);
     }
-    
-    @Override
-    public void goNextState()
-    {
-        // Will be modified later
-        //state.goNext(this);
-    }
-    
+
     @Override
     public void setState(GameFigureState state)
     {
         this.state = state;
     }
-    
-    @Override
-    public void setPosition(float x, float y) { }
-    
 
+    @Override
+    public void goNextState()
+    {
+        state.goNext(this);
+    }
+
+    @Override
+    public void setPosition(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    
 }

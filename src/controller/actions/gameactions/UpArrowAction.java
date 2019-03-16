@@ -17,6 +17,8 @@ public class UpArrowAction extends AbstractAction
         {
             Shooter sh = Main.gameData.shooter;
             sh.translate(0, -10);
+            sh.setAnimation(sh.animation, sh.moveUp);
+            sh.animation.update();
         }
         else
         {
