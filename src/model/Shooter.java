@@ -81,8 +81,8 @@ public class Shooter extends GameFigureWithHealth
     @Override
     public Rectangle2D.Float getCollisionBox()
     {
-        //return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
-        return new Rectangle2D.Float(0, 0, 1, 1);
+        return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
+        //return new Rectangle2D.Float(0, 0, 1, 1);
     }
 
     @Override
