@@ -30,26 +30,28 @@ public class MonsterWalkingStrategy implements Strategy
     
     private void updateAnimationOnPositionChange(MonsterEnemy monster, float x, float y)
     {
-        if ((GameData.shooter.x > x && GameData.shooter.y > y && Math.abs(GameData.shooter.y - y) > Math.abs(GameData.shooter.x - x))
-           || (GameData.shooter.x < x && GameData.shooter.y > y && Math.abs(GameData.shooter.y - y) > Math.abs(GameData.shooter.x - x)))
+        float shx = GameData.shooter.x;
+        float shy = GameData.shooter.y;
+        if ((shx > x && shy > y && Math.abs(shy - y) > Math.abs(shx - x))
+           || (shx < x && shy > y && Math.abs(shy - y) > Math.abs(shx - x)))
         {
             monster.setAnimation(monster.animation, monster.moveDown);
             monster.animation.update();
         }
-        if ((GameData.shooter.x > x && GameData.shooter.y > y && Math.abs(GameData.shooter.y - y) < Math.abs(GameData.shooter.x - x))
-           || (GameData.shooter.x > x && GameData.shooter.y < y && Math.abs(GameData.shooter.y - y) < Math.abs(GameData.shooter.x - x)))
+        if ((shx > x && shy > y && Math.abs(shy - y) < Math.abs(shx - x))
+           || (shx > x && shy < y && Math.abs(shy - y) < Math.abs(shx - x)))
         {
             monster.setAnimation(monster.animation, monster.moveRight);
             monster.animation.update();
         }
-        if ((GameData.shooter.x < x && GameData.shooter.y < y && Math.abs(GameData.shooter.y - y) > Math.abs(GameData.shooter.x - x))
-           || (GameData.shooter.x > x && GameData.shooter.y < y && Math.abs(GameData.shooter.y - y) > Math.abs(GameData.shooter.x - x)))
+        if ((shx < x && shy < y && Math.abs(shy - y) > Math.abs(shx - x))
+           || (shx > x && shy < y && Math.abs(shy - y) > Math.abs(shx - x)))
         {
             monster.setAnimation(monster.animation, monster.moveUp);
             monster.animation.update();
         }
-        if ((GameData.shooter.x < x && GameData.shooter.y > y && Math.abs(GameData.shooter.y - y) < Math.abs(GameData.shooter.x - x))
-           || (GameData.shooter.x < x && GameData.shooter.y < y && Math.abs(GameData.shooter.y - y) < Math.abs(GameData.shooter.x - x)))
+        if ((shx < x && shy > y && Math.abs(shy - y) < Math.abs(shx - x))
+           || (shx < x && shy < y && Math.abs(shy - y) < Math.abs(shx - x)))
         {
             monster.setAnimation(monster.animation, monster.moveLeft);
             monster.animation.update();
