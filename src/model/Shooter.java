@@ -106,14 +106,14 @@ public class Shooter extends GameFigureWithHealth
     @Override
     public void takeDamage(int damage)
     {
-        currentHealth -= damage;
+        super.takeDamage(damage);
         Main.gameData.health.setHealth(currentHealth);
     }
     
     @Override
     public void heal(int health)
     {
-        currentHealth = (currentHealth + health) % maxHealth;
+        super.heal(health);
         Main.gameData.health.setHealth(currentHealth);
     }
     
