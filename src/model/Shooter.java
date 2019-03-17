@@ -45,6 +45,7 @@ public class Shooter extends GameFigureWithHealth
         this.idle = new SpriteAnimation(idling, 5);
         this.animation = idle;
         animation.start();
+        currentHealth = 100;
     }
     
     public void translate(int x, int y){
@@ -96,6 +97,7 @@ public class Shooter extends GameFigureWithHealth
         state.goNext(this);
     }
 
+
     @Override
     public void setPosition(float x, float y)
     {
@@ -105,6 +107,20 @@ public class Shooter extends GameFigureWithHealth
     
     @Override
     public void takeDamage(int damage)
+    {
+        System.out.println("+++++++++++++++++++++ booiiiiiiii");
+        currentHealth -= damage;
+        Main.gameData.health.setHealth(currentHealth);
+    }
+
+    public void heal(int health)
+    {
+        currentHealth = (currentHealth + health) % maxHealth;
+        Main.gameData.health.setHealth(currentHealth);
+    }
+
+    @Override
+    public void setState(GameFigureState state)
     {
         super.takeDamage(damage);
         Main.gameData.health.setHealth(currentHealth);
