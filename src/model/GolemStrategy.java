@@ -36,7 +36,7 @@ public class GolemStrategy implements Strategy
         counter = -1;
         rangeCounter = -1;
         rand = new Random();
-        time = rand.nextInt(250) + 1;
+        time = rand.nextInt(250) + 30;
         ranged = rand.nextInt(70) + 30;
         sx = 0;
         sy = 0;
@@ -61,7 +61,7 @@ public class GolemStrategy implements Strategy
             Smash s = new Smash(golemCenter.x, golemCenter.y, heroX, heroY, distance);
             Main.gameData.enemyFigures.add(s);
             rangeCounter = -1;
-            ranged = rand.nextInt(80) + 30;
+            ranged = rand.nextInt(70) + 30;
         }
         else if(rangeCounter == ranged)
         {
@@ -130,7 +130,7 @@ public class GolemStrategy implements Strategy
                 sy = top;
                 dy = -dy;
                 counter = -1;
-                time = rand.nextInt(200) + 1;
+                time = rand.nextInt(250) + 30;
                 zoom = false;
             }
         }

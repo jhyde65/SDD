@@ -96,7 +96,7 @@ public class Rock extends GameFigure
             double distance = hero.distance(super.x, super.y);
             if(distance <= 5) {
                 goNextState();
-                setAnimation(this.animation, exploding);
+                //setAnimation(this.animation, exploding);
                // System.out.println("Target reached, go Next state");
             }
         } else if(state instanceof DieingFigureState) {
@@ -115,6 +115,8 @@ public class Rock extends GameFigure
     @Override
     public void goNextState() {
         state.goNext(this);
+        if(state instanceof DieingFigureState)
+            setAnimation(this.animation, exploding);
     }
 
     @Override
@@ -125,7 +127,10 @@ public class Rock extends GameFigure
 
     @Override
     public Rectangle2D getCollisionBox() {
-        return new Rectangle2D.Float(x, y, rockSize, rockSize); 
+        if(state instanceof DieingFigureState)
+            return new Rectangle2D.Float(-50, -50, 0, 0);
+        else
+            return new Rectangle2D.Float(x, y, rockSize, rockSize); 
     }
     
     

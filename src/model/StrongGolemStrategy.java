@@ -36,7 +36,7 @@ public class StrongGolemStrategy implements Strategy
         rangeCounter = -1;
         rand = new Random();
         time = rand.nextInt(200) +1;
-        ranged = rand.nextInt(120) + 30;
+        ranged = rand.nextInt(120) + 50;
         sx = 0;
         sy = 0;
         zoom = false;
@@ -61,14 +61,14 @@ public class StrongGolemStrategy implements Strategy
             Smash s = new Smash(golemCenter.x, golemCenter.y, heroX, heroY, distance);
             Main.gameData.enemyFigures.add(s);
             rangeCounter = -1;
-            ranged = rand.nextInt(120) + 30;
+            ranged = rand.nextInt(150) + 30;
         }
         else if(rangeCounter == ranged)
         {
             Rock r = new Rock(sx, sy, heroX, heroY);
             Main.gameData.enemyFigures.add(r);
             rangeCounter = -1;
-            ranged = rand.nextInt(120) + 30;
+            ranged = rand.nextInt(150) + 30;
         }
         
         if(!zoom)
