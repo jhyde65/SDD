@@ -61,14 +61,14 @@ public class StrongGolemStrategy implements Strategy
             Smash s = new Smash(golemCenter.x, golemCenter.y, heroX, heroY, distance);
             Main.gameData.enemyFigures.add(s);
             rangeCounter = -1;
-            ranged = rand.nextInt(150) + 30;
+            ranged = rand.nextInt(120) + 50;
         }
         else if(rangeCounter == ranged)
         {
             Rock r = new Rock(sx, sy, heroX, heroY);
             Main.gameData.enemyFigures.add(r);
             rangeCounter = -1;
-            ranged = rand.nextInt(150) + 30;
+            ranged = rand.nextInt(120) + 50;
         }
         
         if(!zoom)

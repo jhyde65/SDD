@@ -103,7 +103,10 @@ public class Missile extends GameFigure {
         @Override
     public Rectangle2D.Float getCollisionBox()
     {
-        return new Rectangle2D.Float(x - size/2, y - size/2, size*.9F, size*.9F);
+        if(state instanceof DieingFigureState)
+            return new Rectangle2D.Float(-50, -50, 0, 0);
+        else
+            return new Rectangle2D.Float(x - size/2, y - size/2, size*.9F, size*.9F);
     }
     
     @Override

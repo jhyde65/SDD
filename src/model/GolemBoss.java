@@ -17,8 +17,9 @@ public class GolemBoss extends GameFigure
 {
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
-
+    private int delay;
     public int health = 30;
+    private boolean hit;
     
     private final String imagePath = "..//resources//images//golem//";
     public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, dieing;
@@ -29,6 +30,7 @@ public class GolemBoss extends GameFigure
         super(x,y);
         super.state = new StrongFigureState();
         movement = new StrongGolemStrategy();
+        hit = false;
         
         BufferedImage[] movingDown = {Sprite.getSprite(imagePath, 0), Sprite.getSprite(imagePath, 1), Sprite.getSprite(imagePath, 8), Sprite.getSprite(imagePath, 10), Sprite.getSprite(imagePath, 16)};
         BufferedImage[] movingUp = {Sprite.getSprite(imagePath, 2), Sprite.getSprite(imagePath, 5), Sprite.getSprite(imagePath, 9), Sprite.getSprite(imagePath, 13), Sprite.getSprite(imagePath, 17)};
@@ -53,6 +55,7 @@ public class GolemBoss extends GameFigure
     public void update()
     {
         movement.move(super.x, super.y, this);
+        delay++;
     }
     
     @Override
@@ -84,6 +87,10 @@ public class GolemBoss extends GameFigure
         {
             return new Rectangle2D.Float(-50, -50, 0, 0);
         }
+        else if(hit == true && delay < 100)
+        {
+            return new Rectangle2D.Float(-50, -50, 0, 0);
+        }
         else
         {
             return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
@@ -106,6 +113,8 @@ public class GolemBoss extends GameFigure
         {
             movement = new GolemStrategy();
             state.goNext(this);
+            hit = true;
+            delay = 0;
         }
         else if(state instanceof ActiveFigureState)
         {  
