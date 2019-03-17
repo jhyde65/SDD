@@ -34,13 +34,11 @@ public abstract class GameFigureWithHealth extends GameFigure{
     public void takeDamage(int damage)
     {
         currentHealth -= damage;
-        Main.gameData.health.setHealth(currentHealth);
     }
     
     public void heal(int health)
     {
         currentHealth = (currentHealth + health) % maxHealth;
-        Main.gameData.health.setHealth(currentHealth);
     }
     
     public boolean stillHasHealth(){
