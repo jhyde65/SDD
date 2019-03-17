@@ -14,6 +14,7 @@ public class Shooter extends GameFigureWithHealth {
     Rectangle2D.Float base;
     private final int BARREL_LEN = 20;
     private final int BASE_SIZE = 20;
+    private int currentHealth;
 
     public Shooter(int x, int y) {
         super(x, y);
@@ -23,6 +24,7 @@ public class Shooter extends GameFigureWithHealth {
         base = new Rectangle2D.Float(super.x - BASE_SIZE /2 , super.y - BASE_SIZE / 2,
                 BASE_SIZE, BASE_SIZE);
         movement = new CannotPassBorderStrategy();
+        currentHealth = 100;
     }
 
     @Override
@@ -104,7 +106,21 @@ public class Shooter extends GameFigureWithHealth {
         // Will be modified later
         //state.goNext(this);
     }
-    
+
+    @Override
+    public void takeDamage(int damage)
+    {
+        System.out.println("+++++++++++++++++++++ booiiiiiiii");
+        currentHealth -= damage;
+        Main.gameData.health.setHealth(currentHealth);
+    }
+
+    public void heal(int health)
+    {
+        currentHealth = (currentHealth + health) % maxHealth;
+        Main.gameData.health.setHealth(currentHealth);
+    }
+
     @Override
     public void setState(GameFigureState state)
     {
