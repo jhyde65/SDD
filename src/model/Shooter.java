@@ -24,7 +24,7 @@ public class Shooter extends GameFigureWithHealth
     {
         super(x, y);
         super.state = new StrongFigureState();
-        //strategy = new MonsterWalkingStrategy();
+        movement = new CannotPassBorderStrategy();
         BufferedImage[] movingUp = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2), 
                                     Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4) };
         BufferedImage[] movingDown = {Sprite.getSprite(PATH, 5), Sprite.getSprite(PATH, 6), Sprite.getSprite(PATH, 7),
@@ -48,8 +48,7 @@ public class Shooter extends GameFigureWithHealth
     }
     
     public void translate(int x, int y){
-        this.x += x;
-        this.y += y;
+        movement.move(x, y, this);
     }
     
     public void shoot(int targetX, int targetY){
@@ -66,7 +65,7 @@ public class Shooter extends GameFigureWithHealth
     @Override
     public void update()
     {
-
+        
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)

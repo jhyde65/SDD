@@ -16,14 +16,14 @@ import view.GamePanel;
 public class CannotPassBorderStrategy implements Strategy {
 
     // TODO: Add this to GameFigure instead of a class-by-class basis
-    private final int HEIGHT = 20;
-    private final int WIDTH = 20;
+    private final int HEIGHT = 100;
+    private final int WIDTH = 75;
     
     public CannotPassBorderStrategy(){
         
     }
     
-    // NOTE ------------------------------------------------------
+    // NOTE ---------------------- RTFM -----------------------------
     // This strategy takes the future positional increment
     // then determines which direction it object is going
     // (THIS DOESN'T WORK WITH DIAGONAL DIRECTIONS!!!!!).
