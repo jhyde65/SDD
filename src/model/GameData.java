@@ -41,7 +41,7 @@ public class GameData {
         // we cannot use GamePanel.width and height.
         shooter = new Shooter(Main.WIN_WIDTH / 2, Main.WIN_HEIGHT - 150);
 
-        friendFigures.add(shooter);
+        //friendFigures.add(shooter);
 
         borders.add(new Border(-51, 0, 50, Main.WIN_HEIGHT)); // left border
         borders.add(new Border(0, -51, Main.WIN_WIDTH, 50)); // top border
@@ -199,7 +199,7 @@ public class GameData {
     }
     
     private void generateBorders(){
-        borders.add(new Border(150, 0, 100, 20));
-        borders.add(new Border(500, Main.WIN_HEIGHT-28 - 50, 35, 50));
+        borders.add(new Border(400, 0, 100, 50));
+        borders.add(new Border(700, Main.WIN_HEIGHT-28 - 50, 35, 50));
     }
 }
