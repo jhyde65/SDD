@@ -18,7 +18,9 @@ public class Shooter extends GameFigureWithHealth
     public int health;
     public float dx;
     public float dy;
-    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle;
+    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strike;
+    private boolean isStrike = false;
+    private int frameCounter = 0;
     
     public Shooter(float x, float y)
     {
@@ -35,6 +37,9 @@ public class Shooter extends GameFigureWithHealth
         BufferedImage[] movingLeft = {Sprite.getSprite(PATH, 18), Sprite.getSprite(PATH, 19), Sprite.getSprite(PATH, 20),
                                        Sprite.getSprite(PATH, 21), Sprite.getSprite(PATH, 22),Sprite.getSprite(PATH, 23), 
                                        Sprite.getSprite(PATH, 24), Sprite.getSprite(PATH, 25)};
+        BufferedImage[] striking = {Sprite.getSprite(PATH, 26), Sprite.getSprite(PATH, 27), Sprite.getSprite(PATH, 28),
+                                  Sprite.getSprite(PATH, 29), Sprite.getSprite(PATH, 30),Sprite.getSprite(PATH, 31), 
+                                  Sprite.getSprite(PATH, 32), Sprite.getSprite(PATH, 33), Sprite.getSprite(PATH, 34)};
         BufferedImage[] idling = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1)};
             
         
@@ -43,6 +48,7 @@ public class Shooter extends GameFigureWithHealth
         this.moveRight = new SpriteAnimation(movingRight, 5);
         this.moveUp = new SpriteAnimation(movingUp, 5);
         this.idle = new SpriteAnimation(idling, 5);
+        this.strike = new SpriteAnimation(striking, 2);
         this.animation = idle;
         animation.start();
         currentHealth = 100;
@@ -57,6 +63,9 @@ public class Shooter extends GameFigureWithHealth
        Main.gameData.friendFigures.add(m);
     }
 
+    public void strike(){
+        isStrike = true;
+    }
     @Override
     public void render(Graphics2D g)
     {
@@ -66,7 +75,17 @@ public class Shooter extends GameFigureWithHealth
     @Override
     public void update()
     {
-        
+        //this.animation.update();
+        if(isStrike){
+            this.setAnimation(animation, strike);
+            this.animation.update();
+            
+            frameCounter++;
+            if(frameCounter >= 20){
+                frameCounter = 0;
+                isStrike = false;
+            }
+        }
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)

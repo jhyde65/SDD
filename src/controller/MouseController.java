@@ -18,9 +18,15 @@ public class MouseController extends MouseAdapter {
 
         int px = me.getX();
         int py = me.getY();
-
         Shooter shooter = Main.gameData.shooter;
-        shooter.shoot(px, py);
+        
+        if(me.getButton() == MouseEvent.BUTTON1){ 
+            shooter.shoot(px, py);
+        }
+        
+        if(me.getButton() == MouseEvent.BUTTON3){
+            shooter.strike();
+        }
     }
 
     @Override
