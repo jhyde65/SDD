@@ -1,6 +1,6 @@
 package controller;
 
-public class GameState
+public class GameStaticState
 {
     private static boolean isSplash;
 
@@ -12,12 +12,12 @@ public class GameState
 
     public static void setPaused()
     {
-        GameState.PAUSED = !PAUSED;
+        GameStaticState.PAUSED = !PAUSED;
     }
 
     public static void setInventory()
     {
-        GameState.inv = !inv;
+        GameStaticState.inv = !inv;
     }
     
     public static boolean isInventory()
@@ -35,6 +35,6 @@ public class GameState
     }
 
     public static void setIsFading(boolean isFading) {
-        GameState.isFading = isFading;
+        GameStaticState.isFading = isFading;
     }
 }

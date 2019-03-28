@@ -66,7 +66,10 @@ public class Shooter extends GameFigureWithHealth
     @Override
     public void update()
     {
-        
+        if (currentHealth <= 0)
+        {
+            Main.gameData.setGameState(new GameOverState());
+        }
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
@@ -108,8 +111,7 @@ public class Shooter extends GameFigureWithHealth
     @Override
     public void takeDamage(int damage)
     {
-        System.out.println("+++++++++++++++++++++ booiiiiiiii");
-        currentHealth -= damage;
+        currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
         Main.gameData.health.setHealth(currentHealth);
     }
 

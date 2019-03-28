@@ -1,15 +1,22 @@
 package view;
 
 import Inventory.Inventory;
+import controller.AudioPlayer;
 import controller.Main;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import controller.actions.gameactions.*;
-import model.GameFigure;
-import model.Shooter;
+import model.*;
 import controller.actions.gameactions.DownArrowAction;
 import controller.actions.gameactions.LeftArrowAction;
 import controller.actions.gameactions.RightArrowAction;
@@ -18,8 +25,6 @@ import controller.actions.gameactions.BButtonAction;
 import controller.actions.gameactions.inventoryAction;
 import controller.actions.gameactions.KButtonAction;
 import controller.actions.gameactions.MButtonAction;
-
-import model.Border;
 
 public class GamePanel extends JPanel {
 
@@ -30,13 +35,34 @@ public class GamePanel extends JPanel {
     // off screen rendering
     private Graphics2D g2;
     private Image dbImage = null; // double buffer image
+    private InputMap inputMap;
+    private ActionMap actionMap;
+    private Image background;
+
+    private Timer gameOverTimer;
+    private ActionListener gameOverAction;
+    private float alphaLevel;
+    private Composite comp;
+
+    private AudioPlayer gameOverSong;
 
     public GamePanel()
     {
         // Key bindings for Game Panel.
         // All Actions contained in controller.actions.gameactions
-        InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = getActionMap();
+        this.inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
+        this.actionMap = getActionMap();
+
+        this.gameOverSong = new AudioPlayer("src/view/resources/Audio/uded.wav", 1.0);
+
+        try
+        {
+            background = ImageIO.read(getClass().getResource("resources/splashscreen/gameoverimg.png"));
+        }
+        catch (Exception e)
+        {
+            System.exit(0);
+        }
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), "LEFT");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), "RIGHT");
@@ -64,6 +90,17 @@ public class GamePanel extends JPanel {
         actionMap.put("PAUSE", new PauseAction());
         actionMap.put("ENTER", new PauseEnterAction());
         actionMap.put("MonsterEnemy", new MButtonAction());
+
+        this.gameOverTimer = null;
+        this.alphaLevel = 1.0f;
+
+        this.gameOverAction = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        };
+
     }
 
 
@@ -116,10 +153,37 @@ public class GamePanel extends JPanel {
                 b.render(g2);
             }
 
+            if (Main.gameData.getGameState() == State.OVER && gameOverTimer == null)
+            {
+                this.gameOverSong.play();
+                this.gameOverTimer = new Timer(5000, this.gameOverAction);
+                this.gameOverTimer.setRepeats(false);
+                this.gameOverTimer.start();
+                this.actionMap.clear();
+                this.inputMap.clear();
+            }
+
+            if (Main.gameData.getGameState() == State.OVER)
+            {
+                runGameOver(this.g2);
+            }
         }
         
         // TESTING ONLY
         //renderBordersDebug();
+    }
+
+    private void runGameOver(Graphics2D g2)
+    {
+        this.comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)this.alphaLevel);
+        g2.setComposite(comp);
+        g2.drawImage(background, (height/2) + 65, (width/2) - 400, 300, 300, null);
+
+
+        if (this.alphaLevel > 0.02)
+        {
+            this.alphaLevel -= 0.006f;
+        }
     }
 
     public void renderPauseScreen()

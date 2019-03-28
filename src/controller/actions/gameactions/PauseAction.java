@@ -6,8 +6,8 @@
 package controller.actions.gameactions;
 
 import controller.AudioPlayer;
-import controller.GameState;
-import controller.Main;
+import controller.GameStaticState;
+
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
@@ -23,7 +23,7 @@ public class PauseAction extends AbstractAction
     {
         player = new AudioPlayer("src/view/resources/Audio/pausesound.wav", 3);
         player.play();
-        GameState.setPaused();
+        GameStaticState.setPaused();
     }
 
 }

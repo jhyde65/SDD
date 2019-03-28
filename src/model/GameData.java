@@ -25,6 +25,7 @@ public class GameData {
     public final HealthBar health;
     public Pause pauseScreen;
     public static Shooter shooter;
+    private IGameState state;
 
     public GameData() {
         enemyFigures = new CopyOnWriteArrayList<>();
@@ -36,6 +37,7 @@ public class GameData {
         itemFigures = new CopyOnWriteArrayList<>();
         weaponAttackFigures = new CopyOnWriteArrayList<>();
         enemyFiguresWithHealth = new CopyOnWriteArrayList<>();
+        state = new GameActiveState();
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
         // we cannot use GamePanel.width and height.
@@ -52,6 +54,16 @@ public class GameData {
 
         enemyFiguresWithHealth.add(new SpikeyEnemy(500,500));
         itemFigures.add(new ItemPotion(600,600));
+    }
+
+    public void setGameState(IGameState state)
+    {
+        this.state = state;
+    }
+
+    public State getGameState()
+    {
+        return this.state.notifyModel();
     }
 
     public void add(int n) {

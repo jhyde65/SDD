@@ -1,13 +1,12 @@
 package view;
 
-import controller.GameState;
+import controller.GameStaticState;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import controller.Main;
 import controller.actions.splashactions.EnterAction;
 
 /**
@@ -101,7 +100,7 @@ public class SplashPanel extends JPanel {
             }
         }
 
-        if (GameState.isFading())
+        if (GameStaticState.isFading())
         {
             comp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)alphaLevel);
             g2.setComposite(comp);
