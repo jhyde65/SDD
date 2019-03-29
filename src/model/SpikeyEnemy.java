@@ -43,6 +43,7 @@ public class SpikeyEnemy extends GameFigureWithHealth{
     private Strategy strategy;
     
     private float currentOpacity = 1;
+    private int delay;
     
     public SpikeyEnemy(float x, float y){
         super(x,y);
@@ -53,6 +54,7 @@ public class SpikeyEnemy extends GameFigureWithHealth{
         
         currentHealth = 2;
         maxHealth = 2;
+        delay = 0;
         
         try{
             animationImages.put(0, ImageIO.read(getClass().getResource(imagePath1)));
@@ -93,7 +95,8 @@ public class SpikeyEnemy extends GameFigureWithHealth{
                 changeImage();
                 ticksBeforeChangingAnimation = 0;
             }
-        }        
+        } 
+        delay++;
     }
 
     private void changeImage(){
@@ -123,6 +126,16 @@ public class SpikeyEnemy extends GameFigureWithHealth{
     public void setPosition(float x, float y) {
         super.x = x;
         super.y = y;
+    }
+    
+    @Override
+    public void takeDamage(int damage)
+    {
+        if(delay > 100)
+        {
+            currentHealth -= damage;
+            delay = 0;
+        }
     }
     
 }

@@ -21,6 +21,7 @@ public class Rock extends GameFigure
     private static final int MOVE_DISTANCE = 7;
     private int rockSize = 15;
     private static final int MAX_SIZE = 70;
+    private boolean done;
 
     private final String imagePath = "..//resources//images//rockAttack//";
     public SpriteAnimation animation, moving, exploding, idle;
@@ -32,6 +33,7 @@ public class Rock extends GameFigure
         dx = (float) (MOVE_DISTANCE * Math.cos(angle));
         dy = (float) (MOVE_DISTANCE * Math.sin(angle));
         hero = new Point2D.Float(tx, ty);
+        done = false;
 
         BufferedImage[] moving = {Sprite.getSprite(imagePath, 0), Sprite.getSprite(imagePath, 4), Sprite.getSprite(imagePath, 9), Sprite.getSprite(imagePath, 17),
              Sprite.getSprite(imagePath, 23)};
@@ -101,6 +103,7 @@ public class Rock extends GameFigure
             }
         } else if(state instanceof DieingFigureState) {
             if(rockSize >= MAX_SIZE) {
+                done = true;
                 goNextState();
                // System.out.println("Max rockSize reached, go Next state");
             }
@@ -114,9 +117,13 @@ public class Rock extends GameFigure
 
     @Override
     public void goNextState() {
-        state.goNext(this);
-        if(state instanceof DieingFigureState)
+        if(state instanceof ActiveFigureState)
+        {
+            state.goNext(this);
             setAnimation(this.animation, exploding);
+        }
+        else if(state instanceof DieingFigureState && done == true)
+            state.goNext(this);
     }
 
     @Override
@@ -127,10 +134,10 @@ public class Rock extends GameFigure
 
     @Override
     public Rectangle2D getCollisionBox() {
-        if(state instanceof DieingFigureState)
-            return new Rectangle2D.Float(-50, -50, 0, 0);
-        else
-            return new Rectangle2D.Float(x, y, rockSize, rockSize); 
+       // if(state instanceof DieingFigureState)
+       //     return new Rectangle2D.Float(-50, -50, 0, 0);
+       // else
+            return new Rectangle2D.Float(super.x, super.y, rockSize, rockSize); 
     }
     
     

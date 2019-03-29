@@ -5,6 +5,7 @@
  */
 package model;
 
+import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -13,24 +14,26 @@ import java.awt.image.BufferedImage;
  *
  * @author jon
  */
-public class GolemBoss extends GameFigure
+public class GolemBoss extends GameFigureWithHealth
 {
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
     private int delay;
-    public int health = 30;
-    private boolean hit;
+    //public int currentHealth = 30;
+ //   public boolean dead;
     
     private final String imagePath = "..//resources//images//golem//";
     public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, dieing;
     
     
-    public GolemBoss(float x, float y)
+    public GolemBoss(float x, float y, int currentH, int maxH)
     {
         super(x,y);
         super.state = new StrongFigureState();
         movement = new StrongGolemStrategy();
-        hit = false;
+      //  dead = false;
+        currentHealth = currentH;
+        maxHealth = maxH;
         
         BufferedImage[] movingDown = {Sprite.getSprite(imagePath, 0), Sprite.getSprite(imagePath, 1), Sprite.getSprite(imagePath, 8), Sprite.getSprite(imagePath, 10), Sprite.getSprite(imagePath, 16)};
         BufferedImage[] movingUp = {Sprite.getSprite(imagePath, 2), Sprite.getSprite(imagePath, 5), Sprite.getSprite(imagePath, 9), Sprite.getSprite(imagePath, 13), Sprite.getSprite(imagePath, 17)};
@@ -64,6 +67,30 @@ public class GolemBoss extends GameFigure
         g.drawImage(animation.getSprite(), (int) super.x, (int) super.y, WIDTH, HEIGHT, null);
     }
     
+    @Override
+    public int getCurrentHealth(){
+        return currentHealth;
+    }
+    
+    @Override
+    public void takeDamage(int damage)
+    {
+        if(delay > 100)
+        {
+            currentHealth -= damage;
+            Main.gameData.bossHealth.setHealth(currentHealth);
+            delay = 0;
+            goNextState();
+        }
+        //Main.gameData.bossHealth.setHealth(currentHealth);
+    }
+    
+    @Override
+    public boolean stillHasHealth()
+    {
+        return currentHealth >= 1;
+    }
+    
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
     {
         if(animation.equals(newAnimation)) return;
@@ -87,10 +114,10 @@ public class GolemBoss extends GameFigure
         {
             return new Rectangle2D.Float(-50, -50, 0, 0);
         }
-        else if(hit == true && delay < 100)
-        {
-            return new Rectangle2D.Float(-50, -50, 0, 0);
-        }
+//        else if(hit == true && delay < 100)
+//        {
+//            return new Rectangle2D.Float(-50, -50, 0, 0);
+//        }
         else
         {
             return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
@@ -109,14 +136,14 @@ public class GolemBoss extends GameFigure
     public void goNextState()
     {
         
-        if(state instanceof StrongFigureState)
+        if(state instanceof StrongFigureState && currentHealth <= 10)
         {
             movement = new GolemStrategy();
             state.goNext(this);
-            hit = true;
-            delay = 0;
+//            hit = true;
+//            delay = 0;
         }
-        else if(state instanceof ActiveFigureState)
+        else if(state instanceof ActiveFigureState && currentHealth <= 0)
         {  
             state.goNext(this);
             movement = new GolemDieingStrategy();
@@ -132,6 +159,12 @@ public class GolemBoss extends GameFigure
     {
         super.x = x;
         super.y = y;
+    }
+    
+    @Override
+    public void heal(int health)
+    {
+        currentHealth = (currentHealth + health) % maxHealth;
     }
     
     
