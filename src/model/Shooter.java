@@ -10,87 +10,102 @@ import java.awt.image.BufferedImage;
  *
  * @author Kufre
  */
-public class Shooter extends GameFigureWithHealth
-{
+enum Dir {
+    LEFT, RIGHT, UP, DOWN
+};
+
+public class Shooter extends GameFigureWithHealth {
+
     private final int HEIGHT = 100;
     private final int WIDTH = 75;
     private final String PATH = "..//resources//images//hero//";
     public int health;
     public float dx;
     public float dy;
-    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strike;
+    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strikeRight, strikeLeft, dying;
     private boolean isStrike = false;
     private int frameCounter = 0;
-    
-    public Shooter(float x, float y)
-    {
+    private Dir dir;
+
+    public Shooter(float x, float y) {
         super(x, y);
         super.state = new StrongFigureState();
         movement = new CannotPassBorderStrategy();
-        BufferedImage[] movingUp = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2), 
-                                    Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4) };
+        BufferedImage[] movingUp = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2),
+            Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4)};
         BufferedImage[] movingDown = {Sprite.getSprite(PATH, 5), Sprite.getSprite(PATH, 6), Sprite.getSprite(PATH, 7),
-                                      Sprite.getSprite(PATH, 8), Sprite.getSprite(PATH, 9)};
+            Sprite.getSprite(PATH, 8), Sprite.getSprite(PATH, 9)};
         BufferedImage[] movingRight = {Sprite.getSprite(PATH, 10), Sprite.getSprite(PATH, 11), Sprite.getSprite(PATH, 12),
-                                       Sprite.getSprite(PATH, 13), Sprite.getSprite(PATH, 14),Sprite.getSprite(PATH, 15), 
-                                       Sprite.getSprite(PATH, 16), Sprite.getSprite(PATH, 17)};
+            Sprite.getSprite(PATH, 13), Sprite.getSprite(PATH, 14), Sprite.getSprite(PATH, 15),
+            Sprite.getSprite(PATH, 16), Sprite.getSprite(PATH, 17)};
         BufferedImage[] movingLeft = {Sprite.getSprite(PATH, 18), Sprite.getSprite(PATH, 19), Sprite.getSprite(PATH, 20),
-                                       Sprite.getSprite(PATH, 21), Sprite.getSprite(PATH, 22),Sprite.getSprite(PATH, 23), 
-                                       Sprite.getSprite(PATH, 24), Sprite.getSprite(PATH, 25)};
-        BufferedImage[] striking = {Sprite.getSprite(PATH, 26), Sprite.getSprite(PATH, 27), Sprite.getSprite(PATH, 28),
-                                  Sprite.getSprite(PATH, 29), Sprite.getSprite(PATH, 30),Sprite.getSprite(PATH, 31), 
-                                  Sprite.getSprite(PATH, 32), Sprite.getSprite(PATH, 33), Sprite.getSprite(PATH, 34)};
-        BufferedImage[] idling = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1)};
-            
-        
+            Sprite.getSprite(PATH, 21), Sprite.getSprite(PATH, 22), Sprite.getSprite(PATH, 23),
+            Sprite.getSprite(PATH, 24), Sprite.getSprite(PATH, 25)};
+        BufferedImage[] strikingRight = {Sprite.getSprite(PATH, 26), Sprite.getSprite(PATH, 27), Sprite.getSprite(PATH, 28),
+            Sprite.getSprite(PATH, 29), Sprite.getSprite(PATH, 30), Sprite.getSprite(PATH, 31),
+            Sprite.getSprite(PATH, 32), Sprite.getSprite(PATH, 33), Sprite.getSprite(PATH, 34)};
+        BufferedImage[] strikingLeft = {Sprite.getSprite(PATH, 37), Sprite.getSprite(PATH, 38), Sprite.getSprite(PATH, 39),
+                                        Sprite.getSprite(PATH, 40), Sprite.getSprite(PATH, 41), Sprite.getSprite(PATH, 42)};
+
+        BufferedImage[] dying = {Sprite.getSprite(PATH, 35)};
+        BufferedImage[] idling = {Sprite.getSprite(PATH, 0)};
+
         this.moveDown = new SpriteAnimation(movingDown, 5);
         this.moveLeft = new SpriteAnimation(movingLeft, 5);
         this.moveRight = new SpriteAnimation(movingRight, 5);
         this.moveUp = new SpriteAnimation(movingUp, 5);
         this.idle = new SpriteAnimation(idling, 5);
-        this.strike = new SpriteAnimation(striking, 2);
+        this.strikeRight = new SpriteAnimation(strikingRight, 2);
+        this.strikeLeft = new SpriteAnimation(strikingLeft, 2);
+        this.dying = new SpriteAnimation(dying, 4);
         this.animation = idle;
+        this.dir = Dir.LEFT;
         animation.start();
         currentHealth = 100;
     }
-    
-    public void translate(int x, int y){
+
+    public void translate(int x, int y) {
         movement.move(x, y, this);
     }
-    
-    public void shoot(int targetX, int targetY){
-       Gunshot m = new Gunshot( this.x + WIDTH/2, this.y + HEIGHT/2, targetX, targetY, Color.RED);
-       Main.gameData.friendFigures.add(m);
+
+    public void shoot(int targetX, int targetY) {
+        Gunshot m = new Gunshot(this.x + WIDTH / 2, this.y + HEIGHT / 2, targetX, targetY, Color.RED);
+        Main.gameData.friendFigures.add(m);
     }
 
-    public void strike(){
+    public void strike() {
         isStrike = true;
     }
+
     @Override
-    public void render(Graphics2D g)
-    {
-        g.drawImage(animation.getSprite(), (int)super.x, (int)super.y, WIDTH, HEIGHT, null);
+    public void render(Graphics2D g) {
+        g.drawImage(animation.getSprite(), (int) super.x, (int) super.y, WIDTH, HEIGHT, null);
     }
 
     @Override
-    public void update()
-    {
+    public void update() {
         //this.animation.update();
-        if(isStrike){
-            this.setAnimation(animation, strike);
+        if (isStrike) {
+            //save current character position as main position
+            if (this.dir == Dir.LEFT || this.dir == Dir.UP) {
+                this.setAnimation(animation, strikeLeft);
+            } else {
+                this.setAnimation(animation, strikeRight);
+            }
             this.animation.update();
-            
+
             frameCounter++;
-            if(frameCounter >= 20){
+            if (frameCounter >= 20) {
                 frameCounter = 0;
                 isStrike = false;
             }
         }
     }
-    
-    public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
-    {
-        if (animation.equals(newAnimation)) return;
+
+    public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation) {
+        if (animation.equals(newAnimation)) {
+            return;
+        }
         this.animation.stop();
         this.animation.reset();
         this.animation = newAnimation;
@@ -98,46 +113,64 @@ public class Shooter extends GameFigureWithHealth
     }
 
     @Override
-    public Rectangle2D.Float getCollisionBox()
-    {
+    public Rectangle2D.Float getCollisionBox() {
         return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
         //return new Rectangle2D.Float(0, 0, 1, 1);
     }
 
     @Override
-    public void setState(GameFigureState state)
-    {
+    public void setState(GameFigureState state) {
         this.state = state;
     }
 
     @Override
-    public void goNextState()
-    {
+    public void goNextState() {
         state.goNext(this);
     }
 
-
     @Override
-    public void setPosition(float x, float y)
-    {
+    public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
     }
-    
+
     @Override
-    public void takeDamage(int damage)
-    {
+    public void takeDamage(int damage) {
         System.out.println("+++++++++++++++++++++ booiiiiiiii");
-        currentHealth -= damage;
+
+        if (currentHealth - damage <= 0) {
+            //process dying
+            dying();
+
+        } else {
+            currentHealth -= damage;
+        }
         Main.gameData.health.setHealth(currentHealth);
     }
 
-    public void heal(int health)
-    {
+    public void heal(int health) {
         currentHealth = (currentHealth + health) % maxHealth;
         Main.gameData.health.setHealth(currentHealth);
     }
 
+    private void dying() {
 
-    
+        this.setAnimation(animation, dying);
+
+    }
+
+    public void setDirection(String dir) {
+        switch(dir){
+            case "UP": this.dir = Dir.UP;
+            break;
+            case "DOWN": this.dir = Dir.DOWN;
+            break;
+            case "LEFT": this.dir = Dir.LEFT;
+            break;
+            case "RIGHT": this.dir = Dir.RIGHT;
+            break;
+            default: {}
+        }
+    }
+
 }

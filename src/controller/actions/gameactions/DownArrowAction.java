@@ -18,6 +18,7 @@ public class DownArrowAction extends AbstractAction
         {
             Shooter sh = Main.gameData.shooter;
             sh.translate(0, 10);
+            sh.setDirection("DOWN");
             sh.setAnimation(sh.animation, sh.moveDown);
             sh.animation.update();
         }
