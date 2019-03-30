@@ -25,6 +25,7 @@ public class GameData {
     public final HealthBar health;
     public Pause pauseScreen;
     public static Shooter shooter;
+    public BossHealthBar bossHealth;
 
     public GameData() {
         enemyFigures = new CopyOnWriteArrayList<>();
@@ -81,7 +82,8 @@ public class GameData {
     //
     public void addGolem()
     {
-        enemyFigures.add(new GolemBoss(350, 150));
+        bossHealth = new BossHealthBar();
+        enemyFiguresWithHealth.add(new GolemBoss(350, 150, 30, 30));
     }
     
     public void addSpikeyEnemy(){

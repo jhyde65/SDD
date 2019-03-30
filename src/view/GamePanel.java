@@ -20,6 +20,7 @@ import controller.actions.gameactions.KButtonAction;
 import controller.actions.gameactions.MButtonAction;
 
 import model.Border;
+import model.GolemBoss;
 
 public class GamePanel extends JPanel {
 
@@ -99,6 +100,10 @@ public class GamePanel extends JPanel {
             
             for (GameFigure f: Main.gameData.enemyFiguresWithHealth){
                 f.render(g2);
+                if(f instanceof GolemBoss)
+                {
+                    Main.gameData.bossHealth.render(g2);
+                }
             }
             
             for (GameFigure f: Main.gameData.itemFigures){

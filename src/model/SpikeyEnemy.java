@@ -44,6 +44,7 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
     private DamageStrategyWithDelay damageStrategy;
     
     private float currentOpacity = 1;
+    private int delay;
     
     public SpikeyEnemy(float x, float y){
         super(x,y);
@@ -55,6 +56,7 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
         
         currentHealth = 2;
         maxHealth = 2;
+        delay = 0;
         
         try{
             animationImages.put(0, ImageIO.read(getClass().getResource(imagePath1)));
@@ -95,7 +97,8 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
                 changeImage();
                 ticksBeforeChangingAnimation = 0;
             }
-        }        
+        } 
+        delay++;
     }
 
     private void changeImage(){
@@ -132,5 +135,15 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
         damageStrategy.doDamageTo(target);
     }
     
+    
+    @Override
+    public void takeDamage(int damage)
+    {
+        if(delay > 100)
+        {
+            currentHealth -= damage;
+            delay = 0;
+        }
+    }
     
 }

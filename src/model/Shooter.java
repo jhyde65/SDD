@@ -21,6 +21,7 @@ public class Shooter extends GameFigureWithHealth
     public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strike;
     private boolean isStrike = false;
     private int frameCounter = 0;
+    private int delay;
     
     public Shooter(float x, float y)
     {
@@ -52,6 +53,7 @@ public class Shooter extends GameFigureWithHealth
         this.animation = idle;
         animation.start();
         currentHealth = 100;
+        delay = 0;
     }
     
     public void translate(int x, int y){
@@ -86,6 +88,7 @@ public class Shooter extends GameFigureWithHealth
                 isStrike = false;
             }
         }
+        delay++;
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
@@ -100,7 +103,7 @@ public class Shooter extends GameFigureWithHealth
     @Override
     public Rectangle2D.Float getCollisionBox()
     {
-        return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
+        return new Rectangle2D.Float(super.x, super.y, WIDTH, HEIGHT);
         //return new Rectangle2D.Float(0, 0, 1, 1);
     }
 
@@ -127,9 +130,17 @@ public class Shooter extends GameFigureWithHealth
     @Override
     public void takeDamage(int damage)
     {
-        System.out.println("+++++++++++++++++++++ booiiiiiiii");
-        currentHealth -= damage;
-        Main.gameData.health.setHealth(currentHealth);
+        if(delay > 100)
+        {    
+            System.out.println("+++++++++++++++++++++ booiiiiiiii");
+            currentHealth -= damage;
+            Main.gameData.health.setHealth(currentHealth);
+            delay = 0;
+            if(currentHealth <= 0)
+            {
+                goNextState();
+            }
+        }
     }
 
     public void heal(int health)
