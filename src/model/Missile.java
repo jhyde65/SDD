@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class Missile extends GameFigure {
+public class Missile extends GameFigure{
 
     // missile size
     private static final int SIZE = 8;

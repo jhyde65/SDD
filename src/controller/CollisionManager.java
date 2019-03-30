@@ -4,10 +4,13 @@
  * and open the template in the editor.
  */
 package controller;
+
 import java.awt.geom.Rectangle2D;
 import model.GameFigure;
 import model.GameData;
 import model.GameFigureWithHealth;
+import model.SpikeyEnemy;
+import model.Weapon;
 
 /**
  *
@@ -20,6 +23,11 @@ public class CollisionManager {
         Rectangle2D gamerCollisionBox = GameData.shooter.getCollisionBox();
         for (GameFigureWithHealth enemyWithHealth : Main.gameData.enemyFiguresWithHealth) {
             if (enemyWithHealth.getCollisionBox().intersects(gamerCollisionBox)) {
+                if (enemyWithHealth instanceof Weapon) {
+                    ((Weapon) enemyWithHealth).doDamageTo(GameData.shooter);
+                    continue;
+                }
+
                 GameData.shooter.takeDamage(4);
             }
         }
