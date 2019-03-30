@@ -89,6 +89,10 @@ public class Shooter extends GameFigureWithHealth
             }
         }
         delay++;
+        if (currentHealth <= 0)
+        {
+            Main.gameData.setGameState(new GameOverState());
+        }
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
@@ -141,6 +145,8 @@ public class Shooter extends GameFigureWithHealth
                 goNextState();
             }
         }
+        currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
+        Main.gameData.health.setHealth(currentHealth);
     }
 
     public void heal(int health)
