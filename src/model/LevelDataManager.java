@@ -6,7 +6,6 @@
 package model;
 
 import controller.Main;
-import static model.GameData.shooter;
 
 /**
  *
@@ -108,9 +107,13 @@ public class LevelDataManager {
     }
     
     public void generateLevelThree(){
-        gameData.addGolem();
+        // not sure what to do for level 3 yet
+        generateBossLevel();
     }
     
     public void generateBossLevel(){
+        gameData.resetGameArea();
+        gameData.addGolem();
+        gameData.stairs.setPosition(Main.WIN_WIDTH, Main.WIN_HEIGHT - 20);
     }
 }
