@@ -53,6 +53,7 @@ public class Animator implements Runnable {
         collisionManager.processMeleeCollisions();
         collisionManager.processAllyWeaponCollisions();
         collisionManager.processEnemyAttackCollisions();
+        collisionManager.processStairsCollision();
     }
     
     private void processCollisions2() {

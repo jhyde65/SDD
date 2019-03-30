@@ -40,7 +40,6 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
     private final String imagePath4 = "..//resources//images//spikey4.png";
     private int currentAnimationPointer = 0;
 
-    private Strategy strategy;
     private DamageStrategyWithDelay damageStrategy;
     
     private float currentOpacity = 1;
@@ -50,8 +49,8 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
         super(x,y);
         //super.state = GameFigureState.STATE_ACTIVE;
         super.state = new ActiveFigureState();
-        strategy = new RollOnBorderStrategy();
-        damageStrategy = new DamageStrategyWithDelay(9, 2);
+        movement = new RollOnBorderStrategy(Direction.EAST, false);
+        damageStrategy = new DamageStrategyWithDelay(11, 2);
         currentImage = null;
         
         currentHealth = 2;
@@ -91,7 +90,7 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
     public void update() {
         if(state instanceof ActiveFigureState){
             damageStrategy.update();
-            strategy.move(super.x, super.y, this);
+            movement.move(super.x, super.y, this);
             ticksBeforeChangingAnimation++;
             if(ticksBeforeChangingAnimation == TICKS_TO_CHANGE){
                 changeImage();
@@ -119,7 +118,9 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
 
     @Override
     public void goNextState() {
-        state.goNext(this);
+        if(currentHealth <= 0){
+            state.goNext(this);
+        }
         // Just putting in an example
         //stategy = new SpikeyDieingMove();
     }
@@ -133,6 +134,11 @@ public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
     @Override
     public void doDamageTo(GameFigureWithHealth target) {
         damageStrategy.doDamageTo(target);
+    }
+
+    @Override
+    public void setDamage(int newDamage) {
+        damageStrategy.setDamage(newDamage);
     }
     
     
