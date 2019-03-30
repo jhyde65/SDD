@@ -44,6 +44,7 @@ public class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "DOWN");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_B, 0, false), "Boss");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_K, 0, false), "SpawnSpikeyEnemy");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_L, 0, false), "SpikeyEnemyDemo");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_I, 0, false), "Inventory");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "PAUSE");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "ENTER");
@@ -61,6 +62,7 @@ public class GamePanel extends JPanel {
         //BButton for dev of GolemBoss.  Hotkey shortcut
         actionMap.put("Boss", new BButtonAction());
         actionMap.put("SpawnSpikeyEnemy", new KButtonAction());
+        actionMap.put("SpikeyEnemyDemo", new LButtonAction());
         actionMap.put("PAUSE", new PauseAction());
         actionMap.put("ENTER", new PauseEnterAction());
         actionMap.put("MonsterEnemy", new MButtonAction());
@@ -101,6 +103,10 @@ public class GamePanel extends JPanel {
                 f.render(g2);
             }
             
+            for(GameFigure f: Main.gameData.invulnerableEnemies){
+                f.render(g2);
+            }
+            
             for (GameFigure f: Main.gameData.itemFigures){
                 f.render(g2);
             }
@@ -114,6 +120,10 @@ public class GamePanel extends JPanel {
             }
             for(Border b : Main.gameData.borders){
                 b.render(g2);
+            }
+            
+            if(Main.gameData.stairs != null){
+                Main.gameData.stairs.render(g2);
             }
 
         }

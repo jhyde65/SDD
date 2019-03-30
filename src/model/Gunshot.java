@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-public class Gunshot extends GameFigure {
+public class Gunshot extends GameFigure implements Weapon{
 
     // missile size
     private static final int SIZE = 5;
@@ -22,6 +22,8 @@ public class Gunshot extends GameFigure {
     private static final int UNIT_TRAVEL_DISTANCE = 4; // per frame move
 
     private int size = SIZE;
+    
+    private DamageStrategy damageStrategy;
 
     /**
      *
@@ -37,6 +39,8 @@ public class Gunshot extends GameFigure {
        //super.state = GameFigureState.STATE_ACTIVE;
         this.target = new Point2D.Float(tx, ty);
         this.color = color;
+
+        damageStrategy = new DamageStrategyOncePerTarget(1);
 
         double angle = Math.atan2(ty - sy, tx - sx);
         dx = (float) (UNIT_TRAVEL_DISTANCE * Math.cos(angle));
@@ -114,6 +118,16 @@ public class Gunshot extends GameFigure {
     public void setState(GameFigureState state)
     {
         this.state = state;
+    }
+    
+    @Override
+    public void doDamageTo(GameFigureWithHealth target) {
+        damageStrategy.doDamageTo(target);
+    }
+
+    @Override
+    public void setDamage(int newDamage) {
+        damageStrategy.setDamage(newDamage);
     }
 
 }
