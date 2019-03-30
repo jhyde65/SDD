@@ -20,7 +20,7 @@ import view.GamePanel;
  *
  * @author Brandy
  */
-public class SpikeyEnemy extends GameFigureWithHealth{
+public class SpikeyEnemy extends GameFigureWithHealth implements Weapon{
 
     private final int HEIGHT = 34;
     private final int WIDTH = 35;    
@@ -41,6 +41,7 @@ public class SpikeyEnemy extends GameFigureWithHealth{
     private int currentAnimationPointer = 0;
 
     private Strategy strategy;
+    private DamageStrategyWithDelay damageStrategy;
     
     private float currentOpacity = 1;
     
@@ -49,6 +50,7 @@ public class SpikeyEnemy extends GameFigureWithHealth{
         //super.state = GameFigureState.STATE_ACTIVE;
         super.state = new ActiveFigureState();
         strategy = new RollOnBorderStrategy();
+        damageStrategy = new DamageStrategyWithDelay(9, 2);
         currentImage = null;
         
         currentHealth = 2;
@@ -86,7 +88,7 @@ public class SpikeyEnemy extends GameFigureWithHealth{
     @Override
     public void update() {
         if(state instanceof ActiveFigureState){
-        //if(state == GameFigureState.STATE_ACTIVE){
+            damageStrategy.update();
             strategy.move(super.x, super.y, this);
             ticksBeforeChangingAnimation++;
             if(ticksBeforeChangingAnimation == TICKS_TO_CHANGE){
@@ -124,5 +126,11 @@ public class SpikeyEnemy extends GameFigureWithHealth{
         super.x = x;
         super.y = y;
     }
+
+    @Override
+    public void doDamageTo(GameFigureWithHealth target) {
+        damageStrategy.doDamageTo(target);
+    }
+    
     
 }
