@@ -108,9 +108,7 @@ public class GameData {
         enemyFiguresWithHealth.add(new GolemBoss(350, 150, 30, 30));
     }
 
-    public void addGolem() {
-        addGolem(350, 350);
-    }
+
 
     public void addSpikeyEnemy(int x, int y, Strategy movement) {
         SpikeyEnemy spikeyEnemy = new SpikeyEnemy(x, y);
@@ -153,10 +151,6 @@ public class GameData {
     public void addInventory()
     {
         inventory.add(new Inventory(100,100));
-    }
-
-    public void addInventory() {
-        inventory.add(new Inventory(100, 100));
     }
 
     public void removeInventory() {

@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
  *
  * @author j
  */
-public class Rock extends GameFigure 
+public class Rock extends GameFigure implements Weapon
 {
     public Point2D.Float hero;
     private float dx, dy;
@@ -22,6 +22,7 @@ public class Rock extends GameFigure
     private int rockSize = 15;
     private static final int MAX_SIZE = 70;
     private boolean done;
+    private DamageStrategy damageStrategy;
 
     private final String imagePath = "..//resources//images//rockAttack//";
     public SpriteAnimation animation, moving, exploding, idle;
@@ -29,6 +30,7 @@ public class Rock extends GameFigure
     public Rock(float x, float y, float tx, float ty) {
         super(x, y);
         super.state = new ActiveFigureState();
+        damageStrategy = new DamageStrategyOncePerTarget(2);
         double angle = Math.atan2(ty - y, tx - x);
         dx = (float) (MOVE_DISTANCE * Math.cos(angle));
         dy = (float) (MOVE_DISTANCE * Math.sin(angle));
@@ -140,5 +142,16 @@ public class Rock extends GameFigure
             return new Rectangle2D.Float(super.x, super.y, rockSize, rockSize); 
     }
     
+    @Override
+    public void doDamageTo(GameFigureWithHealth target)
+    {
+        damageStrategy.doDamageTo(target);
+    }
+    
+    @Override
+    public void setDamage(int newDamage)
+    {
+        damageStrategy.setDamage(newDamage);
+    }
     
 }

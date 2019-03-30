@@ -14,13 +14,14 @@ import java.awt.image.BufferedImage;
  *
  * @author jon
  */
-public class GolemBoss extends GameFigureWithHealth
+public class GolemBoss extends GameFigureWithHealth implements Weapon
 {
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
-    private int delay;
+//    private int delay;
     //public int currentHealth = 30;
- //   public boolean dead;
+    public boolean dead;
+    private DamageStrategyWithDelay damageStrategy;
     
     private final String imagePath = "..//resources//images//golem//";
     public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, dieing;
@@ -31,7 +32,8 @@ public class GolemBoss extends GameFigureWithHealth
         super(x,y);
         super.state = new StrongFigureState();
         movement = new StrongGolemStrategy();
-      //  dead = false;
+        damageStrategy = new DamageStrategyWithDelay(15, 4);
+        dead = false;
         currentHealth = currentH;
         maxHealth = maxH;
         
@@ -58,7 +60,8 @@ public class GolemBoss extends GameFigureWithHealth
     public void update()
     {
         movement.move(super.x, super.y, this);
-        delay++;
+        damageStrategy.update();
+//        delay++;
     }
     
     @Override
@@ -75,13 +78,13 @@ public class GolemBoss extends GameFigureWithHealth
     @Override
     public void takeDamage(int damage)
     {
-        if(delay > 100)
-        {
+//        if(delay > 100)
+//        {
             currentHealth -= damage;
             Main.gameData.bossHealth.setHealth(currentHealth);
-            delay = 0;
+//            delay = 0;
             goNextState();
-        }
+//        }
         //Main.gameData.bossHealth.setHealth(currentHealth);
     }
     
@@ -148,7 +151,7 @@ public class GolemBoss extends GameFigureWithHealth
             state.goNext(this);
             movement = new GolemDieingStrategy();
         }
-        else if(state instanceof DieingFigureState)
+        else if(state instanceof DieingFigureState && dead == true)
         {
             state.goNext(this);
         }
@@ -162,10 +165,15 @@ public class GolemBoss extends GameFigureWithHealth
     }
     
     @Override
-    public void heal(int health)
+    public void doDamageTo(GameFigureWithHealth target)
     {
-        currentHealth = (currentHealth + health) % maxHealth;
+        damageStrategy.doDamageTo(target);
     }
     
+    @Override
+    public void setDamage(int newDamage)
+    {
+        damageStrategy.setDamage(newDamage);
+    }
     
 }

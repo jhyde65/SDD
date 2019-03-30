@@ -25,12 +25,12 @@ public class Shooter extends GameFigureWithHealth {
     public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strikeRight, strikeLeft, dying;
     private boolean isStrike = false;
     private int frameCounter = 0;
-    private int delay;
     private Dir dir;
+
 
     public Shooter(float x, float y) {
         super(x, y);
-        super.state = new StrongFigureState();
+        super.state = new ActiveFigureState();
         movement = new CannotPassBorderStrategy();
         BufferedImage[] movingUp = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2),
             Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4)};
@@ -63,7 +63,7 @@ public class Shooter extends GameFigureWithHealth {
         this.dir = Dir.LEFT;
         animation.start();
         currentHealth = 100;
-        delay = 0;
+
     }
 
     public void translate(int x, int y) {
@@ -102,11 +102,16 @@ public class Shooter extends GameFigureWithHealth {
                 isStrike = false;
             }
         }
-        delay++;
-        if (currentHealth <= 0)
+        if(state instanceof DieingFigureState)
         {
+            goNextState();
             Main.gameData.setGameState(new GameOverState());
+
         }
+//        if (state instanceof DoneFigureState)
+//        {
+//            Main.gameData.setGameState(new GameOverState());
+//        }
     }
 
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation) {
@@ -144,20 +149,18 @@ public class Shooter extends GameFigureWithHealth {
     @Override
     public void takeDamage(int damage)
     {
-        if(delay > 100)
-        {    
-            System.out.println("+++++++++++++++++++++ booiiiiiiii");
-            currentHealth -= damage;
-            Main.gameData.health.setHealth(currentHealth);
-            delay = 0;
-            if(currentHealth <= 0)
-            {
-                goNextState();
-                dying();
-            }
-        }
+   
+        System.out.println("+++++++++++++++++++++ booiiiiiiii");
         currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
         Main.gameData.health.setHealth(currentHealth);
+
+        if(currentHealth <= 0)
+        {
+            goNextState();
+            dying();
+        }
+
+
     }
 
     public void heal(int health) {
