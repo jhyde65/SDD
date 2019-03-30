@@ -101,6 +101,14 @@ public class GameData {
         enemyFigures.add(new MonsterEnemy(x, y));
     }
     
+    public void addGoblinEnemy()
+    {
+        Random rand = new Random();
+        int x = rand.nextInt(500) + 100;
+        int y = rand.nextInt(500) + 100;
+        enemyFigures.add(new GoblinEnemy(x, y));
+    }
+    
     public void addPotion(float x, float y){
         itemFigures.add(new ItemPotion(x,y));
     }    

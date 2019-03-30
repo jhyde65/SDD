@@ -18,6 +18,7 @@ public class MonsterExplodingState implements GameFigureState
         
         if (monster.getHealth() == 0)
         {
+            monster.damageThreshold = 0;
             monster.setState(new DoneFigureState());
         }
     }
