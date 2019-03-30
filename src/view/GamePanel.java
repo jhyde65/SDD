@@ -48,6 +48,7 @@ public class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "PAUSE");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false), "ENTER");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_M, 0, false), "MonsterEnemy");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_G, 0, false), "GoblinEnemy");
 
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "SPACE");
@@ -64,6 +65,7 @@ public class GamePanel extends JPanel {
         actionMap.put("PAUSE", new PauseAction());
         actionMap.put("ENTER", new PauseEnterAction());
         actionMap.put("MonsterEnemy", new MButtonAction());
+        actionMap.put("GoblinEnemy", new GButtonAction());
     }
 
 
