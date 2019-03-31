@@ -1,12 +1,6 @@
 package controller;
 
-import java.util.Timer;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import javafx.embed.swing.JFXPanel;
-
-import javax.swing.*;
 
 public class SplashAnimator implements Runnable {
 
@@ -36,7 +30,7 @@ public class SplashAnimator implements Runnable {
             // Checks to see if song is still playing
             // and if the current frame is fading out.
             // If the song is finished we want to replay it.
-            if (!theme.poll() && !GameState.isFading())
+            if (!theme.poll() && !GameStaticState.isFading())
             {
                 theme.play();
             }
@@ -48,18 +42,18 @@ public class SplashAnimator implements Runnable {
             // Also sets the "isFading" property
             // to true. This begins the fade out
             // transition of the JPanel.
-            if(!GameState.isPaused() && !GameState.isFading())
+            if(!GameStaticState.isPaused() && !GameStaticState.isFading())
             {
                 fadeStart = System.currentTimeMillis();
                 fadeEnd = 1500;
-                GameState.setIsFading(true);
+                GameStaticState.setIsFading(true);
                 theme.stop();
                 accept.play();
             }
 
-            if(GameState.isFading() && (System.currentTimeMillis() > fadeStart + fadeEnd))
+            if(GameStaticState.isFading() && (System.currentTimeMillis() > fadeStart + fadeEnd))
             {
-                GameState.setIsFading(false);
+                GameStaticState.setIsFading(false);
                 break;
             }
 

@@ -26,7 +26,7 @@ public class KeyController extends KeyAdapter {
 //                shooter.translate(0, 5);
 //                break;
 //            case KeyEvent.VK_ENTER:
-//                GameState.setPaused();
+//                GameStaticState.setPaused();
 //                break;
 //
 //        }

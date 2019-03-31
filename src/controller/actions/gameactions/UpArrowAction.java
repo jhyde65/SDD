@@ -1,7 +1,7 @@
 package controller.actions.gameactions;
 
 import controller.AudioPlayer;
-import controller.GameState;
+import controller.GameStaticState;
 import controller.Main;
 import model.Shooter;
 import javax.swing.*;
@@ -13,10 +13,11 @@ public class UpArrowAction extends AbstractAction
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (!GameState.isPaused())
+        if (!GameStaticState.isPaused())
         {
             Shooter sh = Main.gameData.shooter;
             sh.translate(0, -10);
+            sh.setDirection("UP");
             sh.setAnimation(sh.animation, sh.moveUp);
             sh.animation.update();
         }

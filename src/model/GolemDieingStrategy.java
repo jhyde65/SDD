@@ -36,6 +36,7 @@ public class GolemDieingStrategy implements Strategy
         }
         if(counter >= time)
         {
+            golem.dead = true;
             context.goNextState();
         }
        

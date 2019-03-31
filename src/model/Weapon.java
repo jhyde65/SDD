@@ -5,10 +5,13 @@
  */
 package model;
 
+import java.awt.geom.Rectangle2D;
+
 /**
  *
  * @author Brandy
  */
 public interface Weapon {
     void doDamageTo(GameFigureWithHealth target);
+    void setDamage(int newDamage);
 }

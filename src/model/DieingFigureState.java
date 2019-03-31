@@ -13,7 +13,7 @@ public class DieingFigureState implements GameFigureState
 {
     public DieingFigureState()
     {
-        
+
     }
     
     @Override

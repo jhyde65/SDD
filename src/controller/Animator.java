@@ -1,17 +1,10 @@
 package controller;
 
-import Inventory.Inventory;
 import Inventory.ItemPotion;
-import Inventory.ItemSlot;
-import Inventory.Potion;
-import java.util.concurrent.CopyOnWriteArrayList;
+
 import java.util.concurrent.TimeUnit;
-import model.DieingFigureState;
-import model.GameFigure;
-import model.GameFigureState;
-import model.GameFigureWithHealth;
-import model.Missile;
-import model.Shooter;
+
+import model.*;
 
 public class Animator implements Runnable {
 
@@ -27,7 +20,7 @@ public class Animator implements Runnable {
 
             // If the game is in a paused state
             // we don't call update methods.
-            if (!GameState.isPaused()) {
+            if (!GameStaticState.isPaused()) {
                 processCollisions();
 
                 Main.gameData.update();
@@ -52,13 +45,15 @@ public class Animator implements Runnable {
                 }
             }
         }
-        System.exit(0);
+        //System.exit(0);
     }
     
     private void processCollisions(){
         collisionManager.processItemCollisions();
         collisionManager.processMeleeCollisions();
         collisionManager.processAllyWeaponCollisions();
+        collisionManager.processEnemyAttackCollisions();
+        collisionManager.processStairsCollision();
     }
     
     private void processCollisions2() {
