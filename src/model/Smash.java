@@ -7,29 +7,21 @@ package model;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-//import javafx.scene.paint.Color;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import java.awt.Color;
 
 /**
  *
  * @author j
  */
-public class Smash extends GameFigure 
+public class Smash extends GameFigure implements Weapon
 {
-//    public Point2D.Float hero;
     private float dx, dy;
-//    private static final int MOVE_DISTANCE = 7;
     private int smashSize = 20;
     private static final int MAX_SIZE = 150;
-//    private Image image;
-    //private final String imagePath = "..//resources//images//RockAttack.png";
     public Color smashColor = Color.GRAY;
+    private boolean done;
+    private DamageStrategy damageStrategy;
 
     public Smash(float x, float y, float tx, float ty, double distance) {
         super(x, y);
@@ -39,6 +31,8 @@ public class Smash extends GameFigure
         dy = (float) ((distance/2) * Math.sin(angle));
         super.x += dx;
         super.y += dy;
+        done = false;
+        damageStrategy = new DamageStrategyOncePerTarget(5);
 //        hero = new Point2D.Float(tx, ty);
         //System.out.println("Rock attack");
         
@@ -91,6 +85,7 @@ public class Smash extends GameFigure
     {
         if(state instanceof ActiveFigureState) {
             if(smashSize >= MAX_SIZE) {
+                done = true;
                 goNextState();
                 goNextState();
                // System.out.println("Max smashSize reached, go Next state");
@@ -105,7 +100,8 @@ public class Smash extends GameFigure
 
     @Override
     public void goNextState() {
-        state.goNext(this);
+        if(done == true)
+            state.goNext(this);
     }
 
     @Override
@@ -116,8 +112,19 @@ public class Smash extends GameFigure
 
     @Override
     public Rectangle2D getCollisionBox() {
-        return new Rectangle2D.Float(-50, -50, smashSize, smashSize); //set box out of screen for testing right now
+        return new Rectangle2D.Float(super.x, super.y, smashSize, smashSize); //set box out of screen for testing right now
     }
     
+    @Override
+    public void doDamageTo(GameFigureWithHealth target)
+    {
+        damageStrategy.doDamageTo(target);
+    }
+    
+    @Override
+    public void setDamage(int newDamage)
+    {
+        damageStrategy.setDamage(newDamage);
+    }
     
 }

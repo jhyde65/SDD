@@ -102,10 +102,14 @@ public class MonsterEnemy extends GameFigure
     public Rectangle2D getCollisionBox()
     {
         //return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
-        if (this.damageThreshold >= 2) {
+        if (this.state instanceof MonsterWalkingState && this.damageThreshold >= 20) 
+        {
             return new Rectangle2D.Float(x + 37, y, 1, HEIGHT);
         }
-        else {
+        else if (this.state instanceof MonsterAttackingState && this.damageThreshold >= 40) 
+        {
+            return new Rectangle2D.Float(x + 37, y, 1, HEIGHT);
+        } else {
             this.damageThreshold++;
             return new Rectangle2D.Float(0, 0, 0, 0);
         }

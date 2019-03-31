@@ -8,7 +8,7 @@ import controller.Main;
  */
 public class MonsterAttackStrategy implements Strategy
 {
-    private static final int UNIT_TRAVEL_DISTANCE = 3;
+    private static final double UNIT_TRAVEL_DISTANCE = 3.5;
 
     @Override
     public void move(float x, float y, GameFigure context)

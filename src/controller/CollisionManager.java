@@ -25,10 +25,20 @@ public class CollisionManager {
             if (enemyWithHealth.getCollisionBox().intersects(gamerCollisionBox)) {
                 if (enemyWithHealth instanceof Weapon) {
                     ((Weapon) enemyWithHealth).doDamageTo(GameData.shooter);
-                    continue;
                 }
-
-                GameData.shooter.takeDamage(4);
+                else{
+                    GameData.shooter.takeDamage(4);
+                }
+            }
+        }
+        for(GameFigureWithHealth invulnerableEnemy : Main.gameData.invulnerableEnemies){
+            if (invulnerableEnemy.getCollisionBox().intersects(gamerCollisionBox)) {
+                if (invulnerableEnemy instanceof Weapon) {
+                    ((Weapon) invulnerableEnemy).doDamageTo(GameData.shooter);
+                }
+                else{
+                    GameData.shooter.takeDamage(4);
+                }
             }
         }
     }
@@ -38,7 +48,12 @@ public class CollisionManager {
         Rectangle2D gamerCollisionBox = GameData.shooter.getCollisionBox();
         for (GameFigure enemy : Main.gameData.enemyFigures) {
             if (enemy.getCollisionBox().intersects(gamerCollisionBox)) {
-                GameData.shooter.takeDamage(2);
+                if (enemy instanceof Weapon) {
+                    ((Weapon) enemy).doDamageTo(GameData.shooter);
+                }
+                else{
+                    GameData.shooter.takeDamage(2);
+                }
                 enemy.goNextState();
             }
         }
@@ -54,7 +69,7 @@ public class CollisionManager {
             }
         }
     }
-
+    
     // Manages ally short-ranged and long-ranged weapon attack
     public void processAllyWeaponCollisions() {
         for (GameFigure weaponAttackAlly : Main.gameData.friendFigures) { // friend figures are the weapons atm (missiles)
@@ -70,14 +85,28 @@ public class CollisionManager {
 
             for (GameFigureWithHealth enemyWithHealth : Main.gameData.enemyFiguresWithHealth) {
                 if (weaponCollisionBox.intersects(enemyWithHealth.getCollisionBox())) {
-                    enemyWithHealth.takeDamage(1);
+                    
+                    if(weaponAttackAlly instanceof Weapon){
+                        ((Weapon) weaponAttackAlly).doDamageTo(enemyWithHealth);
+                        weaponAttackAlly.goNextState();
+                        enemyWithHealth.goNextState();
+                        continue;
+                    }
+                    else{
+                        enemyWithHealth.takeDamage(1);
+                    }
                     if (!enemyWithHealth.stillHasHealth()) {
                         enemyWithHealth.goNextState();
                     }
                     weaponAttackAlly.goNextState();
                 }
             }
-
+        }
+    }
+    
+    public void processStairsCollision(){
+        if(Main.gameData.shooter.getCollisionBox().intersects(Main.gameData.stairs.getCollisionBox())){
+            Main.gameData.goNextLevel();
         }
     }
 

@@ -1,7 +1,7 @@
 package controller.actions.gameactions;
 
 import controller.AudioPlayer;
-import controller.GameState;
+import controller.GameStaticState;
 import controller.Main;
 
 import java.awt.event.ActionEvent;
@@ -22,14 +22,14 @@ public class PauseEnterAction extends AbstractAction
         // If the game is paused the enter action will
         // carry out an action based off of the selection
         // property from the pauseScreen object.
-        if(GameState.isPaused())
+        if(GameStaticState.isPaused())
         {
             // resume is selected.
             if (Main.gameData.pauseScreen.getSelection())
             {
                 player = new AudioPlayer("src/view/resources/Audio/pausesound.wav", 3);
                 player.play();
-                GameState.setPaused();
+                GameStaticState.setPaused();
             }
             // Quit is selected.
             else

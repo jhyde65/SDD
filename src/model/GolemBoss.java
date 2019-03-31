@@ -5,6 +5,7 @@
  */
 package model;
 
+import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -13,24 +14,28 @@ import java.awt.image.BufferedImage;
  *
  * @author jon
  */
-public class GolemBoss extends GameFigure
+public class GolemBoss extends GameFigureWithHealth implements Weapon
 {
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
-    private int delay;
-    public int health = 30;
-    private boolean hit;
+//    private int delay;
+    //public int currentHealth = 30;
+    public boolean dead;
+    private DamageStrategyWithDelay damageStrategy;
     
     private final String imagePath = "..//resources//images//golem//";
     public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, dieing;
     
     
-    public GolemBoss(float x, float y)
+    public GolemBoss(float x, float y, int currentH, int maxH)
     {
         super(x,y);
         super.state = new StrongFigureState();
         movement = new StrongGolemStrategy();
-        hit = false;
+        damageStrategy = new DamageStrategyWithDelay(15, 4);
+        dead = false;
+        currentHealth = currentH;
+        maxHealth = maxH;
         
         BufferedImage[] movingDown = {Sprite.getSprite(imagePath, 0), Sprite.getSprite(imagePath, 1), Sprite.getSprite(imagePath, 8), Sprite.getSprite(imagePath, 10), Sprite.getSprite(imagePath, 16)};
         BufferedImage[] movingUp = {Sprite.getSprite(imagePath, 2), Sprite.getSprite(imagePath, 5), Sprite.getSprite(imagePath, 9), Sprite.getSprite(imagePath, 13), Sprite.getSprite(imagePath, 17)};
@@ -55,13 +60,38 @@ public class GolemBoss extends GameFigure
     public void update()
     {
         movement.move(super.x, super.y, this);
-        delay++;
+        damageStrategy.update();
+//        delay++;
     }
     
     @Override
     public void render(Graphics2D g)
     {
         g.drawImage(animation.getSprite(), (int) super.x, (int) super.y, WIDTH, HEIGHT, null);
+    }
+    
+    @Override
+    public int getCurrentHealth(){
+        return currentHealth;
+    }
+    
+    @Override
+    public void takeDamage(int damage)
+    {
+//        if(delay > 100)
+//        {
+            currentHealth -= damage;
+            Main.gameData.bossHealth.setHealth(currentHealth);
+//            delay = 0;
+            goNextState();
+//        }
+        //Main.gameData.bossHealth.setHealth(currentHealth);
+    }
+    
+    @Override
+    public boolean stillHasHealth()
+    {
+        return currentHealth >= 1;
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
@@ -87,10 +117,10 @@ public class GolemBoss extends GameFigure
         {
             return new Rectangle2D.Float(-50, -50, 0, 0);
         }
-        else if(hit == true && delay < 100)
-        {
-            return new Rectangle2D.Float(-50, -50, 0, 0);
-        }
+//        else if(hit == true && delay < 100)
+//        {
+//            return new Rectangle2D.Float(-50, -50, 0, 0);
+//        }
         else
         {
             return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
@@ -109,19 +139,19 @@ public class GolemBoss extends GameFigure
     public void goNextState()
     {
         
-        if(state instanceof StrongFigureState)
+        if(state instanceof StrongFigureState && currentHealth <= 10)
         {
             movement = new GolemStrategy();
             state.goNext(this);
-            hit = true;
-            delay = 0;
+//            hit = true;
+//            delay = 0;
         }
-        else if(state instanceof ActiveFigureState)
+        else if(state instanceof ActiveFigureState && currentHealth <= 0)
         {  
             state.goNext(this);
             movement = new GolemDieingStrategy();
         }
-        else if(state instanceof DieingFigureState)
+        else if(state instanceof DieingFigureState && dead == true)
         {
             state.goNext(this);
         }
@@ -134,5 +164,16 @@ public class GolemBoss extends GameFigure
         super.y = y;
     }
     
+    @Override
+    public void doDamageTo(GameFigureWithHealth target)
+    {
+        damageStrategy.doDamageTo(target);
+    }
+    
+    @Override
+    public void setDamage(int newDamage)
+    {
+        damageStrategy.setDamage(newDamage);
+    }
     
 }
