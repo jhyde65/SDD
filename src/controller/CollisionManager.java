@@ -5,7 +5,10 @@
  */
 package controller;
 
+import Inventory.ItemSlot;
+import Inventory.Potion;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import model.GameFigure;
 import model.GameData;
 import model.GameFigureWithHealth;
@@ -17,7 +20,7 @@ import model.Weapon;
  * @author Brandy
  */
 public class CollisionManager {
-
+    public static ArrayList<Integer> itemTracker = new ArrayList<Integer>();
     // Manages enemy body attacks
     public void processMeleeCollisions() {
         Rectangle2D gamerCollisionBox = GameData.shooter.getCollisionBox();
@@ -65,6 +68,7 @@ public class CollisionManager {
         for (GameFigure item : Main.gameData.itemFigures) {
             if (item.getCollisionBox().intersects(gamerCollisionBox)) {
                 item.goNextState();
+                itemTracker.add(1);
                 Animator.counter++;
             }
         }

@@ -17,8 +17,8 @@ import java.awt.image.BufferedImage;
 public class ItemSlot {
     
     public static final int SLOTSIZE = 100;
-    private int x;
-    private int y;
+    public int x;
+    public int y;
     
     private ItemStack itemStack;
     
@@ -58,10 +58,12 @@ public class ItemSlot {
         }
         return false;
     }
-        public int getX(){
+        
+    public int getX(){
             return x;
         }
-        public int getY(){
+        
+    public int getY(){
             return x;
         }
     }

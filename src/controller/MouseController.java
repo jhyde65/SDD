@@ -20,6 +20,12 @@ public class MouseController extends MouseAdapter {
         int py = me.getY();
         Shooter shooter = Main.gameData.shooter;
         
+        if(me.getButton() == MouseEvent.BUTTON1 && Inventory.isOpen){
+            Inventory.a = px;
+            Inventory.b = py;
+            Inventory.update();
+        }
+        
         if(me.getButton() == MouseEvent.BUTTON1){ 
             shooter.shoot(px, py);
         }

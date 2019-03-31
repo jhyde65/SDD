@@ -6,6 +6,7 @@
 package Inventory;
 
 import controller.Animator;
+import controller.CollisionManager;
 import controller.MouseController;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -24,59 +25,64 @@ public class Inventory {
     public static boolean isOpen = false;
     public boolean hasBeenPressed = true;
     private int x,y;
-    //private int a,b;
+    public static int a;
+    public static int b;
     private int width,height;
     private static ItemSlot currSelectedSlot;
     
     private int numCols = 6;
-    private int numRows = 4;
+    private int numRows = 3;
     
     public static ArrayList<ItemSlot> itemSlots;
+    public static ArrayList<Item> item;
     
 
     public Inventory(int x, int y)
     {
+        int counter =0;
         this.x = x;
         this.y = y;
         itemSlots = new ArrayList<ItemSlot>();
-        
+        item = new ArrayList<Item>();
         for(int i = 0; i < numCols; i++){
             for(int j = 0; j < numRows; j++){
-                if(j == (numRows - 1)){
-                    y += 35;
+
+                if(CollisionManager.itemTracker.size() > counter){
+                    itemSlots.add(new ItemSlot(x+(i*(ItemSlot.SLOTSIZE + 10)),y+(j*(ItemSlot.SLOTSIZE + 10)),null));
+                    itemSlots.get(counter).addItem(new Potion(),1);
                 }
- 
-                itemSlots.add(new ItemSlot(x+(i*(ItemSlot.SLOTSIZE + 10)),y+(j*(ItemSlot.SLOTSIZE + 10)),null));
-                
-                if(j == (numRows - 1)){
-                    y-=35;
-                }
-                    
+                else
+                    itemSlots.add(new ItemSlot(x+(i*(ItemSlot.SLOTSIZE + 10)),y+(j*(ItemSlot.SLOTSIZE + 10)),null));
+                counter ++;  
             }
         }
         width = numCols *(ItemSlot.SLOTSIZE + 10);
         height = numRows * (ItemSlot.SLOTSIZE + 10) + 35;
-        for(int i = 0; i<Animator.counter;i++){
-            itemSlots.get(i).addItem(new Potion() ,1);
+        
+        for(int i = 0; i<itemSlots.size(); i++){
+            System.out.print(itemSlots.get(i).getX() + " " + itemSlots.get(i).getY() + "\n");
         }
+        //for(int i = 0; i<Animator.counter;i++){
+        //    itemSlots.get(i).addItem(new Potion() ,1);
+        //}
     }
     
     public static void update(){
         if(isOpen){
-            Rectangle temp = new Rectangle(MainWindow.mouseController.x,MainWindow.mouseController.y,1,1);
+            Rectangle temp = new Rectangle(a,b,1,1);
             for(int i = 0; i < itemSlots.size(); i++){
                 ItemSlot is = itemSlots.get(i);
                 is.update();
                 Rectangle temp2;
-                temp2 = new Rectangle(is.getX(), is.getY(), ItemSlot.SLOTSIZE, ItemSlot.SLOTSIZE);
+                temp2 = new Rectangle(is.x, is.y, ItemSlot.SLOTSIZE, ItemSlot.SLOTSIZE);
     
                 if(temp2.contains(temp)){
                     if(is.getItemStack() != null)
                     {
-                        Animator.counter = Animator.counter - 1;
+                        CollisionManager.itemTracker.remove(i);
                         is.setItem(null);
                         HealthBar.health = 100;
-                        
+                        System.out.print(is.getX() + " " + is.getY());
                     }
                 }
             }

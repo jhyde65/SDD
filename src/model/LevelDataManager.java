@@ -29,6 +29,9 @@ public class LevelDataManager {
                 generateLevelThree();
                 break;
             case 3:
+                updateLevelThree();
+                break;
+            case 4:
                 generateBossLevel();
                 break;
             default:
@@ -107,9 +110,50 @@ public class LevelDataManager {
     }
     
     public void generateLevelThree(){
-        // not sure what to do for level 3 yet
-        generateBossLevel();
+        gameData.resetGameArea();
+        gameData.borders.add(new Border(0, 0, 75, 600));
+        gameData.borders.add(new Border(200, 100, 75, 1000));
+        gameData.borders.add(new Border(400, 0, 100, 300));
+        gameData.borders.add(new Border(390,200,50,20));
+        gameData.borders.add(new Border(390,280,50,20));
+        gameData.borders.add(new Border(235,200,50,20));
+        gameData.borders.add(new Border(235,280,50,20));
+        //gameData.borders.add(new Border(700, 150, 700, Main.WIN_HEIGHT - 28));
+        //generateBossLevel();
+        
+         SpikeyEnemy s1 = new SpikeyEnemy(100, 80);
+         s1.setDamage(20);
+         s1.setInvulnerability(true);
+         gameData.invulnerableEnemies.add(s1);
+         gameData.invulnerableEnemies.add(s1);
+         
+         SpikeyEnemy s2 = new SpikeyEnemy(100, 700);
+         s2.setDamage(20);
+         s2.setInvulnerability(true);
+         gameData.invulnerableEnemies.add(s2);
+         
+         SpikeyEnemy s3 = new SpikeyEnemy(300, 240);
+         s3.setDamage(100);
+         s3.setInvulnerability(false);
+         gameData.enemyFiguresWithHealth.add(s3);
+         
+         SpikeyEnemy s4 = new SpikeyEnemy(300, 240);
+         s4.setDamage(100);
+         s4.setInvulnerability(false);
+         gameData.enemyFiguresWithHealth.add(s4);
+         gameData.enemyFiguresWithHealth.add(s4);
+         
+         gameData.stairs.setPosition(800, 10);
     }
+    
+    public void updateLevelThree(){
+    gameData.stairs.setPosition(800, 700);
+    gameData.addMonsterEnemy(Main.WIN_WIDTH - 20, Main.WIN_HEIGHT - 20);
+    gameData.addMonsterEnemy(Main.WIN_WIDTH - 20, 0);
+    gameData.addMonsterEnemy(500, 400);
+    gameData.addMonsterEnemy(500, 700);
+        
+}
     
     public void generateBossLevel(){
         gameData.resetGameArea();
