@@ -78,14 +78,11 @@ public class GolemBoss extends GameFigureWithHealth implements Weapon
     @Override
     public void takeDamage(int damage)
     {
-//        if(delay > 100)
-//        {
             currentHealth -= damage;
             Main.gameData.bossHealth.setHealth(currentHealth);
-//            delay = 0;
+
             goNextState();
-//        }
-        //Main.gameData.bossHealth.setHealth(currentHealth);
+
     }
     
     @Override
