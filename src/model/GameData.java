@@ -61,7 +61,7 @@ public class GameData {
         immutableGameBorders.add(new Border(Main.WIN_WIDTH - 5, 0, 50, Main.WIN_HEIGHT)); // right border
         immutableGameBorders.add(new Border(0, Main.WIN_HEIGHT - 28, Main.WIN_WIDTH, 50)); //bottom border
 
-        levelManager.generateLevelOne();
+        levelManager.generateLevelThree();
 
         itemFigures.add(new ItemPotion(600, 600));
     }
