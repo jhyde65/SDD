@@ -16,8 +16,8 @@ import view.GamePanel;
 public class CannotPassBorderStrategy implements Strategy {
 
     // TODO: Add this to GameFigure instead of a class-by-class basis
-    private final int HEIGHT = 100;
-    private final int WIDTH = 75;
+    private final int HEIGHT = 75;
+    private final int WIDTH = 50;
 
     public CannotPassBorderStrategy() {
 
