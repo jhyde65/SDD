@@ -41,7 +41,7 @@ public class KButtonAction extends AbstractAction{
 
         SpikeyEnemy spikeyEnemy = new SpikeyEnemy(x1, y1);
         spikeyEnemy.setInvulnerability(true);
-        spikeyEnemy.setDamage(15);
+        spikeyEnemy.setDamage(20);
         
         Main.gameData.invulnerableEnemies.add(spikeyEnemy);
         Main.gameData.addSpikeyEnemy(x2, y2, new RollOnBorderStrategy(Direction.EAST, false));
