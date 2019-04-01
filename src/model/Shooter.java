@@ -16,8 +16,8 @@ enum Dir {
 
 public class Shooter extends GameFigureWithHealth {
 
-    public final int HEIGHT = 75;
-    public final int WIDTH = 50;
+    private final int HEIGHT = 75;
+    private final int WIDTH = 50;
     private final String PATH = "..//resources//images//hero//";
     public int health;
     public float dx;
