@@ -111,6 +111,9 @@ public class LevelDataManager {
     
     public void generateLevelThree(){
         gameData.resetGameArea();
+        
+        gameData.shooter.setPosition(0, Main.WIN_HEIGHT - 150);
+
         gameData.borders.add(new Border(0, 0, 75, 600));
         gameData.borders.add(new Border(200, 100, 75, 1000));
         gameData.borders.add(new Border(400, 0, 100, 300));
