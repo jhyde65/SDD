@@ -112,7 +112,7 @@ public class Smash extends GameFigure implements Weapon
 
     @Override
     public Rectangle2D getCollisionBox() {
-        return new Rectangle2D.Float(super.x, super.y, smashSize, smashSize); //set box out of screen for testing right now
+        return new Rectangle2D.Float((super.x - smashSize/2), (super.y - smashSize/2), (float)(0.9* smashSize), (float)(0.9 * smashSize)); //set box out of screen for testing right now
     }
     
     @Override
