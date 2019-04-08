@@ -26,6 +26,9 @@ public class Shooter extends GameFigureWithHealth {
     private boolean isStrike = false;
     private int frameCounter = 0;
     private Dir dir;
+    private int mana;
+    private final int maxMana = 50;
+    private int counter;
 
 
     public Shooter(float x, float y) {
@@ -63,6 +66,8 @@ public class Shooter extends GameFigureWithHealth {
         this.dir = Dir.LEFT;
         animation.start();
         currentHealth = 100;
+        mana = 50;
+        counter = 0;
 
     }
 
@@ -71,8 +76,13 @@ public class Shooter extends GameFigureWithHealth {
     }
 
     public void shoot(int targetX, int targetY) {
-        Gunshot m = new Gunshot(this.x + WIDTH / 2, this.y + HEIGHT / 2, targetX, targetY, Color.RED);
-        Main.gameData.friendFigures.add(m);
+        if(mana >= 5)
+        {
+            Gunshot m = new Gunshot(this.x + WIDTH / 2, this.y + HEIGHT / 2, targetX, targetY, Color.RED);
+            Main.gameData.friendFigures.add(m);
+            mana -= 5;
+            Main.gameData.mana.setMana(mana);
+        }
     }
 
     public void strike() {
@@ -112,6 +122,14 @@ public class Shooter extends GameFigureWithHealth {
 //        {
 //            Main.gameData.setGameState(new GameOverState());
 //        }
+        if(counter == 10)
+        {
+            mana++;
+            mana = (mana > maxMana) ? (mana = maxMana) : mana;
+            counter = 0;
+        }
+        Main.gameData.mana.setMana(mana);
+        counter++;
     }
 
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation) {

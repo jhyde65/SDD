@@ -25,7 +25,7 @@ public class StrongGolemStrategy implements Strategy
     private int time, ranged;
     private int top;
     Random rand;
-    private final int SIZE = 40;
+    private final int SIZE = 80;
     private float sx, sy;
     private boolean zoom;
     
