@@ -19,6 +19,7 @@ public class Shooter extends GameFigureWithHealth {
     private final int HEIGHT = 75;
     private final int WIDTH = 50;
     private final String PATH = "..//resources//images//hero//";
+    private final String PATH2 = "..//resources//images//chrono//";
     public int health;
     public float dx;
     public float dy;
@@ -31,44 +32,90 @@ public class Shooter extends GameFigureWithHealth {
     private int counter;
 
 
-    public Shooter(float x, float y) {
+    public Shooter(float x, float y)
+    {
         super(x, y);
         super.state = new ActiveFigureState();
         movement = new CannotPassBorderStrategy();
-        BufferedImage[] movingUp = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2),
-            Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4)};
-        BufferedImage[] movingDown = {Sprite.getSprite(PATH, 5), Sprite.getSprite(PATH, 6), Sprite.getSprite(PATH, 7),
-            Sprite.getSprite(PATH, 8), Sprite.getSprite(PATH, 9)};
-        BufferedImage[] movingRight = {Sprite.getSprite(PATH, 10), Sprite.getSprite(PATH, 11), Sprite.getSprite(PATH, 12),
-            Sprite.getSprite(PATH, 13), Sprite.getSprite(PATH, 14), Sprite.getSprite(PATH, 15),
-            Sprite.getSprite(PATH, 16), Sprite.getSprite(PATH, 17)};
-        BufferedImage[] movingLeft = {Sprite.getSprite(PATH, 18), Sprite.getSprite(PATH, 19), Sprite.getSprite(PATH, 20),
-            Sprite.getSprite(PATH, 21), Sprite.getSprite(PATH, 22), Sprite.getSprite(PATH, 23),
-            Sprite.getSprite(PATH, 24), Sprite.getSprite(PATH, 25)};
-        BufferedImage[] strikingRight = {Sprite.getSprite(PATH, 26), Sprite.getSprite(PATH, 27), Sprite.getSprite(PATH, 28),
-            Sprite.getSprite(PATH, 29), Sprite.getSprite(PATH, 30), Sprite.getSprite(PATH, 31),
-            Sprite.getSprite(PATH, 32), Sprite.getSprite(PATH, 33), Sprite.getSprite(PATH, 34)};
-        BufferedImage[] strikingLeft = {Sprite.getSprite(PATH, 37), Sprite.getSprite(PATH, 38), Sprite.getSprite(PATH, 39),
-                                        Sprite.getSprite(PATH, 40), Sprite.getSprite(PATH, 41), Sprite.getSprite(PATH, 42)};
+    }
 
-        BufferedImage[] dying = {Sprite.getSprite(PATH, 35)};
-        BufferedImage[] idling = {Sprite.getSprite(PATH, 0)};
+    public void setSprites(boolean isHeroSelected)
+    {
+        if (isHeroSelected)
+        {
+            BufferedImage[] movingUp = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1), Sprite.getSprite(PATH, 2),
+                Sprite.getSprite(PATH, 3), Sprite.getSprite(PATH, 4)};
+            BufferedImage[] movingDown = {Sprite.getSprite(PATH, 5), Sprite.getSprite(PATH, 6), Sprite.getSprite(PATH, 7),
+                Sprite.getSprite(PATH, 8), Sprite.getSprite(PATH, 9)};
+            BufferedImage[] movingRight = {Sprite.getSprite(PATH, 10), Sprite.getSprite(PATH, 11), Sprite.getSprite(PATH, 12),
+                Sprite.getSprite(PATH, 13), Sprite.getSprite(PATH, 14), Sprite.getSprite(PATH, 15),
+                Sprite.getSprite(PATH, 16), Sprite.getSprite(PATH, 17)};
+            BufferedImage[] movingLeft = {Sprite.getSprite(PATH, 18), Sprite.getSprite(PATH, 19), Sprite.getSprite(PATH, 20),
+                Sprite.getSprite(PATH, 21), Sprite.getSprite(PATH, 22), Sprite.getSprite(PATH, 23),
+                Sprite.getSprite(PATH, 24), Sprite.getSprite(PATH, 25)};
 
-        this.moveDown = new SpriteAnimation(movingDown, 5);
-        this.moveLeft = new SpriteAnimation(movingLeft, 5);
-        this.moveRight = new SpriteAnimation(movingRight, 5);
-        this.moveUp = new SpriteAnimation(movingUp, 5);
-        this.idle = new SpriteAnimation(idling, 5);
-        this.strikeRight = new SpriteAnimation(strikingRight, 2);
-        this.strikeLeft = new SpriteAnimation(strikingLeft, 2);
-        this.dying = new SpriteAnimation(dying, 4);
-        this.animation = idle;
-        this.dir = Dir.LEFT;
-        animation.start();
-        currentHealth = 100;
-        mana = 50;
-        counter = 0;
+            BufferedImage[] strikingRight = {Sprite.getSprite(PATH, 26), Sprite.getSprite(PATH, 27), Sprite.getSprite(PATH, 28),
+                Sprite.getSprite(PATH, 29), Sprite.getSprite(PATH, 30), Sprite.getSprite(PATH, 31),
+                Sprite.getSprite(PATH, 32), Sprite.getSprite(PATH, 33), Sprite.getSprite(PATH, 34)};
+            BufferedImage[] strikingLeft = {Sprite.getSprite(PATH, 37), Sprite.getSprite(PATH, 38), Sprite.getSprite(PATH, 39),
+                                            Sprite.getSprite(PATH, 40), Sprite.getSprite(PATH, 41), Sprite.getSprite(PATH, 42)};
 
+            BufferedImage[] dying = {Sprite.getSprite(PATH, 35)};
+            BufferedImage[] idling = {Sprite.getSprite(PATH, 0)};
+
+            this.moveDown = new SpriteAnimation(movingDown, 5);
+            this.moveLeft = new SpriteAnimation(movingLeft, 5);
+            this.moveRight = new SpriteAnimation(movingRight, 5);
+            this.moveUp = new SpriteAnimation(movingUp, 5);
+            this.idle = new SpriteAnimation(idling, 5);
+            this.strikeRight = new SpriteAnimation(strikingRight, 2);
+            this.strikeLeft = new SpriteAnimation(strikingLeft, 2);
+            this.dying = new SpriteAnimation(dying, 4);
+            this.animation = idle;
+            this.dir = Dir.LEFT;
+            animation.start();
+            currentHealth = 100;
+            mana = 50;
+            counter = 0;
+        }
+        else
+        {
+            BufferedImage[] movingUp = {Sprite.getSprite(PATH2, 12), Sprite.getSprite(PATH2, 13), Sprite.getSprite(PATH2, 14),
+                    Sprite.getSprite(PATH2, 15), Sprite.getSprite(PATH2, 16), Sprite.getSprite(PATH2, 17)};
+
+            BufferedImage[] movingDown = {Sprite.getSprite(PATH2, 18), Sprite.getSprite(PATH2, 19), Sprite.getSprite(PATH2, 20),
+                    Sprite.getSprite(PATH2, 21), Sprite.getSprite(PATH2, 22), Sprite.getSprite(PATH2, 23)};
+
+            BufferedImage[] movingRight = {Sprite.getSprite(PATH2, 0), Sprite.getSprite(PATH2, 1), Sprite.getSprite(PATH2, 2),
+                    Sprite.getSprite(PATH2, 3), Sprite.getSprite(PATH2, 4), Sprite.getSprite(PATH2, 5)};
+
+            BufferedImage[] movingLeft = {Sprite.getSprite(PATH2, 6), Sprite.getSprite(PATH2, 7), Sprite.getSprite(PATH2, 8),
+                    Sprite.getSprite(PATH2, 9), Sprite.getSprite(PATH2, 10), Sprite.getSprite(PATH2, 11)};
+
+            BufferedImage[] strikingRight = {Sprite.getSprite(PATH2, 24), Sprite.getSprite(PATH2, 25), Sprite.getSprite(PATH2, 26),
+                    Sprite.getSprite(PATH2, 27)};
+
+            BufferedImage[] strikingLeft = {Sprite.getSprite(PATH2, 24), Sprite.getSprite(PATH2, 25), Sprite.getSprite(PATH2, 26),
+                    Sprite.getSprite(PATH2, 27)};
+
+            BufferedImage[] dying = {Sprite.getSprite(PATH2, 30)};
+            BufferedImage[] idling = {Sprite.getSprite(PATH2, 28)};
+
+            this.moveDown = new SpriteAnimation(movingDown, 1);
+            this.moveLeft = new SpriteAnimation(movingLeft, 1);
+            this.moveRight = new SpriteAnimation(movingRight, 1);
+            this.moveUp = new SpriteAnimation(movingUp, 1);
+            this.idle = new SpriteAnimation(idling, 5);
+            this.strikeRight = new SpriteAnimation(strikingRight, 2);
+            this.strikeLeft = new SpriteAnimation(strikingLeft, 2);
+            this.dying = new SpriteAnimation(dying, 4);
+            this.animation = idle;
+            this.dir = Dir.LEFT;
+            animation.start();
+            currentHealth = 100;
+            mana = 50;
+            counter = 0;
+        }
     }
 
     public void translate(int x, int y) {
@@ -167,8 +214,6 @@ public class Shooter extends GameFigureWithHealth {
     @Override
     public void takeDamage(int damage)
     {
-   
-        System.out.println("+++++++++++++++++++++ booiiiiiiii");
         currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
         Main.gameData.health.setHealth(currentHealth);
 
