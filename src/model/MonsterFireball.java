@@ -1,5 +1,6 @@
 package model;
 
+import controller.Main;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -50,6 +51,9 @@ public class MonsterFireball extends GameFigure
     public void update()
     {
         strategy.move(super.x, super.y, this);
+        if(notInGameArea()){
+            this.state = new DoneFigureState();
+        }
         //this.animation.update();
     }
     
@@ -89,6 +93,12 @@ public class MonsterFireball extends GameFigure
     public Rectangle2D getCollisionBox()
     {
         return new Rectangle2D.Float(0, 0, 0, 0);
+    }
+    
+    private boolean notInGameArea(){
+        return this.x > Main.WIN_WIDTH + width 
+                || this.y > Main.WIN_HEIGHT + height
+                || this.x < 0 || this.y < 0;
     }
     
 }
