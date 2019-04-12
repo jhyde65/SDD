@@ -110,6 +110,7 @@ public class Shooter extends GameFigureWithHealth {
             if (frameCounter >= 20) {
                 frameCounter = 0;
                 isStrike = false;
+                this.setAnimation(animation, idle);
             }
         }
         if(state instanceof DieingFigureState)
@@ -189,7 +190,7 @@ public class Shooter extends GameFigureWithHealth {
     private void dying() {
 
         this.setAnimation(animation, dying);
-
+        
     }
 
     public void setDirection(String dir) {
