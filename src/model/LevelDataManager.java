@@ -41,8 +41,6 @@ public class LevelDataManager {
     }
     
     public void generateLevelOne(){
-        generateLevelTwo();
-        /*
         gameData.resetGameArea();
         gameData.borders.add(new Border(400, 0, 100, 50));
         gameData.borders.add(new Border(700, 150, 35, Main.WIN_HEIGHT - 28));
@@ -58,7 +56,6 @@ public class LevelDataManager {
         gameData.addSpikeyEnemy();
         gameData.addSpikeyEnemy();
         gameData.addSpikeyEnemy();
-*/
     }
     
     public void generateLevelTwo(){
