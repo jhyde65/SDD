@@ -44,9 +44,14 @@ public class LevelDataManager {
         gameData.resetGameArea();
         gameData.borders.add(new Border(400, 0, 100, 50));
         gameData.borders.add(new Border(700, 150, 35, Main.WIN_HEIGHT - 28));
+        gameData.borders.add(new Border(0, Main.WIN_HEIGHT - 250, 250, 20));
+        gameData.borders.add(new Border(380, Main.WIN_HEIGHT - 250, 20, 250));
+
         gameData.addMonsterEnemy(0, 0);
         gameData.addMonsterEnemy(50, 50);
         gameData.addMonsterEnemy(Main.WIN_WIDTH - 200, Main.WIN_HEIGHT - 200);
+        
+        gameData.addSpikeyEnemy(300, Main.WIN_HEIGHT - 250, new BounceStraightOffBorderStrategy(Direction.EAST));
         gameData.addSpikeyEnemy();
         gameData.addSpikeyEnemy();
         gameData.addSpikeyEnemy();
@@ -63,8 +68,23 @@ public class LevelDataManager {
         gameData.borders.add(new Border(Main.WIN_WIDTH/2 + 250 + 34 - 20 - 20, Main.WIN_HEIGHT/2 - (20 + 50), 40, 20));
         gameData.borders.add(new Border(Main.WIN_WIDTH/2 + 250 + 34 - 20 - 20, Main.WIN_HEIGHT/2 - 50 + 135, 40, 20));
 
+        
+        gameData.borders.add(new Border(Main.WIN_WIDTH/2 + 50, 0, 20, Main.WIN_HEIGHT/2 - 70));
+        gameData.borders.add(new Border(Main.WIN_WIDTH/2 - 50 + 20, 0, 20, Main.WIN_HEIGHT/2 - 70));
+        gameData.borders.add(new Border(Main.WIN_WIDTH/2 + 50, Main.WIN_HEIGHT/2 - 70, 40, 20));
+        gameData.borders.add(new Border(Main.WIN_WIDTH/2 - 50, Main.WIN_HEIGHT/2 - 70, 40, 20));
+        
+        gameData.borders.add(new Border(Main.WIN_WIDTH/2 + 50, Main.WIN_HEIGHT/2 - 50 + 135, 40, 20));
+        gameData.borders.add(new Border(Main.WIN_WIDTH/2 - 50, Main.WIN_HEIGHT/2 - 50 + 135, 40, 20));
+
         gameData.shooter.setPosition(Main.WIN_WIDTH/2, Main.WIN_HEIGHT/2);
         
+        SpikeyEnemy s0 = new SpikeyEnemy(Main.WIN_WIDTH/2, 0);
+        s0.movement = new BounceStraightOffBorderStrategy(Direction.SOUTH);
+        s0.setDamage(20);
+        s0.setInvulnerability(true);
+        gameData.invulnerableEnemies.add(s0);
+
         SpikeyEnemy s1 = new SpikeyEnemy(Main.WIN_WIDTH/2 - 200, Main.WIN_HEIGHT/2 - 50);
         s1.movement = new BounceStraightOffBorderStrategy(Direction.EAST);
         s1.setDamage(20);
