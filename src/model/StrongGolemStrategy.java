@@ -19,13 +19,13 @@ import view.GamePanel;
 
 public class StrongGolemStrategy implements Strategy
 {
-    private int dx = 3;
-    private int dy = 3;
+    private int dx = 0; // set to 3 normal, 0 for testing
+    private int dy = 0; // set to 3 normal, 0 for testing
     private int counter, rangeCounter;
     private int time, ranged;
     private int top;
     Random rand;
-    private final int SIZE = 40;
+    private final int SIZE = 80;
     private float sx, sy;
     private boolean zoom;
     

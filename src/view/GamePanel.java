@@ -132,6 +132,7 @@ public class GamePanel extends JPanel {
 
             Main.gameData.shooter.render(g2);
             Main.gameData.health.render(g2);
+            Main.gameData.mana.render(g2);
 
             for (GameFigure f : Main.gameData.enemyFigures) {
                 f.render(g2);
@@ -161,9 +162,6 @@ public class GamePanel extends JPanel {
                 f.render(g2);
             }
 
-            for (Inventory f : Main.gameData.inventory){
-                f.render(g2);
-            }
             for(Border b : Main.gameData.borders){
                 b.render(g2);
             }
@@ -172,6 +170,10 @@ public class GamePanel extends JPanel {
                 Main.gameData.stairs.render(g2);
             }
 
+            for (Inventory f : Main.gameData.inventory){
+                f.render(g2);
+            }
+            
             if (Main.gameData.getGameState() == State.OVER && gameOverTimer == null)
             {
                 this.gameOverSong.play();

@@ -20,7 +20,8 @@ public class BButtonAction extends AbstractAction
     {
         Main.gameData.enemyFigures.clear();
         Main.gameData.enemyFiguresWithHealth.clear();
-        Main.gameData.addGolem();
+        //Main.gameData.addGolem();
+        Main.gameData.levelManager.generateBossLevel();
     }
     
 }

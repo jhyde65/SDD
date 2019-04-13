@@ -1,18 +1,16 @@
 package controller.actions.splashactions;
 
 import controller.GameStaticState;
-import controller.Main;
-import model.Shooter;
 import view.SplashPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class EnterAction extends AbstractAction
+public class EnterSelectAction extends AbstractAction
 {
     private SplashPanel panel;
 
-    public EnterAction(SplashPanel panel)
+    public EnterSelectAction(SplashPanel panel)
     {
         this.panel = panel;
     }
@@ -20,7 +18,6 @@ public class EnterAction extends AbstractAction
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        Main.gameData.shooter.setSprites(panel.getIsHeroSelected());
-        GameStaticState.setPaused();
+        panel.setPositions();
     }
 }

@@ -27,6 +27,7 @@ public class GameData {
     public final List<Border> immutableGameBorders;
     public final List<Inventory> inventory;
     public final HealthBar health;
+    public final ShooterManaBar mana;
     public Pause pauseScreen;
     public static Shooter shooter;
     public BossHealthBar bossHealth;
@@ -41,6 +42,7 @@ public class GameData {
         borders = new CopyOnWriteArrayList<>();
         immutableGameBorders = new CopyOnWriteArrayList<>();
         health = new HealthBar();
+        mana = new ShooterManaBar();
         pauseScreen = new Pause();
         inventory = new CopyOnWriteArrayList<>();
         itemFigures = new CopyOnWriteArrayList<>();
@@ -61,7 +63,7 @@ public class GameData {
         immutableGameBorders.add(new Border(Main.WIN_WIDTH - 5, 0, 50, Main.WIN_HEIGHT)); // right border
         immutableGameBorders.add(new Border(0, Main.WIN_HEIGHT - 28, Main.WIN_WIDTH, 50)); //bottom border
 
-        levelManager.generateLevelThree();
+        levelManager.generateLevelOne();
 
         itemFigures.add(new ItemPotion(600, 600));
     }

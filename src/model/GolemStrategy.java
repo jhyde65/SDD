@@ -20,13 +20,13 @@ import view.GamePanel;
  */
 public class GolemStrategy implements Strategy
 {
-    private int dx = 5;
-    private int dy = 5;
+    private int dx = 1; // normal 5, 1 for testing
+    private int dy = 1; // normal 5, 1 for testing
     private int counter, rangeCounter;
     private int time, ranged;
     private int top;
     Random rand;
-    private final int SIZE = 40;
+    private final int SIZE = 80;
     private float sx, sy;
     private boolean zoom;
     

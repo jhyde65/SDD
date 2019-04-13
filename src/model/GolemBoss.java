@@ -16,8 +16,8 @@ import java.awt.image.BufferedImage;
  */
 public class GolemBoss extends GameFigureWithHealth implements Weapon
 {
-    private final int HEIGHT = 50;
-    private final int WIDTH = 50;
+    private final int HEIGHT = 80;
+    private final int WIDTH = 80;
 //    private int delay;
     //public int currentHealth = 30;
     public boolean dead;
@@ -78,14 +78,11 @@ public class GolemBoss extends GameFigureWithHealth implements Weapon
     @Override
     public void takeDamage(int damage)
     {
-//        if(delay > 100)
-//        {
             currentHealth -= damage;
             Main.gameData.bossHealth.setHealth(currentHealth);
-//            delay = 0;
+
             goNextState();
-//        }
-        //Main.gameData.bossHealth.setHealth(currentHealth);
+
     }
     
     @Override
