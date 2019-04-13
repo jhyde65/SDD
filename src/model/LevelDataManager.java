@@ -14,7 +14,7 @@ import controller.Main;
 public class LevelDataManager {
     
     private GameData gameData;
-    private int currentLevel = 1;
+    private int currentLevel = 0;
     
     public LevelDataManager(GameData context){
         gameData = context;

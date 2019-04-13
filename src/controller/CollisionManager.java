@@ -14,6 +14,7 @@ import model.GameData;
 import model.GameFigureWithHealth;
 import model.SpikeyEnemy;
 import model.Weapon;
+import Inventory.ItemPotion;
 
 /**
  *
@@ -67,9 +68,14 @@ public class CollisionManager {
         Rectangle2D gamerCollisionBox = GameData.shooter.getCollisionBox();
         for (GameFigure item : Main.gameData.itemFigures) {
             if (item.getCollisionBox().intersects(gamerCollisionBox)) {
+                System.out.print(item.getCollisionBox());
+                if(item instanceof ItemPotion)
+                {
                 item.goNextState();
                 itemTracker.add(1);
                 Animator.counter++;
+                }
+                
             }
         }
     }

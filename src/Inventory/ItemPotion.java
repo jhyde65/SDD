@@ -85,4 +85,9 @@ public class ItemPotion extends GameFigure{
         super.y = y;
     }
     
+    public String name()
+    {
+        return "healthPotion";
+    }
+    
 }

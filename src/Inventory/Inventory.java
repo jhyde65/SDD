@@ -82,7 +82,7 @@ public class Inventory {
                         CollisionManager.itemTracker.remove(i);
                         is.setItem(null);
                         HealthBar.health = 100;
-                        System.out.print(is.getX() + " " + is.getY());
+                     
                     }
                 }
             }
