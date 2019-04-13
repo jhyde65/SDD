@@ -96,6 +96,7 @@ public class GamePanel extends JPanel {
         actionMap.put("PAUSE", new PauseAction());
         actionMap.put("ENTER", new PauseEnterAction());
         actionMap.put("MonsterEnemy", new MButtonAction());
+        actionMap.put("SPACE", new SpaceAction());
 
         this.gameOverTimer = null;
         this.alphaLevel = 1.0f;
