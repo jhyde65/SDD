@@ -71,6 +71,8 @@ public class Shooter extends GameFigureWithHealth {
             this.moveRight = new SpriteAnimation(movingRight, 5);
             this.moveUp = new SpriteAnimation(movingUp, 5);
             this.idle = new SpriteAnimation(idling, 5);
+            this.idleRight = new SpriteAnimation(idlingRight, 5);
+            this.idleLeft = new SpriteAnimation(idlingLeft, 5);
             this.strikeRight = new SpriteAnimation(strikingRight, 2);
             this.strikeLeft = new SpriteAnimation(strikingLeft, 2);
             this.dying = new SpriteAnimation(dying, 4);
@@ -103,12 +105,16 @@ public class Shooter extends GameFigureWithHealth {
 
             BufferedImage[] dying = {Sprite.getSprite(PATH2, 30)};
             BufferedImage[] idling = {Sprite.getSprite(PATH2, 28)};
+            BufferedImage[] idlingRight = {Sprite.getSprite(PATH2, 0)};
+            BufferedImage[] idlingLeft = {Sprite.getSprite(PATH2, 6)};
 
             this.moveDown = new SpriteAnimation(movingDown, 1);
             this.moveLeft = new SpriteAnimation(movingLeft, 1);
             this.moveRight = new SpriteAnimation(movingRight, 1);
             this.moveUp = new SpriteAnimation(movingUp, 1);
             this.idle = new SpriteAnimation(idling, 5);
+            this.idleRight = new SpriteAnimation(idlingRight, 5);
+            this.idleLeft = new SpriteAnimation(idlingLeft, 5);
             this.strikeRight = new SpriteAnimation(strikingRight, 2);
             this.strikeLeft = new SpriteAnimation(strikingLeft, 2);
             this.dying = new SpriteAnimation(dying, 4);
