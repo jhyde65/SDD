@@ -147,6 +147,11 @@ public class GameData {
         enemyFigures.add(new GoblinEnemy(x, y));
     }
     
+    public void addShooterShield(){
+        
+        enemyFigures.add(new ShooterShield(shooter.x, shooter.y));
+    }
+    
     public void addPotion(float x, float y){
         itemFigures.add(new ItemPotion(x,y));
     }    

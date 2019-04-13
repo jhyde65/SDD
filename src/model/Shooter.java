@@ -23,13 +23,14 @@ public class Shooter extends GameFigureWithHealth {
     public int health;
     public float dx;
     public float dy;
-    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strikeRight, strikeLeft, dying;
+    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strikeRight, strikeLeft, dying, idleLeft, idleRight;
     private boolean isStrike = false;
     private int frameCounter = 0;
     private Dir dir;
     private int mana;
     private final int maxMana = 50;
     private int counter;
+    private boolean shieldActive = false;
 
 
     public Shooter(float x, float y)
@@ -62,6 +63,8 @@ public class Shooter extends GameFigureWithHealth {
 
             BufferedImage[] dying = {Sprite.getSprite(PATH, 35)};
             BufferedImage[] idling = {Sprite.getSprite(PATH, 0)};
+            BufferedImage[] idlingLeft = {Sprite.getSprite(PATH, 18)};
+            BufferedImage[] idlingRight = {Sprite.getSprite(PATH, 10)};
 
             this.moveDown = new SpriteAnimation(movingDown, 5);
             this.moveLeft = new SpriteAnimation(movingLeft, 5);
@@ -123,8 +126,7 @@ public class Shooter extends GameFigureWithHealth {
     }
 
     public void shoot(int targetX, int targetY) {
-        if(mana >= 5)
-        {
+        if (mana >= 5) {
             Gunshot m = new Gunshot(this.x + WIDTH / 2, this.y + HEIGHT / 2, targetX, targetY, Color.RED);
             Main.gameData.friendFigures.add(m);
             mana -= 5;
@@ -157,10 +159,15 @@ public class Shooter extends GameFigureWithHealth {
             if (frameCounter >= 20) {
                 frameCounter = 0;
                 isStrike = false;
+                
+                if (this.dir == Dir.LEFT || this.dir == Dir.UP) {
+                    this.setAnimation(animation, idleLeft);
+                } else {
+                    this.setAnimation(animation, idleRight);
+                }
             }
         }
-        if(state instanceof DieingFigureState)
-        {
+        if (state instanceof DieingFigureState) {
             goNextState();
             Main.gameData.setGameState(new GameOverState());
 
@@ -169,8 +176,7 @@ public class Shooter extends GameFigureWithHealth {
 //        {
 //            Main.gameData.setGameState(new GameOverState());
 //        }
-        if(counter == 10)
-        {
+        if (counter == 10) {
             mana++;
             mana = (mana > maxMana) ? (mana = maxMana) : mana;
             counter = 0;
@@ -212,17 +218,19 @@ public class Shooter extends GameFigureWithHealth {
     }
 
     @Override
-    public void takeDamage(int damage)
-    {
-        currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
-        Main.gameData.health.setHealth(currentHealth);
+    public void takeDamage(int damage) {
 
-        if(currentHealth <= 0)
-        {
-            goNextState();
-            dying();
+        if (!shieldActive) {
+
+            System.out.println("+++++++++++++++++++++ booiiiiiiii");
+            currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
+            Main.gameData.health.setHealth(currentHealth);
+
+            if (currentHealth <= 0) {
+                goNextState();
+                dying();
+            }
         }
-
 
     }
 
@@ -237,17 +245,34 @@ public class Shooter extends GameFigureWithHealth {
 
     }
 
+    public void setShieldActive(boolean shieldActive) {
+        this.shieldActive = shieldActive;
+    }
+
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     public void setDirection(String dir) {
-        switch(dir){
-            case "UP": this.dir = Dir.UP;
-            break;
-            case "DOWN": this.dir = Dir.DOWN;
-            break;
-            case "LEFT": this.dir = Dir.LEFT;
-            break;
-            case "RIGHT": this.dir = Dir.RIGHT;
-            break;
-            default: {}
+        switch (dir) {
+            case "UP":
+                this.dir = Dir.UP;
+                break;
+            case "DOWN":
+                this.dir = Dir.DOWN;
+                break;
+            case "LEFT":
+                this.dir = Dir.LEFT;
+                break;
+            case "RIGHT":
+                this.dir = Dir.RIGHT;
+                break;
+            default: {
+            }
         }
     }
 
