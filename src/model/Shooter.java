@@ -22,14 +22,14 @@ public class Shooter extends GameFigureWithHealth {
     public int health;
     public float dx;
     public float dy;
-    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strikeRight, strikeLeft, dying;
+    public SpriteAnimation animation, moveDown, moveLeft, moveRight, moveUp, idle, strikeRight, strikeLeft, dying, idleLeft, idleRight;
     private boolean isStrike = false;
     private int frameCounter = 0;
     private Dir dir;
     private int mana;
     private final int maxMana = 50;
     private int counter;
-
+    private boolean shieldActive = false;
 
     public Shooter(float x, float y) {
         super(x, y);
@@ -49,16 +49,20 @@ public class Shooter extends GameFigureWithHealth {
             Sprite.getSprite(PATH, 29), Sprite.getSprite(PATH, 30), Sprite.getSprite(PATH, 31),
             Sprite.getSprite(PATH, 32), Sprite.getSprite(PATH, 33), Sprite.getSprite(PATH, 34)};
         BufferedImage[] strikingLeft = {Sprite.getSprite(PATH, 37), Sprite.getSprite(PATH, 38), Sprite.getSprite(PATH, 39),
-                                        Sprite.getSprite(PATH, 40), Sprite.getSprite(PATH, 41), Sprite.getSprite(PATH, 42)};
+            Sprite.getSprite(PATH, 40), Sprite.getSprite(PATH, 41), Sprite.getSprite(PATH, 42)};
 
         BufferedImage[] dying = {Sprite.getSprite(PATH, 35)};
         BufferedImage[] idling = {Sprite.getSprite(PATH, 0)};
+        BufferedImage[] idlingLeft = {Sprite.getSprite(PATH, 18)};
+        BufferedImage[] idlingRight = {Sprite.getSprite(PATH, 10)};
 
         this.moveDown = new SpriteAnimation(movingDown, 5);
         this.moveLeft = new SpriteAnimation(movingLeft, 5);
         this.moveRight = new SpriteAnimation(movingRight, 5);
         this.moveUp = new SpriteAnimation(movingUp, 5);
         this.idle = new SpriteAnimation(idling, 5);
+        this.idleRight = new SpriteAnimation(idlingRight, 5);
+        this.idleLeft = new SpriteAnimation(idlingLeft, 5);
         this.strikeRight = new SpriteAnimation(strikingRight, 2);
         this.strikeLeft = new SpriteAnimation(strikingLeft, 2);
         this.dying = new SpriteAnimation(dying, 4);
@@ -76,8 +80,7 @@ public class Shooter extends GameFigureWithHealth {
     }
 
     public void shoot(int targetX, int targetY) {
-        if(mana >= 5)
-        {
+        if (mana >= 5) {
             Gunshot m = new Gunshot(this.x + WIDTH / 2, this.y + HEIGHT / 2, targetX, targetY, Color.RED);
             Main.gameData.friendFigures.add(m);
             mana -= 5;
@@ -110,11 +113,15 @@ public class Shooter extends GameFigureWithHealth {
             if (frameCounter >= 20) {
                 frameCounter = 0;
                 isStrike = false;
-                this.setAnimation(animation, idle);
+                
+                if (this.dir == Dir.LEFT || this.dir == Dir.UP) {
+                    this.setAnimation(animation, idleLeft);
+                } else {
+                    this.setAnimation(animation, idleRight);
+                }
             }
         }
-        if(state instanceof DieingFigureState)
-        {
+        if (state instanceof DieingFigureState) {
             goNextState();
             Main.gameData.setGameState(new GameOverState());
 
@@ -123,8 +130,7 @@ public class Shooter extends GameFigureWithHealth {
 //        {
 //            Main.gameData.setGameState(new GameOverState());
 //        }
-        if(counter == 10)
-        {
+        if (counter == 10) {
             mana++;
             mana = (mana > maxMana) ? (mana = maxMana) : mana;
             counter = 0;
@@ -166,19 +172,19 @@ public class Shooter extends GameFigureWithHealth {
     }
 
     @Override
-    public void takeDamage(int damage)
-    {
-   
-        System.out.println("+++++++++++++++++++++ booiiiiiiii");
-        currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
-        Main.gameData.health.setHealth(currentHealth);
+    public void takeDamage(int damage) {
 
-        if(currentHealth <= 0)
-        {
-            goNextState();
-            dying();
+        if (!shieldActive) {
+
+            System.out.println("+++++++++++++++++++++ booiiiiiiii");
+            currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
+            Main.gameData.health.setHealth(currentHealth);
+
+            if (currentHealth <= 0) {
+                goNextState();
+                dying();
+            }
         }
-
 
     }
 
@@ -190,20 +196,37 @@ public class Shooter extends GameFigureWithHealth {
     private void dying() {
 
         this.setAnimation(animation, dying);
-        
+
+    }
+
+    public void setShieldActive(boolean shieldActive) {
+        this.shieldActive = shieldActive;
+    }
+
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    public int getHeight() {
+        return HEIGHT;
     }
 
     public void setDirection(String dir) {
-        switch(dir){
-            case "UP": this.dir = Dir.UP;
-            break;
-            case "DOWN": this.dir = Dir.DOWN;
-            break;
-            case "LEFT": this.dir = Dir.LEFT;
-            break;
-            case "RIGHT": this.dir = Dir.RIGHT;
-            break;
-            default: {}
+        switch (dir) {
+            case "UP":
+                this.dir = Dir.UP;
+                break;
+            case "DOWN":
+                this.dir = Dir.DOWN;
+                break;
+            case "LEFT":
+                this.dir = Dir.LEFT;
+                break;
+            case "RIGHT":
+                this.dir = Dir.RIGHT;
+                break;
+            default: {
+            }
         }
     }
 
