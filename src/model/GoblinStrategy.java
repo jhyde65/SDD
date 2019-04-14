@@ -6,7 +6,7 @@ package model;
  */
 public class GoblinStrategy implements Strategy
 {
-    private final int UNIT_TRAVEL_DISTANCE = 4;
+    private final float UNIT_TRAVEL_DISTANCE = 3.5f;
 
     @Override
     public void move(float x, float y, GameFigure context)
@@ -22,6 +22,7 @@ public class GoblinStrategy implements Strategy
                 if (Math.abs(shy - goblin.y) < 50)
                 {
                     goblin.setAnimation(goblin.animation, goblin.stabUp);
+                    goblin.setState(new GoblinAttackingState());
                 } else {
                     goblin.setAnimation(goblin.animation, goblin.up);
                     goblin.setPosition(goblin.x, goblin.y - UNIT_TRAVEL_DISTANCE);
@@ -31,6 +32,7 @@ public class GoblinStrategy implements Strategy
                 if (Math.abs(shy - goblin.y) < 50)
                 {
                     goblin.setAnimation(goblin.animation, goblin.stabDown);
+                    goblin.setState(new GoblinAttackingState());
                 } else {
                     goblin.setAnimation(goblin.animation, goblin.down);
                     goblin.setPosition(goblin.x, goblin.y + UNIT_TRAVEL_DISTANCE);
@@ -40,6 +42,7 @@ public class GoblinStrategy implements Strategy
                 if (Math.abs(shx - goblin.x) < 50)
                 {
                     goblin.setAnimation(goblin.animation, goblin.stabLeft);
+                    goblin.setState(new GoblinAttackingState());
                 } else {
                     goblin.setAnimation(goblin.animation, goblin.left);
                     goblin.setPosition(goblin.x - UNIT_TRAVEL_DISTANCE, goblin.y);
@@ -49,6 +52,7 @@ public class GoblinStrategy implements Strategy
                 if (Math.abs(shx - goblin.x) < 50)
                 {
                     goblin.setAnimation(goblin.animation, goblin.stabRight);
+                    goblin.setState(new GoblinAttackingState());
                 } else {
                     goblin.setAnimation(goblin.animation, goblin.right);
                     goblin.setPosition(goblin.x + UNIT_TRAVEL_DISTANCE, goblin.y);
