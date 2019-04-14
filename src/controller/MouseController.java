@@ -26,11 +26,11 @@ public class MouseController extends MouseAdapter {
             Inventory.update();
         }
         
-        if(me.getButton() == MouseEvent.BUTTON1){ 
+        else if(me.getButton() == MouseEvent.BUTTON1){ 
             shooter.shoot(px, py);
         }
         
-        if(me.getButton() == MouseEvent.BUTTON3){
+        else if(me.getButton() == MouseEvent.BUTTON3){
             shooter.strike();
         }
     }
