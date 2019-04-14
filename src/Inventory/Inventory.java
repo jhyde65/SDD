@@ -18,6 +18,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import model.GameData;
 import model.GameFigure;
 import model.HealthBar;
+import model.Shooter;
 import view.MainWindow;
 
 public class Inventory {
@@ -48,8 +49,15 @@ public class Inventory {
             for(int j = 0; j < numRows; j++){
 
                 if(CollisionManager.itemTracker.size() > counter){
+                    if(CollisionManager.itemTracker.get(i+j) == 1)
+                    {
                     itemSlots.add(new ItemSlot(x+(i*(ItemSlot.SLOTSIZE + 10)),y+(j*(ItemSlot.SLOTSIZE + 10)),null));
                     itemSlots.get(counter).addItem(new Potion(),1);
+                    }
+                    else{
+                        itemSlots.add(new ItemSlot(x+(i*(ItemSlot.SLOTSIZE + 10)),y+(j*(ItemSlot.SLOTSIZE + 10)),null));
+                        itemSlots.get(counter).addItem(new bluePotion(),1);
+                    }
                 }
                 else
                     itemSlots.add(new ItemSlot(x+(i*(ItemSlot.SLOTSIZE + 10)),y+(j*(ItemSlot.SLOTSIZE + 10)),null));
@@ -60,7 +68,7 @@ public class Inventory {
         height = numRows * (ItemSlot.SLOTSIZE + 10) + 35;
         
         for(int i = 0; i<itemSlots.size(); i++){
-            System.out.print(itemSlots.get(i).getX() + " " + itemSlots.get(i).getY() + "\n");
+            //System.out.print(itemSlots.get(i).getX() + " " + itemSlots.get(i).getY() + "\n");
         }
         //for(int i = 0; i<Animator.counter;i++){
         //    itemSlots.get(i).addItem(new Potion() ,1);
@@ -79,10 +87,19 @@ public class Inventory {
                 if(temp2.contains(temp)){
                     if(is.getItemStack() != null)
                     {
+                        if(CollisionManager.itemTracker.get(i)==1)
+                        {
+                        HealthBar.health = 100;
                         CollisionManager.itemTracker.remove(i);
                         is.setItem(null);
-                        HealthBar.health = 100;
-                        System.out.print(is.getX() + " " + is.getY());
+                        }
+                        else
+                        {
+                            Shooter.mana = 50;
+                            CollisionManager.itemTracker.remove(i);
+                            is.setItem(null);
+                        }
+                     
                     }
                 }
             }

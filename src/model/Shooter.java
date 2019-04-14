@@ -27,7 +27,7 @@ public class Shooter extends GameFigureWithHealth {
     private boolean isStrike = false;
     private int frameCounter = 0;
     private Dir dir;
-    private int mana;
+    public static int mana;
     private final int maxMana = 50;
     private int counter;
     private boolean shieldActive = false;

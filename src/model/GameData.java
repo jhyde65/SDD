@@ -1,6 +1,7 @@
 package model;
 
 import Inventory.Inventory;
+import Inventory.ItemBluePotion;
 import Inventory.ItemPotion;
 import Inventory.ItemSlot;
 import Inventory.Potion;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Random;
 
 public class GameData {
 
@@ -51,6 +53,7 @@ public class GameData {
         state = new GameActiveState();
         invulnerableEnemies = new CopyOnWriteArrayList<>();
 
+
         levelManager = new LevelDataManager(this);
         // GamePanel.width, height are known when rendered. 
         // Thus, at this moment,
@@ -65,7 +68,7 @@ public class GameData {
 
         levelManager.generateLevelOne();
 
-        itemFigures.add(new ItemPotion(600, 600));
+        //itemFigures.add(new ItemPotion(600, 600));
     }
 
     public void setGameState(IGameState state)
@@ -159,6 +162,11 @@ public class GameData {
     public void addPotion(float x, float y){
         itemFigures.add(new ItemPotion(x,y));
     }    
+    
+    public void addBluePotion(float x, float y){
+        itemFigures.add(new ItemBluePotion(x,y));
+    } 
+    
     public void addInventory()
     {
         inventory.add(new Inventory(100,100));
@@ -223,12 +231,17 @@ public class GameData {
     private void updateEnemiesWithHealth() {
         ArrayList<GameFigure> removeEnemiesWithHealth = new ArrayList<>();
         GameFigure f;
+        Random rand = new Random();
+        int n = rand.nextInt(10) + 1;
         for (int i = 0; i < enemyFiguresWithHealth.size(); i++) {
             f = enemyFiguresWithHealth.get(i);
             if (f.state instanceof DoneFigureState) {
                 if (f instanceof ItemPotion) {
                 } else {
-                    addPotion(f.getX(), f.getY());
+                    if(n <=5)
+                        addPotion(f.getX(), f.getY());
+                    else
+                       addBluePotion(f.getX(), f.getY()); 
                 }
                 removeEnemiesWithHealth.add(f);
             }

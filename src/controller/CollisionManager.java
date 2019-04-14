@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Inventory.ItemBluePotion;
 import Inventory.ItemSlot;
 import Inventory.Potion;
 import java.awt.geom.Rectangle2D;
@@ -16,6 +17,7 @@ import model.GoblinAttackingState;
 import model.GoblinEnemy;
 import model.SpikeyEnemy;
 import model.Weapon;
+import Inventory.ItemPotion;
 
 /**
  *
@@ -74,9 +76,19 @@ public class CollisionManager {
         Rectangle2D gamerCollisionBox = GameData.shooter.getCollisionBox();
         for (GameFigure item : Main.gameData.itemFigures) {
             if (item.getCollisionBox().intersects(gamerCollisionBox)) {
-                item.goNextState();
-                itemTracker.add(1);
-                Animator.counter++;
+                System.out.print(item.getCollisionBox());
+                if(item instanceof ItemPotion)
+                {
+                    item.goNextState();
+                    itemTracker.add(1);
+                    Animator.counter++;
+                }
+                if(item instanceof ItemBluePotion)
+                {
+                    item.goNextState();
+                    itemTracker.add(2);
+                }
+                
             }
         }
     }
