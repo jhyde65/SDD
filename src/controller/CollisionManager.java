@@ -5,6 +5,7 @@
  */
 package controller;
 
+import Inventory.ItemBluePotion;
 import Inventory.ItemSlot;
 import Inventory.Potion;
 import java.awt.geom.Rectangle2D;
@@ -71,9 +72,14 @@ public class CollisionManager {
                 System.out.print(item.getCollisionBox());
                 if(item instanceof ItemPotion)
                 {
-                item.goNextState();
-                itemTracker.add(1);
-                Animator.counter++;
+                    item.goNextState();
+                    itemTracker.add(1);
+                    Animator.counter++;
+                }
+                if(item instanceof ItemBluePotion)
+                {
+                    item.goNextState();
+                    itemTracker.add(2);
                 }
                 
             }
