@@ -14,7 +14,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class BounceStraightOffBorderStrategy implements Strategy {
 
-    private final int UNIT_TRAVEL = 10;
+    private int UNIT_TRAVEL = 10;
 
     // starting direction
     private Direction direction;
@@ -26,7 +26,10 @@ public class BounceStraightOffBorderStrategy implements Strategy {
     public BounceStraightOffBorderStrategy(Direction startingDirection) {
         direction = startingDirection;
     }
-
+    public BounceStraightOffBorderStrategy(Direction startingDirection, int speed) {
+        direction = startingDirection;
+        UNIT_TRAVEL = speed;
+    }
     @Override
     public void move(float x, float y, GameFigure context) {
         for (Border border : Main.gameData.immutableGameBorders) {

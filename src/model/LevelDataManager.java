@@ -91,43 +91,43 @@ public class LevelDataManager {
         gameData.shooter.setPosition(Main.WIN_WIDTH/2, Main.WIN_HEIGHT/2);
         
         SpikeyEnemy s0 = new SpikeyEnemy(Main.WIN_WIDTH/2, 0);
-        s0.movement = new BounceStraightOffBorderStrategy(Direction.SOUTH);
-        s0.setDamage(20);
+        s0.movement = new BounceStraightOffBorderStrategy(Direction.SOUTH, 6);
+        s0.setDamage(18);
         s0.setInvulnerability(true);
         gameData.invulnerableEnemies.add(s0);
 
         SpikeyEnemy s1 = new SpikeyEnemy(Main.WIN_WIDTH/2 - 200, Main.WIN_HEIGHT/2 - 50);
-        s1.movement = new BounceStraightOffBorderStrategy(Direction.EAST);
+        s1.movement = new BounceStraightOffBorderStrategy(Direction.EAST, 8);
         s1.setDamage(20);
         s1.setInvulnerability(true);
         gameData.invulnerableEnemies.add(s1);
         
         SpikeyEnemy s2 = new SpikeyEnemy(Main.WIN_WIDTH/2 - 200, Main.WIN_HEIGHT/2 + 50);
-        s2.movement = new BounceStraightOffBorderStrategy(Direction.EAST);
+        s2.movement = new BounceStraightOffBorderStrategy(Direction.EAST, 8);
         s2.setDamage(20);
         s2.setInvulnerability(true);
         gameData.invulnerableEnemies.add(s2);
         
         SpikeyEnemy s3 = new SpikeyEnemy(Main.WIN_WIDTH/2 - 200, Main.WIN_HEIGHT/2);
-        s3.movement = new BounceStraightOffBorderStrategy(Direction.EAST);
+        s3.movement = new BounceStraightOffBorderStrategy(Direction.EAST, 8);
         s3.setDamage(20);
         s3.setInvulnerability(true);
         gameData.invulnerableEnemies.add(s3);
         
         SpikeyEnemy s4 = new SpikeyEnemy(Main.WIN_WIDTH/2 + 200 + 34, Main.WIN_HEIGHT/2 - 50);
-        s4.movement = new BounceStraightOffBorderStrategy(Direction.WEST);
+        s4.movement = new BounceStraightOffBorderStrategy(Direction.WEST, 8);
         s4.setDamage(20);
         s4.setInvulnerability(true);
         gameData.invulnerableEnemies.add(s4);
         
         SpikeyEnemy s5 = new SpikeyEnemy(Main.WIN_WIDTH/2 + 200 + 34, Main.WIN_HEIGHT/2 + 50);
-        s5.movement = new BounceStraightOffBorderStrategy(Direction.WEST);
+        s5.movement = new BounceStraightOffBorderStrategy(Direction.WEST, 8);
         s5.setDamage(20);
         s5.setInvulnerability(true);
         gameData.invulnerableEnemies.add(s5);
         
         SpikeyEnemy s6 = new SpikeyEnemy(Main.WIN_WIDTH/2 + 200 + 34, Main.WIN_HEIGHT/2);
-        s6.movement = new BounceStraightOffBorderStrategy(Direction.WEST);
+        s6.movement = new BounceStraightOffBorderStrategy(Direction.WEST, 8);
         s6.setDamage(20);
         s6.setInvulnerability(true);
         gameData.invulnerableEnemies.add(s6); 

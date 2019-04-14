@@ -156,7 +156,7 @@ public class GameData {
     
     public void addShooterShield(){
         
-        enemyFigures.add(new ShooterShield(shooter.x, shooter.y));
+        friendFigures.add(new ShooterShield(shooter.x, shooter.y));
     }
     
     public void addPotion(float x, float y){
@@ -307,6 +307,10 @@ public class GameData {
         itemFigures.clear();
         enemyFiguresWithHealth.clear();
         invulnerableEnemies.clear();
+        
+        // remove shield when moving to the next level
+        shooter.setShieldActive(false);
+
     }
     
     // Clears all enemies, borders, and puts shooter in the bottom middle of the screen
