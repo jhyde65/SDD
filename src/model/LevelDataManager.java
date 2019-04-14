@@ -23,15 +23,18 @@ public class LevelDataManager {
     public void goNextLevel(){
         switch (currentLevel) {
             case 1:
-                generateLevelTwo();
+                updateLevelOne();
                 break;
             case 2:
-                generateLevelThree();
+                generateLevelTwo();
                 break;
             case 3:
-                updateLevelThree();
+                generateLevelThree();
                 break;
             case 4:
+                updateLevelThree();
+                break;
+            case 5:
                 generateBossLevel();
                 break;
             default:
@@ -56,6 +59,14 @@ public class LevelDataManager {
         gameData.addSpikeyEnemy();
         gameData.addSpikeyEnemy();
         gameData.addSpikeyEnemy();
+    }
+    
+    public void updateLevelOne()
+    {
+        gameData.resetGameArea();
+        gameData.stairs.setPosition(Main.WIN_WIDTH - 50, 70);
+        gameData.addGoblinEnemy(20, 50);
+        gameData.addGoblinEnemy(20, Main.WIN_HEIGHT - 50);
     }
     
     public void generateLevelTwo(){
@@ -171,9 +182,9 @@ public class LevelDataManager {
     
     public void updateLevelThree(){
     gameData.stairs.setPosition(800, 700);
-    gameData.addMonsterEnemy(Main.WIN_WIDTH - 20, Main.WIN_HEIGHT - 20);
+    gameData.addGoblinEnemy(Main.WIN_WIDTH - 20, Main.WIN_HEIGHT - 20);
     gameData.addMonsterEnemy(Main.WIN_WIDTH - 20, 0);
-    gameData.addMonsterEnemy(500, 400);
+    gameData.addGoblinEnemy(500, 400);
     gameData.addMonsterEnemy(500, 700);
         
 }

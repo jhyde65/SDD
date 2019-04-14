@@ -139,6 +139,10 @@ public class GameData {
         addMonsterEnemy(x, y);
     }
     
+    public void addGoblinEnemy(int x, int y) {
+        enemyFigures.add(new GoblinEnemy(x, y));
+    }
+    
     public void addGoblinEnemy()
     {
         Random rand = new Random();

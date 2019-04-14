@@ -1,4 +1,4 @@
-package model;
+ package model;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -23,7 +23,8 @@ public class GoblinEnemy extends GameFigure
     public GoblinEnemy(float x, float y)
     {
         super(x, y);
-        health = 3;
+        super.state = new GoblinWalkingState();
+        health = 5;
         damageThreshold = 0;
         strategy = new GoblinStrategy();
         BufferedImage[] idling = {Sprite.getSprite(PATH, 0), Sprite.getSprite(PATH, 1)};
@@ -53,7 +54,7 @@ public class GoblinEnemy extends GameFigure
         stabRight = new SpriteAnimation(attackR, 5);
         stabUp = new SpriteAnimation(attackU, 5);
         stabLeft = new SpriteAnimation(attackL, 5);
-        death = new SpriteAnimation(dying, 5);
+        death = new SpriteAnimation(dying, 10);
         animation = idle;
         animation.start();
     }
@@ -70,8 +71,21 @@ public class GoblinEnemy extends GameFigure
     @Override
     public void update() 
     {
-        strategy.move(super.x, super.y, this);
         animation.update();
+        if (this.state instanceof GoblinDyingState)
+        {
+            setAnimation(this.animation, death);
+            setPosition(this.x, this.y);
+            if (this.animation.currentFrame == animation.totalFrames - 1)
+            {
+                this.decreaseHealth();
+            }
+            goNextState();
+        }
+        else
+        {
+            strategy.move(super.x, super.y, this);
+        }
     }
     
     public void setAnimation(SpriteAnimation animation, SpriteAnimation newAnimation)
@@ -86,11 +100,13 @@ public class GoblinEnemy extends GameFigure
     @Override
     public void setState(GameFigureState state) 
     {
+        this.state = state;
     }
 
     @Override
     public void goNextState() 
     {
+        state.goNext(this);
     }
 
     @Override
@@ -113,7 +129,31 @@ public class GoblinEnemy extends GameFigure
     @Override
     public Rectangle2D getCollisionBox() 
     {
-        return new Rectangle2D.Float(0, 0, 0, 0);
+        if (this.state instanceof GoblinAttackingState)
+        {
+            return new Rectangle2D.Float(x + 10, y, 55, HEIGHT);
+        }
+        else
+        {   
+            return new Rectangle2D.Float(x + 37, y, 1, HEIGHT);
+        }
+//        if (this.state instanceof GoblinWalkingState)
+//        {
+//            return new Rectangle2D.Float(x + 37, y, 1, HEIGHT);
+//        }
+//        else if (this.state instanceof GoblinDyingState)
+//        {
+//            return new Rectangle2D.Float(x + 37, y, 1, HEIGHT);
+//        }
+//        else if (this.state instanceof GoblinAttackingState)
+//        {
+//            return new Rectangle2D.Float(0, 0, 0, 0);
+//        }
+//        else
+//        {
+//            this.damageThreshold++;
+//            return new Rectangle2D.Float(0, 0, 0, 0);
+//        }
     }
     
     public void decreaseHealth()

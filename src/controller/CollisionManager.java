@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import model.GameFigure;
 import model.GameData;
 import model.GameFigureWithHealth;
+import model.GoblinAttackingState;
+import model.GoblinEnemy;
 import model.SpikeyEnemy;
 import model.Weapon;
 
@@ -54,7 +56,12 @@ public class CollisionManager {
                 if (enemy instanceof Weapon) {
                     ((Weapon) enemy).doDamageTo(GameData.shooter);
                 }
-                else{
+                else if (enemy.state instanceof GoblinAttackingState) {
+                    GoblinEnemy goblin = (GoblinEnemy) enemy;
+                    if (goblin.animation.currentFrame == goblin.animation.totalFrames - 1) {
+                        GameData.shooter.takeDamage(2);
+                    }
+                } else {
                     GameData.shooter.takeDamage(2);
                 }
                 enemy.goNextState();
