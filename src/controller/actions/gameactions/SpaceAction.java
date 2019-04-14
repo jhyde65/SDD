@@ -14,7 +14,8 @@ public class SpaceAction extends AbstractAction
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        //TODO: check if there is an instance already running.
+        //TODO: check if there is an instance already running
+        //      don't add shield if yes
         Main.gameData.addShooterShield();
     }
        
