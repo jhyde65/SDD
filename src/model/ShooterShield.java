@@ -25,7 +25,7 @@ public class ShooterShield extends GameFigure{
     int stateSizeChangedAmount;
     private final int SPACE_SHIELD_EXPAND = 100;
     private final int SPACE_SHIELD_DEXPAND = 101;
-    private final int SPACE_SHIELD_DYING = 101;
+    private final int SPACE_SHIELD_DYING = 102;
     
     int localState;
 
@@ -90,7 +90,7 @@ public class ShooterShield extends GameFigure{
             
             // Make shooter vulnerable to damage again!
             Main.gameData.shooter.setShieldActive(false);
-            this.goNextState();
+            this.state = new DoneFigureState();
         }
     }
 
