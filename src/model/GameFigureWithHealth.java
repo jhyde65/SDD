@@ -41,7 +41,9 @@ public abstract class GameFigureWithHealth extends GameFigure{
     
     public void heal(int health)
     {
-        currentHealth = (currentHealth + health) % maxHealth;
+        currentHealth = currentHealth + health;
+        if(currentHealth > maxHealth)
+            currentHealth = maxHealth;
     }
     
     public boolean stillHasHealth(){
