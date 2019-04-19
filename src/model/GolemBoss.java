@@ -18,8 +18,6 @@ public class GolemBoss extends GameFigureWithHealth implements Weapon
 {
     private final int HEIGHT = 80;
     private final int WIDTH = 80;
-//    private int delay;
-    //public int currentHealth = 30;
     public boolean dead;
     private DamageStrategyWithDelay damageStrategy;
     
@@ -61,7 +59,6 @@ public class GolemBoss extends GameFigureWithHealth implements Weapon
     {
         movement.move(super.x, super.y, this);
         damageStrategy.update();
-//        delay++;
     }
     
     @Override
@@ -102,22 +99,11 @@ public class GolemBoss extends GameFigureWithHealth implements Weapon
     
     @Override
     public Rectangle2D getCollisionBox()
-    {
-        
-        //If figure is dying, set collision box out of game screen
-//        if(state instanceof DieingFigureState)
-//        {
-//            return new Rectangle2D.Float(-50, -50, 0, 0);
-//        }
-        
+    {        
         if(state instanceof DieingFigureState)
         {
             return new Rectangle2D.Float(-50, -50, 0, 0);
         }
-//        else if(hit == true && delay < 100)
-//        {
-//            return new Rectangle2D.Float(-50, -50, 0, 0);
-//        }
         else
         {
             return new Rectangle2D.Float(x, y, WIDTH, HEIGHT);
@@ -140,8 +126,6 @@ public class GolemBoss extends GameFigureWithHealth implements Weapon
         {
             movement = new GolemStrategy();
             state.goNext(this);
-//            hit = true;
-//            delay = 0;
         }
         else if(state instanceof ActiveFigureState && currentHealth <= 0)
         {  

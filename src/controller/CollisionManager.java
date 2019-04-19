@@ -18,6 +18,7 @@ import model.GoblinEnemy;
 import model.SpikeyEnemy;
 import model.Weapon;
 import Inventory.ItemPotion;
+import model.SwordAttack;
 
 /**
  *
@@ -77,7 +78,7 @@ public class CollisionManager {
         Rectangle2D gamerCollisionBox = GameData.shooter.getCollisionBox();
         for (GameFigure item : Main.gameData.itemFigures) {
             if (item.getCollisionBox().intersects(gamerCollisionBox)) {
-                System.out.print(item.getCollisionBox());
+                //System.out.print(item.getCollisionBox());
                 if(item instanceof ItemPotion)
                 {
                     item.goNextState();
@@ -111,9 +112,13 @@ public class CollisionManager {
                 if (weaponCollisionBox.intersects(enemyWithHealth.getCollisionBox())) {
                     
                     if(weaponAttackAlly instanceof Weapon){
-                        ((Weapon) weaponAttackAlly).doDamageTo(enemyWithHealth);
-                        weaponAttackAlly.goNextState();
-                        enemyWithHealth.goNextState();
+                        if(weaponAttackAlly instanceof SwordAttack && enemyWithHealth instanceof SpikeyEnemy){   
+                        }
+                        else{
+                            ((Weapon) weaponAttackAlly).doDamageTo(enemyWithHealth);
+                            weaponAttackAlly.goNextState();
+                            enemyWithHealth.goNextState();
+                        }
                         continue;
                     }
                     else{

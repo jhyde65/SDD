@@ -80,31 +80,6 @@ public class GameData {
     {
         return this.state.notifyModel();
     }
-
-    // do not use
-    public void add(int n) {
-        for (int i = 0; i < n; i++) {
-            float red = (float) Math.random();
-            float green = (float) Math.random();
-            float blue = (float) Math.random();
-            // adjust if too dark since the background is black
-            if (red < 0.5) {
-                red += 0.2;
-            }
-            if (green < 0.5) {
-                green += 0.2;
-            }
-            if (blue < 0.5) {
-                blue += 0.2;
-            }
-
-        }
-    }
-
-    // do not use
-    public void addUFO() {
-        enemyFigures.add(new FlyingSaucer((int) (Math.random() * GamePanel.width), (int) (Math.random() * GamePanel.height)));
-    }
     
     //
     public void addGolem()
@@ -217,7 +192,6 @@ public class GameData {
         for (int i = 0; i < friendFigures.size(); i++) {
             f = friendFigures.get(i);
             if (f.state instanceof DoneFigureState) {
-                //if (f.state == GameFigureState.STATE_DONE) {
                 removeFriends.add(f);
             }
         }

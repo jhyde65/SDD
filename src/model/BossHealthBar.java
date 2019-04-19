@@ -43,8 +43,6 @@ public class BossHealthBar
         g.setStroke(new BasicStroke(borderWidth));
         g.draw(roundedRectangle);
         
-        // width: this.x + healthBorderWidth/2 - (some guessed number because the string has width) = 20+120-5
-        // height: this.y + borderWidth + this.h/2 = 25+4+10
         g.drawString(Double.toString(health), 1050, 39);
     }
 

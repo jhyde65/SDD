@@ -100,14 +100,11 @@ public class Rock extends GameFigure implements Weapon
             double distance = hero.distance(super.x, super.y);
             if(distance <= 5) {
                 goNextState();
-                //setAnimation(this.animation, exploding);
-               // System.out.println("Target reached, go Next state");
             }
         } else if(state instanceof DieingFigureState) {
             if(rockSize >= MAX_SIZE) {
                 done = true;
                 goNextState();
-               // System.out.println("Max rockSize reached, go Next state");
             }
         }
     }
@@ -136,9 +133,6 @@ public class Rock extends GameFigure implements Weapon
 
     @Override
     public Rectangle2D getCollisionBox() {
-       // if(state instanceof DieingFigureState)
-       //     return new Rectangle2D.Float(-50, -50, 0, 0);
-       // else
             return new Rectangle2D.Float(super.x, super.y, rockSize, rockSize); 
     }
     

@@ -33,24 +33,8 @@ public class Smash extends GameFigure implements Weapon
         super.y += dy;
         done = false;
         damageStrategy = new DamageStrategyOncePerTarget(5);
-//        hero = new Point2D.Float(tx, ty);
-        //System.out.println("Rock attack");
-        
-//        image = null;
-//        
-//        try {
-//            image = ImageIO.read(getClass().getResource(imagePath));
-//        } catch(IOException ex) {
-//            JOptionPane.showMessageDialog(null, "Error: Cannot open " + imagePath);
-//            System.exit(-1);
-//        }
     }
     
-//    public void updateLocation() {
-//        super.x += dx;
-//        super.y += dy;
-//        
-//    }
 
     @Override
     public void render(Graphics2D g) {
@@ -60,7 +44,7 @@ public class Smash extends GameFigure implements Weapon
        g.drawOval((int)(super.x - smashSize/2), (int)(super.y - smashSize/2), smashSize, smashSize);
        g.drawOval((int)(super.x - smashSize/4), (int)(super.y - smashSize/4), smashSize/2, smashSize/2);
        g.drawOval((int)(super.x - smashSize/8), (int)(super.y - smashSize/8), smashSize/4, smashSize/4);
-       // g.drawImage(image, (int) super.x, (int) super.y, smashSize, smashSize, null);//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
     }
 
     @Override
@@ -70,10 +54,6 @@ public class Smash extends GameFigure implements Weapon
         {
             updateSize();
         }
-//        else if (state instanceof DieingFigureState)
-//        {
-//            updateSize();
-//        }
     }
     
     public void updateSize()
@@ -88,7 +68,6 @@ public class Smash extends GameFigure implements Weapon
                 done = true;
                 goNextState();
                 goNextState();
-               // System.out.println("Max smashSize reached, go Next state");
             }
         }
     }

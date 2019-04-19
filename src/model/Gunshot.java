@@ -36,7 +36,6 @@ public class Gunshot extends GameFigure implements Weapon{
     public Gunshot(float sx, float sy, float tx, float ty, Color color) {
         super(sx, sy);
         super.state = new ActiveFigureState();
-       //super.state = GameFigureState.STATE_ACTIVE;
         this.target = new Point2D.Float(tx, ty);
         this.color = color;
 
@@ -82,18 +81,14 @@ public class Gunshot extends GameFigure implements Weapon{
 
     public void updateState() {
         if (state instanceof ActiveFigureState) {
-        //if (state == GameFigureState.STATE_ACTIVE) {
             double distance = target.distance(super.x, super.y);
             boolean targetReached = distance <= 2.0;
             if (targetReached) {
                 goNextState();
-                //state = GameFigureState.STATE_DYING;
             }
-        } else if (state instanceof DieingFigureState) {
-        //else if (state == GameFiguretate.STATE_DYING) {    
+        } else if (state instanceof DieingFigureState) {   
             if (size >= MAX_EXPLOSION_SIZE) {
                     goNextState();
-                   // state = GameFigureState.STATE_DONE;
             }
         }
     }

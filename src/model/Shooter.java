@@ -31,7 +31,7 @@ public class Shooter extends GameFigureWithHealth {
     private final int maxMana = 50;
     private int counter;
     private boolean shieldActive = false;
-
+    private float sx, sy;
 
     public Shooter(float x, float y)
     {
@@ -142,6 +142,30 @@ public class Shooter extends GameFigureWithHealth {
 
     public void strike() {
         isStrike = true;
+       // float sx = 0, sy = 0;
+       // if(null != dir)
+            switch (dir) {
+            case DOWN:
+                sx = this.x - this.WIDTH/2;
+                sy = this.y + this.HEIGHT;
+                break;
+            case UP:
+                sx = this.x - this.WIDTH/2;
+                sy = this.y;
+                break;
+            case RIGHT:
+                sx = this.x + this.WIDTH;
+                sy = this.y - 25;
+                break;
+            case LEFT:
+                sx = this.x;
+                sy = this.y - 25;
+                break;
+            default:
+                break;
+        }
+        SwordAttack a = new SwordAttack(sx, sy);
+        Main.gameData.friendFigures.add(a);
     }
 
     @Override
@@ -178,10 +202,7 @@ public class Shooter extends GameFigureWithHealth {
             Main.gameData.setGameState(new GameOverState());
 
         }
-//        if (state instanceof DoneFigureState)
-//        {
-//            Main.gameData.setGameState(new GameOverState());
-//        }
+
         if (counter == 10) {
             mana++;
             mana = (mana > maxMana) ? (mana = maxMana) : mana;

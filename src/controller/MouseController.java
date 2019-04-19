@@ -1,11 +1,8 @@
 package controller;
 
 import Inventory.Inventory;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import model.Gunshot;
-import model.Missile;
 import model.Shooter;
 
 public class MouseController extends MouseAdapter {
