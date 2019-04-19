@@ -126,8 +126,8 @@ public class GameData {
     // AKA Counter-Clockwise
     public void addSpikeyEnemy() {
         Random rand = new Random();
-        int x = rand.nextInt(500) + 100;
-        int y = rand.nextInt(500) + 100;
+        int x = rand.nextInt(300) + 200;
+        int y = rand.nextInt(300) + 200;
         addSpikeyEnemy(x, y, new RollOnBorderStrategy(Direction.EAST, false));
     }
 
@@ -269,7 +269,7 @@ public class GameData {
         }
 
         enemyFigures.removeAll(removeEnemies);
-
+        
         for (GameFigure g : enemyFigures) {
             g.update();
         }
