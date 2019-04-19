@@ -241,7 +241,7 @@ public class Shooter extends GameFigureWithHealth {
     }
 
     public void heal(int health) {
-        currentHealth = (currentHealth + health) % maxHealth;
+        super.heal(health);
         Main.gameData.health.setHealth(currentHealth);
     }
 

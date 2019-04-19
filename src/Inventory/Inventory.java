@@ -7,6 +7,7 @@ package Inventory;
 
 import controller.Animator;
 import controller.CollisionManager;
+import controller.Main;
 import controller.MouseController;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -89,7 +90,7 @@ public class Inventory {
                     {
                         if(CollisionManager.itemTracker.get(i)==1)
                         {
-                        HealthBar.health = 100;
+                        GameData.shooter.heal(100);
                         CollisionManager.itemTracker.remove(i);
                         is.setItem(null);
                         }
