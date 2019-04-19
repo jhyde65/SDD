@@ -57,6 +57,7 @@ public class CollisionManager {
             if (enemy.getCollisionBox().intersects(gamerCollisionBox)) {
                 if (enemy instanceof Weapon) {
                     ((Weapon) enemy).doDamageTo(GameData.shooter);
+                    enemy.goNextState();
                 }
                 else if (enemy.state instanceof GoblinAttackingState) {
                     GoblinEnemy goblin = (GoblinEnemy) enemy;
