@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  *
  * @author david
  */
-public class MonsterFireball extends GameFigure
+public class MonsterFireball extends GameFigure implements Weapon
 {
     
     //private final int HEIGHT = 20;
@@ -21,6 +21,8 @@ public class MonsterFireball extends GameFigure
     public float dx;
     public float dy;
     public SpriteAnimation animation, downShot, leftShot, rightShot, upShot;
+
+    private int damage;
     
     public MonsterFireball(float x, float y, int height, int width, String direction)
     {
@@ -37,8 +39,9 @@ public class MonsterFireball extends GameFigure
         this.leftShot = new SpriteAnimation(shootingLeft, 3);
         this.rightShot = new SpriteAnimation(shootingRight, 3);
         this.upShot = new SpriteAnimation(shootingUp, 3);
-        this.strategy = new FireballAttackStrategy();
+        this.strategy = new FireballAttackStrategy();     
         
+        damage = 2;
     }
 
     @Override
@@ -92,13 +95,23 @@ public class MonsterFireball extends GameFigure
     @Override
     public Rectangle2D getCollisionBox()
     {
-        return new Rectangle2D.Float(0, 0, 0, 0);
+        return new Rectangle2D.Float(x, y, width, height);
     }
     
     private boolean notInGameArea(){
         return this.x > Main.WIN_WIDTH + width 
                 || this.y > Main.WIN_HEIGHT + height
                 || this.x < 0 || this.y < 0;
+    }
+
+    @Override
+    public void doDamageTo(GameFigureWithHealth target) {
+        target.takeDamage(damage);
+    }
+
+    @Override
+    public void setDamage(int newDamage) {
+        damage = newDamage;
     }
     
 }

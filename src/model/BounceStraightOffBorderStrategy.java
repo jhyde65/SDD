@@ -49,7 +49,6 @@ public class BounceStraightOffBorderStrategy implements Strategy {
         switch (direction) {
             case EAST:
                 float futureXEast = x + UNIT_TRAVEL;
-                System.out.println();
                 if (borderBox.intersects(futureXEast, context.y, WIDTH, HEIGHT)) {
                     context.x = (float) (borderBox.getX() - WIDTH);
                     direction = Direction.WEST;

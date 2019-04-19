@@ -71,7 +71,6 @@ public class CannotPassBorderStrategy implements Strategy {
         Rectangle2D borderBox = border.getCollisionBox();
         switch (direction) {
             case EAST:
-                System.out.println();
                 if (borderBox.intersects(futureX, context.y, WIDTH, HEIGHT)) {
                     context.x = (float) (borderBox.getX() - WIDTH);
                     return true;
