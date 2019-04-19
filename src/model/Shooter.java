@@ -228,7 +228,6 @@ public class Shooter extends GameFigureWithHealth {
 
         if (!shieldActive) {
 
-            System.out.println("+++++++++++++++++++++ booiiiiiiii");
             currentHealth = (currentHealth > 0) ? (currentHealth -= damage) : 0;
             Main.gameData.health.setHealth(currentHealth);
 
