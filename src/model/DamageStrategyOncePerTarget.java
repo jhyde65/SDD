@@ -41,7 +41,6 @@ public class DamageStrategyOncePerTarget implements DamageStrategy {
 
     @Override
     public void update() {
-        System.out.println("idk");
     }
 
 }
